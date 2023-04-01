@@ -1,2 +1,2 @@
 # Lap-Trinh-Android
-đây là repo chứa code bài tập môn Lập trình mobile 
+đây là repo chứa code đồ án môn Lập trình mobile 
