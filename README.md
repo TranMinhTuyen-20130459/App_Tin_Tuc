@@ -1,2 +1,3 @@
 # Lap-Trinh-Android
-đây là repo chứa code đồ án môn Lập trình mobile 
+
+Đồ án cuối kì "App Tin Tức"
