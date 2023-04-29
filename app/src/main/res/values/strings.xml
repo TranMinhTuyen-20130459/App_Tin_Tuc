@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tin tức NLU</string>
+    <string name="home">Trang chủ</string>
+    <string name="profile">Cá nhân</string>
+    <string name="widget">Tiện ích</string>
+</resources>

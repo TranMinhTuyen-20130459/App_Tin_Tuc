@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_background"><!-- Thêm thanh tìm kiếm -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@android:color/white"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        >
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_search"
+            android:hint="Search"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Thêm TabLayout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:minHeight="30dp"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
+        style="@style/CategoryTab"
+        />
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_layout">
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <FrameLayout
+        android:id="@+id/fragment_container_child"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_layout">
+    </FrameLayout>
+
+</RelativeLayout>
