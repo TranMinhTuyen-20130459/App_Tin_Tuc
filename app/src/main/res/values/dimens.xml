@@ -38,7 +38,6 @@
     <dimen name="card_corner_radius">2dp</dimen>
     <dimen name="thumbnail_image_width">140dp</dimen>
     <dimen name="thumbnail_image_height">120dp</dimen>
-
     <dimen name="sp22">22sp</dimen>
     <dimen name="sp16">16sp</dimen>
     <dimen name="sp14">14sp</dimen>
@@ -46,4 +45,9 @@
     <dimen name="sp12">12sp</dimen>
     <dimen name="sp24">24sp</dimen>
     <dimen name="sp18">18sp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
 </resources>

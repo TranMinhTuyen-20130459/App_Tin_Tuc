@@ -23,8 +23,8 @@
         app:itemBackground="@color/nav_bar_start"
         app:itemIconTint="@color/custom_color_bt_nav"
         app:itemTextColor="@color/custom_color_bt_nav"
+        android:fitsSystemWindows="true"
         app:menu="@menu/menu_bottom_nav">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

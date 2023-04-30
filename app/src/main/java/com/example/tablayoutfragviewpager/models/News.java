@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager;
+package com.example.tablayoutfragviewpager.models;
 
 import com.example.tablayoutfragviewpager.utils.Format;
 

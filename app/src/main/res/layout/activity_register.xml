@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_30"
+        android:fontFamily="@font/coiny"
+        android:text="Đăng ký"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvRegister"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/et"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/etUsername"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/et"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/etEmail"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/et"
+        android:hint="Password"
+        android:inputType="textWebPassword"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/btnHaveAnAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:text="Chọn vào đây để đăng nhập" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_50"
+        android:fontFamily="@font/copse"
+        android:text="Đăng ký"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_below="@id/btnRegister"
+        android:layout_marginStart="@dimen/dp_100"
+        android:layout_marginTop="@dimen/dp_30"
+        android:src="@drawable/google" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/btnRegister"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_100"
+        android:src="@drawable/facebook_icon" />
+</RelativeLayout>
