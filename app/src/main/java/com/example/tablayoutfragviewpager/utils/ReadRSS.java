@@ -23,12 +23,9 @@ import java.util.regex.Pattern;
 public class ReadRSS extends AsyncTask<String, Void, String> {
     private MainActivity mainActivity;
     ArrayList<News> listNews = new ArrayList<>();
-
     public ArrayList<News> getListNews() {
         return listNews;
     }
-
-    //    private ArrayList<News> list = new ArrayList<>();
     ProgressDialog dialog;
 
     public ReadRSS(MainActivity activity) {

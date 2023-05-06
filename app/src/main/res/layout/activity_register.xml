@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_30"
-        android:fontFamily="@font/coiny"
         android:text="Đăng ký"
         android:textColor="@color/black"
         android:textSize="50sp" />
@@ -79,7 +78,6 @@
         android:layout_marginStart="@dimen/dp_50"
         android:layout_marginTop="@dimen/dp_50"
         android:layout_marginEnd="@dimen/dp_50"
-        android:fontFamily="@font/copse"
         android:text="Đăng ký"
         android:textAllCaps="false"
         android:textSize="20sp"
