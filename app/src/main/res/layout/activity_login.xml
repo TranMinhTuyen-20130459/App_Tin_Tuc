@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/dp_50"
         android:background="@drawable/et"
         android:hint="Email"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
 
@@ -62,7 +62,7 @@
         app:backgroundTint="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/tv_register"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etLoginPassword"
