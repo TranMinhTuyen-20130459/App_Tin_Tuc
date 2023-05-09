@@ -9,11 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.fragment.child.EntertainmentFragment;
 import com.example.tablayoutfragviewpager.fragment.child.HomeFragment;
-import com.example.tablayoutfragviewpager.fragment.child.PolicalFragment;
-import com.example.tablayoutfragviewpager.fragment.child.ShoppingFragment;
-import com.example.tablayoutfragviewpager.fragment.child.SportFragment;
 
 import java.util.ArrayList;
 

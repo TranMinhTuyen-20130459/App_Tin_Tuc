@@ -1,16 +1,18 @@
 package com.example.tablayoutfragviewpager.models;
 
 public class Users {
-    int role;
+    String role;
+
+
     String username;
     String password;
     String fullname;
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
     public String getUsername() {
@@ -40,7 +42,7 @@ public class Users {
     public Users() {
 
     }
-    public Users(int role, String username, String password, String fullname) {
+    public Users(String role, String username, String password, String fullname) {
         this.role = role;
         this.username = username;
         this.password = password;

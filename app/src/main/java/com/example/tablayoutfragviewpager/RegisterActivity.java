@@ -28,8 +28,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
-    String username, password, fullname;
-    int role;
+    String username, password, fullname ,role;
     Users user;
     FirebaseDatabase db;
     DatabaseReference reference;
@@ -56,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                 username = usernameEditText.getText().toString();
                 password = passwordEditText.getText().toString();
                 fullname = fullnameEditText.getText().toString();
-                int role = Constants.ROLE_CUSTOMER;
+                role = Constants.ROLE_CUSTOMER;
                 String repassword = repasswordEditText.getText().toString();
 
                 // Kiểm tra tính hợp lệ của email

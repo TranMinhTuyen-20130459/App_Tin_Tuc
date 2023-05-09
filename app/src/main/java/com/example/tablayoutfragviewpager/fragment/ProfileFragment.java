@@ -1,6 +1,5 @@
 package com.example.tablayoutfragviewpager.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +20,7 @@ import com.example.tablayoutfragviewpager.LoginActivity;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.R;
 import com.example.tablayoutfragviewpager.models.Users;
+import com.example.tablayoutfragviewpager.utils.Constants;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -55,7 +54,7 @@ public class ProfileFragment extends Fragment {
         Gson gson = new Gson();
         try {
             // Lấy User từ SharedPreferences
-            String jvson = preferences.getString("user", "");
+            String jvson = preferences.getString(Constants.ROLE_CUSTOMER, "");
             Users user = gson.fromJson(jvson, Users.class); // Chuyển đổi chuỗi JSON thành đối tượng User
             if (user == null) {
                 // Nếu người dùng chưa đăng nhập, ẩn nút đăng xuất
@@ -69,7 +68,7 @@ public class ProfileFragment extends Fragment {
 //            Toast.makeText(getActivity(), user.getFullname(), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
 //            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("error" , e.getMessage());
+            Log.e("error", e.getMessage());
         }
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +76,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("user");
+                editor.remove(Constants.ROLE_CUSTOMER);
                 editor.apply();
                 // Hiển thị thông báo cho người dùng
                 Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();

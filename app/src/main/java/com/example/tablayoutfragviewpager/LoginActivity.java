@@ -33,8 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etLoginEmail, etLoginPassword;
     Button btnLogin;
     TextView txt_register;
-    String email, password, fullname;
-    int role;
+    String email, password, fullname, role;
     Users user;
 
     @Override
@@ -74,24 +73,29 @@ public class LoginActivity extends AppCompatActivity {
                         email = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("username").getValue(String.class);
                         password = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("password").getValue(String.class);
                         fullname = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("fullname").getValue(String.class);
-                        role = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("role").getValue(Integer.class);
+                        role = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("role").getValue(String.class);
                         if (email != null && etLoginPassword.getText().toString().equals(password)) {
-                            user = new Users(role ,email, password, fullname);
+                            user = new Users(role, email, password, fullname);
                             SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             Gson gson = new Gson();
                             String json = gson.toJson(user); // Chuyển đổi User thành chuỗi JSON
-                            editor.putString("user", json);
-                            editor.apply();
                             // chuyển đến MainActivity
-                            if(role == Constants.ROLE_CUSTOMER){
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getFullname(), Toast.LENGTH_LONG).show();
+                            Intent intent = null;
+                            if (role.equals(Constants.ROLE_CUSTOMER)) {
+                                editor.putString(Constants.ROLE_CUSTOMER, json);
+                                editor.apply();
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getFullname(), Toast.LENGTH_LONG).show();
                             }
-                            if(role == Constants.ROLE_ADMIN){
-                            Toast.makeText(LoginActivity.this, "Đăng nhập ADMIN", Toast.LENGTH_LONG).show();
-
+                            if (role.equals(Constants.ROLE_ADMIN)) {
+                                editor.putString(Constants.ROLE_ADMIN, json);
+                                editor.apply();
+                                intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                Toast.makeText(LoginActivity.this, "Đăng nhập ADMIN", Toast.LENGTH_LONG).show();
                             }
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            // xóa toàn bộ stack trước đó
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
                         } else {
