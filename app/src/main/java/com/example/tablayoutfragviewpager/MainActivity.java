@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.widget.Toast;
 
 import com.example.tablayoutfragviewpager.fragment.MainFragment;
@@ -20,7 +19,6 @@ import com.example.tablayoutfragviewpager.fragment.WidgetFragment;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.utils.ReadRSS;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.action_widget: // trang tiện ích
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WidgetFragment()).commit();
-                            bt_nav.getMenu().findItem(R.id.action_profile).setChecked(true);
+                            bt_nav.getMenu().findItem(R.id.action_widget).setChecked(true);
                             break;
                     }
                     return true;

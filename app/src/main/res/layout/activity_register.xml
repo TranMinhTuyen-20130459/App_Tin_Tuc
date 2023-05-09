@@ -18,7 +18,7 @@
 
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/tvRegister"
@@ -26,37 +26,50 @@
         android:layout_marginTop="@dimen/dp_40"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/etUsername"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
 
+
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/etEmail"
+        android:layout_below="@+id/username"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="20dp"
         android:background="@drawable/et"
-        android:hint="Password"
+        android:hint="Mật khẩu"
         android:inputType="textWebPassword"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/repassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/et"
+        android:hint="Xác nhận mật khẩu"
+        android:inputType="textWebPassword"
+        android:padding="15dp"
+        android:textSize="15sp" />
+    <EditText
+        android:id="@+id/fullname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/repassword"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/et"
+        android:hint="Họ tên"
+        android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
 
@@ -64,19 +77,19 @@
         android:id="@+id/btnHaveAnAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etPassword"
+        android:layout_below="@id/fullname"
         android:layout_alignParentEnd="true"
         android:textColor="@color/black"
         android:layout_marginEnd="@dimen/dp_30"
-        android:text="Chọn vào đây để đăng nhập" />
+        android:text="Chọn vào đây để đăng nhập!" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
+        android:layout_below="@+id/fullname"
         android:layout_marginStart="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_40"
         android:layout_marginEnd="@dimen/dp_50"
         android:text="Đăng ký"
         android:textAllCaps="false"
