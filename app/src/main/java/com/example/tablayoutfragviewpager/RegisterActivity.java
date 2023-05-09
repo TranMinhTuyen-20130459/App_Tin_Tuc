@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.tablayoutfragviewpager.databinding.ActivityRegisterBinding;
 import com.example.tablayoutfragviewpager.models.Users;
+import com.example.tablayoutfragviewpager.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
     String username, password, fullname;
+    int role;
     Users user;
     FirebaseDatabase db;
     DatabaseReference reference;
@@ -54,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 username = usernameEditText.getText().toString();
                 password = passwordEditText.getText().toString();
                 fullname = fullnameEditText.getText().toString();
+                int role = Constants.ROLE_CUSTOMER;
                 String repassword = repasswordEditText.getText().toString();
 
                 // Kiểm tra tính hợp lệ của email
@@ -84,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     return;
                                 } else {
                                     // Nếu email chưa được sử dụng, thêm user vào Firebase
-                                    user = new Users(username, password, fullname);
+                                    user = new Users(role,username, password, fullname);
                                     reference.child(username.replace(".", ",")).setValue(user).
                                             addOnCompleteListener(
                                                     new OnCompleteListener<Void>() {

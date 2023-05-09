@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.tablayoutfragviewpager.databinding.ActivityLoginBinding;
 import com.example.tablayoutfragviewpager.models.Users;
+import com.example.tablayoutfragviewpager.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView txt_register;
     String email, password, fullname;
+    int role;
     Users user;
 
     @Override
@@ -72,9 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                         email = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("username").getValue(String.class);
                         password = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("password").getValue(String.class);
                         fullname = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("fullname").getValue(String.class);
-
+                        role = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("role").getValue(Integer.class);
                         if (email != null && etLoginPassword.getText().toString().equals(password)) {
-                            user = new Users(email, password, fullname);
+                            user = new Users(role ,email, password, fullname);
                             SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             Gson gson = new Gson();
@@ -82,9 +84,16 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("user", json);
                             editor.apply();
                             // chuyển đến MainActivity
+                            if(role == Constants.ROLE_CUSTOMER){
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getFullname(), Toast.LENGTH_LONG).show();
+                            }
+                            if(role == Constants.ROLE_ADMIN){
+                            Toast.makeText(LoginActivity.this, "Đăng nhập ADMIN", Toast.LENGTH_LONG).show();
+
+                            }
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getFullname(), Toast.LENGTH_LONG).show();
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Sai email hoặc mật khẩu", Toast.LENGTH_LONG).show();
                         }
