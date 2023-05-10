@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // tham chiếu đến bảng users
         db = FirebaseDatabase.getInstance();
-        reference = db.getReference("users");
+        reference = db.getReference(Constants.TABLE_USERS);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
