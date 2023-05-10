@@ -1,19 +1,15 @@
 package com.example.tablayoutfragviewpager.fragment.child;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tablayoutfragviewpager.LoginActivity;
-import com.example.tablayoutfragviewpager.NewsDetailActivity;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.R;
 import com.example.tablayoutfragviewpager.adapter.DataListAdapter;

@@ -21,7 +21,6 @@ import com.example.tablayoutfragviewpager.fragment.child.SportFragment;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.R;
 import com.example.tablayoutfragviewpager.adapter.ViewPagerAdapter;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

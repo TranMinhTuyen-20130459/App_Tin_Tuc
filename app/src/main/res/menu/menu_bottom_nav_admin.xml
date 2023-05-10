@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/manage_user"
+        android:icon="@drawable/btn_user"
+        android:title="@string/manage_user" />
+
+    <item
+        android:id="@+id/manage_cate"
+        android:icon="@drawable/btn_home"
+        android:title="@string/manage_cate" />
+    <item
+        android:id="@+id/manage_admin"
+        android:icon="@drawable/btn_user"
+        android:title="@string/manage_admin" />
+    <item
+        android:id="@+id/logout_admin"
+        android:icon="@drawable/btn_user"
+        android:title="@string/logout_admin" />
+</menu>

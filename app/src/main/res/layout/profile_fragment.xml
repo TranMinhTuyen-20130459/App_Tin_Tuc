@@ -6,10 +6,11 @@
 
     >
     <TextView
+        android:id="@+id/fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Profile Fragment"
+        android:text="Trang cá nhân"
         android:textColor="@color/black"
         android:textSize="30dp"
         />
@@ -20,6 +21,15 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Đăng nhập"
+        android:textColor="@color/white">
+
+    </Button>
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="Đăng xuất"
         android:textColor="@color/white"></Button>
 
 </RelativeLayout>
