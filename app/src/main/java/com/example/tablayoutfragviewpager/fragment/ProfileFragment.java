@@ -85,6 +85,9 @@ public class ProfileFragment extends Fragment {
                 fullname.setText("Trang cá nhân");
             }
         });
+
+
+
         return view;
 
     }

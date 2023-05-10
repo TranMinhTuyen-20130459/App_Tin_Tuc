@@ -21,6 +21,7 @@ import com.example.tablayoutfragviewpager.fragment.child.SportFragment;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.R;
 import com.example.tablayoutfragviewpager.adapter.ViewPagerAdapter;
+import com.example.tablayoutfragviewpager.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class MainFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mDataList = (ArrayList<ArrayList<News>>) bundle.getSerializable("dataList");
+            mDataList = (ArrayList<ArrayList<News>>) bundle.getSerializable(Constants.LIST_TOTAL_CATE);
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
         adapter.addFragment(new HomeFragment(), "Trang chủ");

@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment;
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.R;
 import com.example.tablayoutfragviewpager.adapter.DataListAdapter;
-import com.example.tablayoutfragviewpager.utils.PutLinkToNewDetail;
+import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.tablayoutfragviewpager.utils.PutLinkToNewsDetail;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
     ArrayList<News> mDataList;
@@ -29,13 +31,16 @@ public class HomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mDataList = (ArrayList<News>) bundle.getSerializable("main");
+            mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
+            mDataList = mDataList.stream().limit(Constants.QUANTITY_NEWS_OF_CATE)
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
+
         mListView = view.findViewById(R.id.list_view_home);
         DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
         mListView.setAdapter(adapter);
         // chi tiết từng bài viết
-        new PutLinkToNewDetail(getActivity()).putLinkNews(mListView,mDataList);
+        new PutLinkToNewsDetail(getActivity()).putLinkNews(mListView,mDataList);
         return view;
     }
 

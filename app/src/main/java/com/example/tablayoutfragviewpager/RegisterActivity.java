@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     Users user;
     FirebaseDatabase db;
     DatabaseReference reference;
-
+TextView btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText repasswordEditText = binding.repassword;
         EditText fullnameEditText = binding.fullname;
         Button registerButton = binding.btnRegister;
-        TextView haveAnAccountTextView = binding.btnHaveAnAccount;
+        btnLogin = binding.btnHaveAnAccount;
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // Thêm user vào Firebase
                 db = FirebaseDatabase.getInstance();
-                reference = db.getReference("users");
+                reference = db.getReference(Constants.TABLE_USERS);
                 // Kiểm tra xem email đã tồn tại trước đó trong Firebase chưa
                 reference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(
                         new ValueEventListener() {
@@ -113,6 +113,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "Đã xảy ra lỗi khi đăng ký tài khoản", Toast.LENGTH_LONG).show();
                             }
                         });
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

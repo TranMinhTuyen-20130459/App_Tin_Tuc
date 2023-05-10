@@ -17,6 +17,7 @@ import com.example.tablayoutfragviewpager.fragment.MainFragment;
 import com.example.tablayoutfragviewpager.fragment.ProfileFragment;
 import com.example.tablayoutfragviewpager.fragment.WidgetFragment;
 import com.example.tablayoutfragviewpager.models.News;
+import com.example.tablayoutfragviewpager.utils.Constants;
 import com.example.tablayoutfragviewpager.utils.ReadRSS;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
         if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("dataList", listAll);
+            bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
             MainFragment mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
