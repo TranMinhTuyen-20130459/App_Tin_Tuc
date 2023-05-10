@@ -12,6 +12,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.example.tablayoutfragviewpager.utils.Constants;
+
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;
     ProgressDialog dialog;
@@ -21,7 +23,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
         webView = findViewById(R.id.content_news);
         Intent intent = getIntent();
-        String link = intent.getStringExtra("link");
+        String link = intent.getStringExtra(Constants.KEY_NEWS_DETAILS);
         if (link != null) {
             dialog = new ProgressDialog(NewsDetailActivity.this);
             dialog.setMessage("Đang tải...");

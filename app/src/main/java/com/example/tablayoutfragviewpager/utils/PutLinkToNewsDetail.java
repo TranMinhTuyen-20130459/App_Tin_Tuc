@@ -11,10 +11,10 @@ import com.example.tablayoutfragviewpager.models.News;
 
 import java.util.ArrayList;
 
-public class PutLinkToNewDetail {
+public class PutLinkToNewsDetail {
     private Context context;
 
-    public PutLinkToNewDetail(Context context) {
+    public PutLinkToNewsDetail(Context context) {
         this.context = context;
     }
     public void putLinkNews(ListView listView, ArrayList<News> mDataList){
@@ -22,7 +22,7 @@ public class PutLinkToNewDetail {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(context, NewsDetailActivity.class);
-                intent.putExtra("link",mDataList.get(i).getLink());
+                intent.putExtra(Constants.KEY_NEWS_DETAILS,mDataList.get(i).getLink());
                 context.startActivity(intent);
             }
         });
