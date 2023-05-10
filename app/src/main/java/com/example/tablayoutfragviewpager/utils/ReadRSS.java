@@ -23,9 +23,11 @@ import java.util.regex.Pattern;
 public class ReadRSS extends AsyncTask<String, Void, String> {
     private MainActivity mainActivity;
     ArrayList<News> listNews = new ArrayList<>();
+
     public ArrayList<News> getListNews() {
         return listNews;
     }
+
     ProgressDialog dialog;
 
     public ReadRSS(MainActivity activity) {
@@ -77,9 +79,9 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
             link = xmldomParser.getValue(element, "guid");
             date = xmldomParser.getValue(element, "pubDate");
             // số bài trong 1 danh mục
-            if (listNews.size() < 20) {
-                listNews.add(new News(title, link, linkImage, date));
-            }
+//            if (listNews.size() < 20) {
+            listNews.add(new News(title, link, linkImage, date));
+//            }
         }
 
         mainActivity.onRssRead();

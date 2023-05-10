@@ -10,8 +10,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.tablayoutfragviewpager.models.News;
 import com.example.tablayoutfragviewpager.fragment.child.HomeFragment;
+import com.example.tablayoutfragviewpager.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<ArrayList<News>> dataList;
@@ -54,13 +56,17 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             HomeFragment mainFragment = new HomeFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("main", dataList.get(position));
+            bundle.putSerializable(Constants.KEY_LIST_NEWS_MAIN, dataList.get(position).stream()
+                    .limit(Constants.QUANTITY_NEWS_OF_CATE)
+                    .collect(Collectors.toCollection(ArrayList::new)));
             mainFragment.setArguments(bundle);
             return mainFragment;
 
         } else {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", dataList.get(position));
+            bundle.putSerializable(Constants.KEY_LIST_NEWS_AUXI, dataList.get(position).stream()
+                    .limit(Constants.QUANTITY_NEWS_OF_CATE)
+                    .collect(Collectors.toCollection(ArrayList::new)));
             mFragments.get(position).setArguments(bundle);
             return mFragments.get(position);
         }
