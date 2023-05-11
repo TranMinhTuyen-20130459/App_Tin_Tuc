@@ -1,6 +1,6 @@
-package com.example.tablayoutfragviewpager.models;
+package com.example.newsapp.models;
 
-import com.example.tablayoutfragviewpager.utils.Format;
+import com.example.newsapp.utils.Format;
 
 import java.io.Serializable;
 

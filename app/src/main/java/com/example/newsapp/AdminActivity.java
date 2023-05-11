@@ -1,24 +1,19 @@
-package com.example.tablayoutfragviewpager;
+package com.example.newsapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.tablayoutfragviewpager.fragment.MainFragment;
-import com.example.tablayoutfragviewpager.fragment.ManageAdminFragment;
-import com.example.tablayoutfragviewpager.fragment.ManageCategoryFragment;
-import com.example.tablayoutfragviewpager.fragment.ManageCustomerFragment;
-import com.example.tablayoutfragviewpager.fragment.ProfileFragment;
-import com.example.tablayoutfragviewpager.fragment.WidgetFragment;
-import com.example.tablayoutfragviewpager.models.Users;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.fragment.ManageAdminFragment;
+import com.example.newsapp.fragment.ManageCategoryFragment;
+import com.example.newsapp.fragment.ManageCustomerFragment;
+import com.example.newsapp.models.Users;
+import com.example.newsapp.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 

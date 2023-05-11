@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.fragment;
+package com.example.newsapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tablayoutfragviewpager.R;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.R;
+import com.example.newsapp.utils.Constants;
 
 public class WidgetFragment extends Fragment {
 

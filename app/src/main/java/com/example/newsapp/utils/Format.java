@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.utils;
+package com.example.newsapp.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

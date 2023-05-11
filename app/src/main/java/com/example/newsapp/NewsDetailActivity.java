@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager;
+package com.example.newsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +10,8 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.utils.Constants;
 
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;

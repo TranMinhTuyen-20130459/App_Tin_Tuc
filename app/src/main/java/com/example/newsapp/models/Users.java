@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.models;
+package com.example.newsapp.models;
 
 public class Users {
     String role;
