@@ -49,11 +49,16 @@ public class MainFragment extends Fragment {
             mDataList = (ArrayList<ArrayList<News>>) bundle.getSerializable(Constants.LIST_TOTAL_CATE);
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
+        // đọc từ database
         adapter.addFragment(new HomeFragment(), "Trang chủ");
         adapter.addFragment(new PolicalFragment(), "Thời sự");
         adapter.addFragment(new SportFragment(), "Thể thao");
         adapter.addFragment(new ShoppingFragment(), "Đời sống");
         adapter.addFragment(new EntertainmentFragment(), "Giải trí");
+        adapter.addFragment(new EntertainmentFragment(), "Sức khỏe");
+        adapter.addFragment(new EntertainmentFragment(), "Quân sự");
+        adapter.addFragment(new EntertainmentFragment(), "Giáo dục");
+        adapter.addFragment(new EntertainmentFragment(), "Du lịch");
 //        viewPager.setAdapter(adapter);
 
 
