@@ -1,11 +1,13 @@
 package com.example.newsapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.newsapp.R;
+import com.example.newsapp.SearchActivity;
+import com.example.newsapp.adapter.ViewPagerAdapter;
 import com.example.newsapp.fragment.child.HomeFragment;
 import com.example.newsapp.models.News;
-import com.example.newsapp.R;
-import com.example.newsapp.adapter.ViewPagerAdapter;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,10 +35,22 @@ public class MainFragment extends Fragment {
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
 
+    TextView tv_search;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
+
+        tv_search = view.findViewById(R.id.search_text_view);
+        tv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activity_search = new Intent(getContext(), SearchActivity.class);
+                startActivity(activity_search);
+            }
+        });
+
 
         // Khởi tạo đối tượng ViewPager và TabLayout
         viewPager = view.findViewById(R.id.view_pager);
@@ -52,7 +67,6 @@ public class MainFragment extends Fragment {
         adapter.addFragment(new HomeFragment(), "Đời sống");
         adapter.addFragment(new HomeFragment(), "Giải trí");
 //        viewPager.setAdapter(adapter);
-
 
 
         // Kết nối TabLayout với ViewPager
