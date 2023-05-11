@@ -53,7 +53,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 //            default:
 //                return new HomeFragment();
 //        }
-        if (position == 0) {
             HomeFragment mainFragment = new HomeFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.KEY_LIST_NEWS_MAIN, dataList.get(position).stream()
@@ -61,15 +60,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     .collect(Collectors.toCollection(ArrayList::new)));
             mainFragment.setArguments(bundle);
             return mainFragment;
-
-        } else {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.KEY_LIST_NEWS_AUXI, dataList.get(position).stream()
-                    .limit(Constants.QUANTITY_NEWS_OF_CATE)
-                    .collect(Collectors.toCollection(ArrayList::new)));
-            mFragments.get(position).setArguments(bundle);
-            return mFragments.get(position);
-        }
     }
 
     @Override
