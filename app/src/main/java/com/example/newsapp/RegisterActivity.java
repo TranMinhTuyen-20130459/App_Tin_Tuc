@@ -100,9 +100,7 @@ TextView btnLogin;
                                                         }
                                                     }
                                             );
-                                    // Chuyển đến màn hình LoginActivity
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    startActivity(intent);
+                                    // Quay trở lại trang login
                                     finish();
                                 }
                             }
