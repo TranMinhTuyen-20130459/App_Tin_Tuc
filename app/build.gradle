@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.tablayoutfragviewpager'
+    namespace 'com.example.newsapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.tablayoutfragviewpager"
+        applicationId "com.example.newsapp"
         minSdk 28
         targetSdk 33
         versionCode 1

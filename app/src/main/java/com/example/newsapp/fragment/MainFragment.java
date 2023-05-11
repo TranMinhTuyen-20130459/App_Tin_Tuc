@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.fragment;
+package com.example.newsapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,15 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.tablayoutfragviewpager.fragment.child.EntertainmentFragment;
-import com.example.tablayoutfragviewpager.fragment.child.HomeFragment;
-import com.example.tablayoutfragviewpager.fragment.child.PolicalFragment;
-import com.example.tablayoutfragviewpager.fragment.child.ShoppingFragment;
-import com.example.tablayoutfragviewpager.fragment.child.SportFragment;
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.R;
-import com.example.tablayoutfragviewpager.adapter.ViewPagerAdapter;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.fragment.child.EntertainmentFragment;
+import com.example.newsapp.fragment.child.HomeFragment;
+import com.example.newsapp.fragment.child.PolicalFragment;
+import com.example.newsapp.fragment.child.ShoppingFragment;
+import com.example.newsapp.fragment.child.SportFragment;
+import com.example.newsapp.models.News;
+import com.example.newsapp.R;
+import com.example.newsapp.adapter.ViewPagerAdapter;
+import com.example.newsapp.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

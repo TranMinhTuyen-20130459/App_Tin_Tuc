@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.adapter;
+package com.example.newsapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.R;
+import com.example.newsapp.models.News;
+import com.example.newsapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

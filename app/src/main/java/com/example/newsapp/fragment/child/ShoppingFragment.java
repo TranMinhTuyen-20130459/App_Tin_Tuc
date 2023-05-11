@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.fragment.child;
+package com.example.newsapp.fragment.child;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.R;
-import com.example.tablayoutfragviewpager.adapter.DataListAdapter;
-import com.example.tablayoutfragviewpager.utils.Constants;
-import com.example.tablayoutfragviewpager.utils.PutLinkToNewsDetail;
+import com.example.newsapp.models.News;
+import com.example.newsapp.R;
+import com.example.newsapp.adapter.DataListAdapter;
+import com.example.newsapp.utils.Constants;
+import com.example.newsapp.utils.PutLinkToNewsDetail;
 
 import java.util.ArrayList;
 

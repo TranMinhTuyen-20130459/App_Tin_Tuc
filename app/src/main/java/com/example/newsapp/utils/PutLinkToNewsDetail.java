@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.utils;
+package com.example.newsapp.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.tablayoutfragviewpager.NewsDetailActivity;
-import com.example.tablayoutfragviewpager.models.News;
+import com.example.newsapp.NewsDetailActivity;
+import com.example.newsapp.models.News;
 
 import java.util.ArrayList;
 

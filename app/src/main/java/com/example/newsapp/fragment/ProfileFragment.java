@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.fragment;
+package com.example.newsapp.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,11 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tablayoutfragviewpager.LoginActivity;
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.R;
-import com.example.tablayoutfragviewpager.models.Users;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.LoginActivity;
+import com.example.newsapp.models.News;
+import com.example.newsapp.R;
+import com.example.newsapp.models.Users;
+import com.example.newsapp.utils.Constants;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;

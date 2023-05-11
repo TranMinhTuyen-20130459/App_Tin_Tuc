@@ -1,13 +1,12 @@
-package com.example.tablayoutfragviewpager.utils;
+package com.example.newsapp.utils;
 
 
 import android.app.ProgressDialog;
 
 import android.os.AsyncTask;
 
-import com.example.tablayoutfragviewpager.MainActivity;
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.utils.XMLDOMParser;
+import com.example.newsapp.MainActivity;
+import com.example.newsapp.models.News;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

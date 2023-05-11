@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.fragment.child;
+package com.example.newsapp.fragment.child;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.R;
-import com.example.tablayoutfragviewpager.adapter.DataListAdapter;
-import com.example.tablayoutfragviewpager.utils.Constants;
-import com.example.tablayoutfragviewpager.utils.PutLinkToNewsDetail;
+import com.example.newsapp.models.News;
+import com.example.newsapp.R;
+import com.example.newsapp.adapter.DataListAdapter;
+import com.example.newsapp.utils.Constants;
+import com.example.newsapp.utils.PutLinkToNewsDetail;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public class EntertainmentFragment extends Fragment {
+public class HomeFragment extends Fragment {
     ArrayList<News> mDataList;
     ListView mListView;
 
@@ -30,8 +31,11 @@ public class EntertainmentFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_AUXI);
+            mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
+            mDataList = mDataList.stream().limit(Constants.QUANTITY_NEWS_OF_CATE)
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
+
         mListView = view.findViewById(R.id.list_view_home);
         DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
         mListView.setAdapter(adapter);

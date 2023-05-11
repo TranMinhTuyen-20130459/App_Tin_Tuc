@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.adapter;
+package com.example.newsapp.adapter;
 
 import android.os.Bundle;
 
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.fragment.child.HomeFragment;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.models.News;
+import com.example.newsapp.fragment.child.HomeFragment;
+import com.example.newsapp.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

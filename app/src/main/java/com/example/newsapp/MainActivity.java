@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager;
+package com.example.newsapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,12 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.tablayoutfragviewpager.fragment.MainFragment;
-import com.example.tablayoutfragviewpager.fragment.ProfileFragment;
-import com.example.tablayoutfragviewpager.fragment.WidgetFragment;
-import com.example.tablayoutfragviewpager.models.News;
-import com.example.tablayoutfragviewpager.utils.Constants;
-import com.example.tablayoutfragviewpager.utils.ReadRSS;
+import com.example.newsapp.fragment.MainFragment;
+import com.example.newsapp.fragment.ProfileFragment;
+import com.example.newsapp.fragment.WidgetFragment;
+import com.example.newsapp.models.News;
+import com.example.newsapp.utils.Constants;
+import com.example.newsapp.utils.ReadRSS;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
