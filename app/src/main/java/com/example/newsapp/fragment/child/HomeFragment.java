@@ -32,8 +32,6 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
-            mDataList = mDataList.stream().limit(Constants.QUANTITY_NEWS_OF_CATE)
-                    .collect(Collectors.toCollection(ArrayList::new));
         }
 
         mListView = view.findViewById(R.id.list_view_home);
