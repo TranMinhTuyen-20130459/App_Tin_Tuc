@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager.utils;
+package com.example.newsapp.utils;
 
 public class Constants {
 

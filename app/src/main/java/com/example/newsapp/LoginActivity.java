@@ -1,4 +1,4 @@
-package com.example.tablayoutfragviewpager;
+package com.example.newsapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tablayoutfragviewpager.databinding.ActivityLoginBinding;
-import com.example.tablayoutfragviewpager.models.Users;
-import com.example.tablayoutfragviewpager.utils.Constants;
+import com.example.newsapp.databinding.ActivityLoginBinding;
+import com.example.newsapp.models.Users;
+import com.example.newsapp.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
