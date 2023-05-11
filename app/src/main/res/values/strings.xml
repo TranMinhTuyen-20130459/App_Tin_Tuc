@@ -7,5 +7,7 @@
     <string name="manage_cate">Q.lí danh mục</string>
     <string name="manage_admin">Q.lí admin</string>
     <string name="logout_admin">Đăng xuất</string>
+    <string name="channel_name">News Channel</string>
+    <string name="channel_description">This is News Notification Channel</string>
 
 </resources>

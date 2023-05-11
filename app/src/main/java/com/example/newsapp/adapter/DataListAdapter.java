@@ -16,6 +16,7 @@ import com.example.newsapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 public class DataListAdapter extends ArrayAdapter<News> {
     private Context mContext;
     private int mResource;
@@ -27,6 +28,7 @@ public class DataListAdapter extends ArrayAdapter<News> {
         this.mResource = resource;
         this.mDataList = dataList;
     }
+
     @Override
     public int getCount() {
         return mDataList.size();
@@ -37,7 +39,7 @@ public class DataListAdapter extends ArrayAdapter<News> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater =  LayoutInflater.from(getContext());
+            LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.news_item, null);
         }
 
@@ -47,7 +49,6 @@ public class DataListAdapter extends ArrayAdapter<News> {
         title.setText(mDataList.get(position).getTitle());
         timer.setText(mDataList.get(position).getDate());
         Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
-
 
         return view;
     }

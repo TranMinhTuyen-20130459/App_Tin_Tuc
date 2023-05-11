@@ -16,11 +16,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.newsapp.SearchActivity;
-import com.example.newsapp.fragment.child.EntertainmentFragment;
 import com.example.newsapp.fragment.child.HomeFragment;
-import com.example.newsapp.fragment.child.PolicalFragment;
-import com.example.newsapp.fragment.child.ShoppingFragment;
-import com.example.newsapp.fragment.child.SportFragment;
 import com.example.newsapp.models.News;
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.ViewPagerAdapter;
@@ -38,7 +34,8 @@ public class MainFragment extends Fragment {
     private ViewPager viewPager;
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
-    private TextView tv_search;
+
+    TextView tv_search;
 
     @Nullable
     @Override
@@ -64,11 +61,12 @@ public class MainFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
         // đọc từ database
         adapter.addFragment(new HomeFragment(), "Trang chủ");
-        adapter.addFragment(new PolicalFragment(), "Thời sự");
-        adapter.addFragment(new SportFragment(), "Thể thao");
-        adapter.addFragment(new ShoppingFragment(), "Đời sống");
-        adapter.addFragment(new EntertainmentFragment(), "Giải trí");
+        adapter.addFragment(new HomeFragment(), "Thời sự");
+        adapter.addFragment(new HomeFragment(), "Thể thao");
+        adapter.addFragment(new HomeFragment(), "Đời sống");
+        adapter.addFragment(new HomeFragment(), "Giải trí");
 //        viewPager.setAdapter(adapter);
+
 
         // Kết nối TabLayout với ViewPager
         tabLayout.setupWithViewPager(viewPager);
