@@ -16,11 +16,17 @@
         android:hint="Tìm kiếm"
         android:imeOptions="actionSearch"
         android:inputType="text"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <FrameLayout
+        android:id="@+id/fragment_history_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/search_news" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_news" />
+
 
 </RelativeLayout>

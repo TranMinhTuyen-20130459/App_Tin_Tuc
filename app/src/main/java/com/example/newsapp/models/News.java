@@ -42,17 +42,11 @@ public class News implements Serializable {
         this.date = date;
     }
 
-
-
-
     public News(String title, String link, String linkImage, String date) {
         this.title = title;
         this.link = link;
         this.linkImage = linkImage;
         this.date = date;
     }
-
-
-
 
 }
