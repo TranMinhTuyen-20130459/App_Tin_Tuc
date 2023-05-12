@@ -10,6 +10,8 @@ public class News implements Serializable {
     private String linkImage;
     private String date;
     String des;
+    private String category;
+
     public String getTitle() {
         return title;
     }
@@ -42,8 +44,13 @@ public class News implements Serializable {
         this.date = date;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
-
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public News(String title, String link, String linkImage, String date) {
         this.title = title;
@@ -51,8 +58,4 @@ public class News implements Serializable {
         this.linkImage = linkImage;
         this.date = date;
     }
-
-
-
-
 }

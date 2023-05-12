@@ -1,5 +1,7 @@
 package com.example.newsapp.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,13 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.newsapp.LoginActivity;
-import com.example.newsapp.models.News;
 import com.example.newsapp.R;
+import com.example.newsapp.ViewedNewsActivity;
+import com.example.newsapp.models.News;
 import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
 import com.google.gson.Gson;
-
-import static android.content.Context.MODE_PRIVATE;
 
 import java.util.ArrayList;
 
@@ -86,10 +87,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-
         return view;
-
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        /* Khi người dùng nhấn vào nút "Tin đã xem", mở ViewedNewsActivity để hiển thị các tin đã xem. */
+        view.findViewById(R.id.btn_viewed).setOnClickListener(v -> startActivity(new Intent(requireContext(), ViewedNewsActivity.class)));
+    }
 }
