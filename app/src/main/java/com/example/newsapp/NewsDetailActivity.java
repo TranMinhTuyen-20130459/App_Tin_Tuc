@@ -1,21 +1,26 @@
 package com.example.newsapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.newsapp.data.NewsDao;
+import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;
     ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +37,16 @@ public class NewsDetailActivity extends AppCompatActivity {
             webView.setWebViewClient(onWebViewLoaded);
             webView.loadUrl(link);
         }
+
+        /* Người dùng vừa nhấn vào một tin -> đã xem -> lưu vào database. */
+        News news = (News) intent.getSerializableExtra(Constants.KEY_VIEWED_NEWS);
+        if (news != null) {
+            NewsDao newsDao = new NewsDao(this);
+            newsDao.addNews(news);
+        }
     }
-    private WebViewClient onWebViewLoaded = new WebViewClient(){
+
+    private final WebViewClient onWebViewLoaded = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
@@ -51,4 +64,13 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
 }
