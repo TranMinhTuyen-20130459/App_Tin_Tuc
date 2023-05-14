@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,12 +38,19 @@ public class HistorySearchAdapter extends ArrayAdapter<String> {
         View itemView = convertView;
         if (itemView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            itemView = inflater.inflate(R.layout.history_search, parent, false);
+            itemView = inflater.inflate(R.layout.item_history_search, parent, false);
         }
 
         // thực hiện đổ dữ liệu vào itemView
         TextView item_text_view_history_search = itemView.findViewById(R.id.text_view_history_search);
         item_text_view_history_search.setText(list_data.get(position));
+        item_text_view_history_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = item_text_view_history_search.getText().toString();
+                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
         return itemView;
 
     }

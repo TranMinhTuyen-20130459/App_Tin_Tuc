@@ -21,12 +21,21 @@ public class HistorySearchFragment extends Fragment {
 
     //List<String> list_data_search = Arrays.asList();
 
+    public HistorySearchFragment() {
+    }
+
+    public HistorySearchFragment(List<String> list_data_search) {
+        list_data_search = list_data_search;
+    }
+
+    // Tạo view cho Fragment và cấu hình các thành phần trong view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Tạo và trả về view cho Fragment Lịch sử tìm kiếm
+
         View view = inflater.inflate(R.layout.list_history_search_fragment, container, false);
         list_view_search = view.findViewById(R.id.list_view_history_search);
         HistorySearchAdapter history_search_adapter = new HistorySearchAdapter(getContext(), android.R.layout.simple_list_item_1, list_data_search);
+        // đổ dữ liệu từ adapter về listview
         list_view_search.setAdapter(history_search_adapter);
         return view;
     }

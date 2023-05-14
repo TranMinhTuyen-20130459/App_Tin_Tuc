@@ -28,5 +28,11 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/search_news" />
 
+    <FrameLayout
+        android:id="@+id/fragment_result_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_news" />
+
 
 </RelativeLayout>
