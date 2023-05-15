@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.example.newsapp.R;
+import com.example.newsapp.SearchActivity;
 import com.example.newsapp.adapter.HistorySearchAdapter;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class HistorySearchFragment extends Fragment {
 
     ListView list_view_search; // ListView lịch sử tìm kiếm bài viết
     List<String> list_data_search = new ArrayList<>();
+
 
     public HistorySearchFragment(List<String> list_data_search) {
         this.list_data_search = list_data_search;

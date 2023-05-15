@@ -24,9 +24,9 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText search_news; // thanh tìm kiếm
-    private HistorySearchFragment frHistorySearch; // fragment lịch sử tìm kiếm
-    private ResultSearchFragment frResultSearch; // fragment kết quả tìm kiếm
+    public EditText search_news; // thanh tìm kiếm
+    public HistorySearchFragment frHistorySearch; // fragment lịch sử tìm kiếm
+    public ResultSearchFragment frResultSearch; // fragment kết quả tìm kiếm
 
     public static ArrayList<ArrayList<News>> list_all_news = new ArrayList<>();
 
@@ -91,24 +91,33 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         search_news.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     String keyword = search_news.getText().toString();
 
-                    // xóa đi Fragment
-                    removeFragment(frResultSearch);
+                    if (keyword.isEmpty()) {
+                        Toast.makeText(getBaseContext(), "Bạn hãy nhập từ khóa để tìm kiếm", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // xóa đi Fragment
+                        removeFragment(frResultSearch);
 
-                    List<News> list_news = SearchNews.searchByKeyWord(list_all_news, keyword);
+                        List<News> list_news = SearchNews.searchByKeyword(list_all_news, keyword);
 
-                    // khởi tạo ra Fragment mới
-                    createFragmentResultSearch(list_news);
-
-                    return true;
+                        if (list_news.size() > 0) {
+                            // khởi tạo ra Fragment mới
+                            createFragmentResultSearch(list_news);
+                        } else {
+                            Toast.makeText(getBaseContext(), "Không có kết quả", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
                 }
                 return false;
             }
+
         });
 
     }
