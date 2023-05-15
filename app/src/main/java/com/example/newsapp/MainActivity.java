@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<ArrayList<News>> listAll;
 
+    public static Object list_all_news = new ArrayList<>();
+
     @SuppressLint("NonConstantResourceId")
     @Override
     @SuppressWarnings("deprecation")
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 readRSS.execute(url);
                 listAll.add(readRSS.getListNews());
             }
+            list_all_news = listAll;
         }
 
         bt_nav.setOnNavigationItemSelectedListener(item -> {
@@ -218,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Hàm này sẽ trả về tin mới nhất trong {@code listAll} vừa tải xong.
+     *
      * @return tin mới nhất.
      */
     private News findLatestNews() {
