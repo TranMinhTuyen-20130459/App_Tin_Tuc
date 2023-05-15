@@ -12,7 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.newsapp.R;
+import com.example.newsapp.SearchActivity;
+import com.example.newsapp.models.News;
+import com.example.newsapp.utils.SearchNews;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistorySearchAdapter extends ArrayAdapter<String> {
@@ -47,8 +51,11 @@ public class HistorySearchAdapter extends ArrayAdapter<String> {
         item_text_view_history_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = item_text_view_history_search.getText().toString();
-                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+                String keyword = item_text_view_history_search.getText().toString();
+                ArrayList<News> list_result_search = (ArrayList<News>) SearchNews.searchByKeyWord(SearchActivity.list_all_news, keyword);
+
+                Toast.makeText(ctx, list_result_search.size() + "", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), keyword, Toast.LENGTH_SHORT).show();
             }
         });
         return itemView;

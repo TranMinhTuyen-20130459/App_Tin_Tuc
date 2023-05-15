@@ -1,11 +1,5 @@
 package com.example.newsapp;
 
-import static com.example.newsapp.R.id.fragment_container;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,9 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.newsapp.fragment.search.HistorySearchFragment;
 import com.example.newsapp.fragment.search.ResultSearchFragment;
 import com.example.newsapp.models.News;
+import com.example.newsapp.utils.SearchNews;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,10 +28,12 @@ public class SearchActivity extends AppCompatActivity {
     private HistorySearchFragment frHistorySearch; // fragment lịch sử tìm kiếm
     private ResultSearchFragment frResultSearch; // fragment kết quả tìm kiếm
 
-    /*
-        Phương thức này được gọi khi Activity được tạo ra.
-        Nó được sử dụng để khởi tạo các thành phần của Activity như View, Fragment, và các đối tượng liên quan khác.
-        Phương thức này được gọi chỉ một lần trong suốt vòng đời của Activity.
+    public static ArrayList<ArrayList<News>> list_all_news = new ArrayList<>();
+
+    /**
+     * Phương thức này được gọi khi Activity được tạo ra.
+     * Nó được sử dụng để khởi tạo các thành phần của Activity như View, Fragment, và các đối tượng liên quan khác.
+     * Phương thức này được gọi chỉ một lần trong suốt vòng đời của Activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +42,20 @@ public class SearchActivity extends AppCompatActivity {
 
         search_news = findViewById(R.id.search_news);
 
-        createFragmentHistorySearch();
+        List<String> list_history_search = Arrays.asList("messi", "ronaldo", "neymar");
+        createFragmentHistorySearch(list_history_search);
 
+        Bundle bundle = getIntent().getExtras();
+        list_all_news = (ArrayList<ArrayList<News>>) bundle.getSerializable("list_all_news");
+
+        // Toast.makeText(this, list_all_news.size() + "", Toast.LENGTH_SHORT).show();
     }
 
-    /*
-       Phương thức này được gọi khi Activity sẵn sàng để tương tác với người dùng.
-       Nó được gọi sau khi Activity đã được khởi tạo và hiển thị trên màn hình.
-       Phương thức này thường được sử dụng để cập nhật dữ liệu của Activity hoặc để đăng ký các listener.
-    */
+    /**
+     * Phương thức này được gọi khi Activity sẵn sàng để tương tác với người dùng.
+     * Nó được gọi sau khi Activity đã được khởi tạo và hiển thị trên màn hình.
+     * Phương thức này thường được sử dụng để cập nhật dữ liệu của Activity hoặc để đăng ký các listener.
+     */
 
     @Override
     protected void onResume() {
@@ -90,15 +95,14 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
+                    String keyword = search_news.getText().toString();
+
                     // xóa đi Fragment
                     removeFragment(frResultSearch);
 
-                    List<News> list_news = new ArrayList<>();
-                    list_news.add(new News("tuyen", "123", "456", "14/5/2023"));
-                    list_news.add(new News("tinh", "123", "456", "14/5/2023"));
+                    List<News> list_news = SearchNews.searchByKeyWord(list_all_news, keyword);
 
                     // khởi tạo ra Fragment mới
-                    frResultSearch = new ResultSearchFragment(list_news);
                     createFragmentResultSearch(list_news);
 
                     return true;
@@ -110,10 +114,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     // tạo fragment HistorySearch
-    public void createFragmentHistorySearch() {
+    public void createFragmentHistorySearch(List<String> list_data) {
 
         // Khởi tạo Fragment
-        frHistorySearch = new HistorySearchFragment();
+        frHistorySearch = new HistorySearchFragment(list_data);
 
         // Sử dụng FragmentManager để thêm Fragment vào trong Activity
         getSupportFragmentManager()
@@ -178,7 +182,7 @@ public class SearchActivity extends AppCompatActivity {
                     .remove(removeFragment)
                     .commit();
 
-            Toast.makeText(this, "Đây là hàm removeFragment()", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Đây là hàm removeFragment()", Toast.LENGTH_SHORT).show();
 
         }
     }
