@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_home: // trang chủ
                     if (!listAll.isEmpty()) { // Kiểm tra danh sách có phần tử nào hay chưa
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("dataList", listAll);
+                        bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
                         MainFragment mainFragment = new MainFragment();
                         mainFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         numberOfTitlesLoaded++;
         // Nếu đã có dữ liệu RSS, chuyển sang màn hình Home
         /*
-         * Trang MainFragment là cha của Fragment danh mục như: thể thao (SportFragment) ,đời sống, ..(ShoppingFragment)
+         * Trang MainFragment là cha của Fragment danh mục
          * */
         // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
         if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
