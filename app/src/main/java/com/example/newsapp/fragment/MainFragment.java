@@ -58,44 +58,6 @@ public class MainFragment extends Fragment {
         // Kết nối TabLayout với ViewPager
         tabLayout.setupWithViewPager(viewPager);
         // Khởi tạo adapter cho ViewPager
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                // Xử lý khi người dùng chọn tab
-//                switch (position) {
-//                    case 0:
-//                        // Mở HomeFragment (danh mục Trang chủ)
-//                        HomeFragment homeFragment = new HomeFragment();
-//                        arriveFragment(homeFragment, "main", position);
-//                        break;
-//                    case 1: // danh mục thời sự
-//                        PolicalFragment profileFragment = new PolicalFragment();
-//                        arriveFragment(profileFragment, "data", position);
-//                        break;
-//                    case 2:
-//                        // Mở SportFragment (danh mục thể thao)
-//                        SportFragment sportFragment = new SportFragment();
-//                        arriveFragment(sportFragment, "data", position);
-//                        break;
-//                    case 3:
-//                        ShoppingFragment shoppingFragment = new ShoppingFragment();
-//                        arriveFragment(shoppingFragment, "data", position);
-//                        break;
-//                    case 4:
-//                        EntertainmentFragment entertainmentFragment = new EntertainmentFragment();
-//                        arriveFragment(entertainmentFragment, "data", position);
-//                        break;
-//                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
         viewPager.setAdapter(adapter);
 
 
