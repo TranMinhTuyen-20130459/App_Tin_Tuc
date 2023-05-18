@@ -35,24 +35,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-//        switch (position) {
-//            case 0:
-//                HomeFragment mainFragment = new HomeFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("main", dataList);
-//                mainFragment.setArguments(bundle);
-//                return mainFragment;
-//            case 1:
-//                return new PolicalFragment();
-//            case 2:
-//                return new SportFragment();
-//            case 3:
-//                return new ShoppingFragment();
-//            case 4:
-//                return new EntertainmentFragment();
-//            default:
-//                return new HomeFragment();
-//        }
+//       danh sách bài viết trong danh mục
             HomeFragment mainFragment = new HomeFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.KEY_LIST_NEWS_MAIN, dataList.get(position).stream()
@@ -71,27 +54,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-//        String title = "";
-//        // các tên thể loại tương ứng với các lớp ở trên
-//        switch (position) {
-//            case 0:
-//                title = "Trang chủ";
-//                break;
-//            case 1:
-//                title = "Thời sự";
-//                break;
-//            case 2:
-//                title = "Thể Thao";
-//                break;
-//            case 3:
-//                title = "Đời sống";
-//                break;
-//            case 4:
-//                title = "Giải trí";
-//                break;
-//            default:
-//                title = "Đời sống";
-//        }
+//       tên danh mục
         return mFragmentTitles.get(position);
     }
 }
