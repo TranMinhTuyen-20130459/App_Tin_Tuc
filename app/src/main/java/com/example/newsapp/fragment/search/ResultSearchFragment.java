@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.ResultSearchAdapter;
 import com.example.newsapp.models.News;
+import com.example.newsapp.utils.PutLinkToNewsDetail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultSearchFragment extends Fragment {
@@ -33,6 +35,7 @@ public class ResultSearchFragment extends Fragment {
         ResultSearchAdapter result_search_adapter = new ResultSearchAdapter(getContext(), android.R.layout.simple_list_item_1, list_data_result_search);
         // đổ dữ liệu từ ResultSearchAdapter về ListView
         list_view_result_search.setAdapter(result_search_adapter);
+        new PutLinkToNewsDetail(getActivity()).putLinkNews(list_view_result_search,(ArrayList<News>) list_data_result_search);
         return view;
     }
 }
