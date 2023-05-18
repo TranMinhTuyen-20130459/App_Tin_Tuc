@@ -36,7 +36,6 @@ public class MainFragment extends Fragment {
     private ViewPager viewPager;
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
-
     TextView tv_search;
 
     @Nullable
@@ -45,12 +44,12 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         tv_search = view.findViewById(R.id.search_text_view);
+
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list_all_news", (Serializable) MainActivity.list_all_news); // => chuyển danh sách tất cả tin tức qua SearchActivity
-
                 Intent intent_activity_search = new Intent(getContext(), SearchActivity.class);
                 intent_activity_search.putExtras(bundle);
                 startActivity(intent_activity_search);
