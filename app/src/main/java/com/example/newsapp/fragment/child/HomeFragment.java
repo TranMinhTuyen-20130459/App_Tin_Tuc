@@ -10,14 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.newsapp.models.News;
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.DataListAdapter;
+import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.PutLinkToNewsDetail;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
     ArrayList<News> mDataList;

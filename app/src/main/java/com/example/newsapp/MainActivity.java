@@ -39,7 +39,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 100;
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private int count;
 
     ArrayList<ArrayList<News>> listAll;
+
+    public static Object list_all_news = new ArrayList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 readRSS.execute(url);
                 listAll.add(readRSS.getListNews());
             }
+            list_all_news = listAll;
         }
 
         bt_nav.setOnNavigationItemSelectedListener(item -> {
@@ -106,12 +114,9 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.setMessage("Đang tải dữ liệu, vui lòng đợi...");
                         progressDialog.setCancelable(false);
                         progressDialog.show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                MainActivity.this.recreate(); // reload lại Activity
-                                progressDialog.dismiss(); // Ẩn Dialog
-                            }
+                        new Handler().postDelayed(() -> {
+                            MainActivity.this.recreate(); // reload lại Activity
+                            progressDialog.dismiss(); // Ẩn Dialog
                         }, 500); // Giả lập thời gian tải dữ liệu là 0.5 giây
                     }
                     break;
@@ -151,18 +156,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Bitmap bitmap) {
                 /* Tạo một Intent để khi người dùng nhấn vào notification thì sẽ chuyển đến NewsDetailActivity */
-                Intent intent = new Intent(MainActivity.this, NewsDetailActivity.class);
-                intent.putExtra(Constants.KEY_NEWS_DETAILS, news.getLink());
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this);
-                stackBuilder.addNextIntentWithParentStack(intent);
+                Intent intent = new Intent(MainActivity.this, NewsDetailActivity.class)
+                        .putExtra(Constants.KEY_NEWS_DETAILS, news.getLink())
+                        .putExtra(Constants.KEY_VIEWED_NEWS, news);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this)
+                        .addNextIntentWithParentStack(intent);
                 PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
-                                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle(news.getTitle())
-                        .setContentText(news.getLink())
+                        .setContentTitle(news.getCategory())
+                        .setContentText(news.getTitle())
                         .setContentIntent(pendingIntent)
+                        .setShowWhen(true)
+                        .setAutoCancel(true)
                         // Gắn hình ảnh vào Notification
                         .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap))
 //                        .setLargeIcon(bitmap)
@@ -175,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         != PackageManager.PERMISSION_GRANTED) {
                     // Người dùng chưa cấp quyền.
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        // Quyền này chỉ khả dụng trên điện thoại chạy Android 13
+                        // Yêu cầu người dùng cấp quyền.
                         requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
                     }
                 } else {
@@ -204,10 +212,50 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
         }
 
-        /* Nếu đã tải được một tin thì hiện thông báo của tin đó (chỉ hiện thông báo của tin đầu tiên). */
-        if (numberOfTitlesLoaded == 1 && listAll.get(0).get(0) != null) {
-            pushNotification(listAll.get(0).get(0));
+        /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
+        if (numberOfTitlesLoaded >= 5 && listAll.size() >= 5) {
+            News news = findLatestNews();
+            pushNotification(news);
         }
+    }
+
+    /**
+     * Hàm này sẽ trả về tin mới nhất trong {@code listAll} vừa tải xong.
+     *
+     * @return tin mới nhất.
+     */
+    private News findLatestNews() {
+        News news = null;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date latest = calendar.getTime();
+
+        // Duyệt tất cả tin trong listAll.
+        for (int i = 0; i < listAll.size(); i++) {
+            for (int j = 0; j < listAll.get(i).size(); j++) {
+                News n = listAll.get(i).get(j);
+                if (n != null) {
+                    try {
+                        final Date date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(n.getDate());
+                        if (date != null && date.after(latest)) {
+                            // Tin hiện tại xuất hiện sau `latest` -> mới hơn.
+                            news = n;
+                            news.setCategory(getCategory(i));
+                            latest = date;
+                        }
+                    } catch (ParseException e) {
+                        return n;
+                    }
+                }
+            }
+        }
+        return news;
+    }
+
+    private String getCategory(int pos) {
+        final String[] categories = {"Tin mới nhất", "Thời sự", "Thể thao", "Thế giới", "Giải trí"};
+        return categories[pos];
     }
 
     // nhấn 2 lần thể thoát
@@ -227,8 +275,10 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Người dùng đã cấp quyền
                 pushNotification(listAll.get(0).get(0));
             } else {
+                // Người dùng chưa cấp quyền
                 Toast.makeText(this, "Bạn phải cấp quyền mới truy cập được.", Toast.LENGTH_SHORT).show();
             }
         }
