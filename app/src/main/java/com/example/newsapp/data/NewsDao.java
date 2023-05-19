@@ -3,6 +3,7 @@ package com.example.newsapp.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.example.newsapp.models.News;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewsDao {
@@ -21,6 +23,7 @@ public class NewsDao {
 
     /**
      * Lấy tất cả tin người dùng đã xem trong database.
+     *
      * @return danh sách các tin.
      */
     public List<News> getNews() {
@@ -43,6 +46,7 @@ public class NewsDao {
 
     /**
      * Thêm tin đã xem vào database.
+     *
      * @param news tin người dùng đã xem.
      * @return {@code true} nếu thêm vào thành công, {@code false} nếu thêm vào thất bại.
      */
@@ -56,8 +60,26 @@ public class NewsDao {
         return db.insert("viewed_news", null, values) != -1;
     }
 
-    public boolean removeNews(News news) {
+    public boolean removeNews(String link) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        return db.delete("viewed_news", "link=?", new String[]{news.getLinkImage()}) != 0;
+        return db.delete("viewed_news", "link = ?", new String[]{link}) != 0;
+    }
+
+    public boolean removeNews(String... links) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for (String link : links) {
+                if (!removeNews(link)) {
+                    return false;
+                }
+            }
+            db.setTransactionSuccessful();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            db.endTransaction();
+        }
     }
 }

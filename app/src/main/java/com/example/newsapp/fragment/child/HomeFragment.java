@@ -22,6 +22,9 @@ public class HomeFragment extends Fragment {
     ArrayList<News> mDataList;
     ListView mListView;
 
+    /* Nếu là true thì fragment này đang hiển thị danh sách tin đã xem. */
+    private boolean isViewed;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,13 +34,16 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
+            isViewed = bundle.getBoolean(Constants.KEY_VIEWED_NEWS);
         }
 
         mListView = view.findViewById(R.id.list_view_home);
-        DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
+        DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList, isViewed, mListView);
         mListView.setAdapter(adapter);
         // chi tiết từng bài viết
-        new PutLinkToNewsDetail(getActivity()).putLinkNews(mListView,mDataList);
+        if (!isViewed) {
+            new PutLinkToNewsDetail(getActivity()).putLinkNews(mListView,mDataList);
+        }
         return view;
     }
 

@@ -40,6 +40,9 @@
 
         <!-- Change Action Bar overflow icon (Options Menu button) color -->
         <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+
+        <!-- ActionMode -->
+        <item name="actionModeStyle">@style/ActionModeStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -125,6 +128,10 @@
     <!-- Style for Date TextView -->
     <style name="DateTextViewStyle" parent="@style/SectionAuthorDateStyle">
         <item name="android:textColor">@color/color_date_text</item>
+    </style>
+
+    <style name="ActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">?colorPrimary</item>
     </style>
 
 </resources>
