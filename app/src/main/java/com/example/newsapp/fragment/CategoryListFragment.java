@@ -1,54 +1,53 @@
 package com.example.newsapp.fragment;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
-import com.example.newsapp.NewsDetailActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.CategoryAdapter;
-import com.example.newsapp.adapter.DataListAdapter;
 import com.example.newsapp.models.Categories;
-import com.example.newsapp.utils.Constants;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ManageCategoryFragment extends Fragment {
-    ListView mListView;
+public class CategoryListFragment extends ListFragment {
+    ListView lvCategory;
     ArrayList<Categories> listCategory;
+//    String[] arrayCity = {"Hải Phòng", "Nha Trang", "Kháng Hòa", "Huế", "Sài Gòn"};
+//    ArrayAdapter adapter;
 
-
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.manage_category_fragment, container, false);
-        listCategory = new ArrayList<>();
-
-
-        // Tạo danh sách đối tượng Person
+//        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayCity);
+//        setListAdapter(adapter);
+        View view = inflater.inflate(R.layout.row_category, container, false);
+        lvCategory = (ListView) inflater.inflate(R.layout.fragment_category_list, container, false);
+        listCategory = new ArrayList<Categories>();
         listCategory.add(new Categories("1", "https://vnexpress.net/rss/tin-moi-nhat.rss", "tin mới", "1"));
         listCategory.add(new Categories("2", "https://vnexpress.net/rss/tin-moi-nhat.rss", "tin mới", "1"));
         listCategory.add(new Categories("3", "https://vnexpress.net/rss/tin-moi-nhat.rss", "tin mới", "1"));
         listCategory.add(new Categories("4", "https://vnexpress.net/rss/tin-moi-nhat.rss", "tin mới", "1"));
 
-        mListView = view.findViewById(R.id.list_view);
-        CategoryAdapter adapter = new CategoryAdapter(getContext(), android.R.layout.simple_list_item_1, listCategory);
-        mListView.setAdapter(adapter);
+        CategoryAdapter adapter = new CategoryAdapter(
+                getActivity(),
+                R.layout.row_category,
+                listCategory
+        );
 
-        return view;
+        lvCategory.setAdapter(adapter);
+
+        return lvCategory;
     }
+
 }
