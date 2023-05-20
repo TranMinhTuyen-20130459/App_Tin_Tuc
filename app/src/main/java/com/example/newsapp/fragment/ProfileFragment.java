@@ -99,7 +99,6 @@ public class ProfileFragment extends Fragment {
                     btn_logout.setVisibility(View.GONE);
                     btn_login.setVisibility(View.VISIBLE);
                     fullname.setText("Trang cá nhân");
-                    Constants.setLoginBy(100);
                 }else{
                     SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
@@ -110,7 +109,6 @@ public class ProfileFragment extends Fragment {
                     btn_logout.setVisibility(View.GONE);
                     btn_login.setVisibility(View.VISIBLE);
                     fullname.setText("Trang cá nhân");
-                    Constants.setLoginBy(100);
                 }
             }
         });
