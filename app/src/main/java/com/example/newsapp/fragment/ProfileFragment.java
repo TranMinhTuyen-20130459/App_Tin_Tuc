@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
                 String name = userGoogle.getDisplayName();
                 fullname.setText(name);
             }
-            if (user == null && userGoogle == null && Constants.getLoginBy() == 100) {
+            if (user == null && userGoogle == null) {
                 // Nếu người dùng chưa đăng nhập, ẩn nút đăng xuất
                 btn_logout.setVisibility(View.GONE);
             } else {
