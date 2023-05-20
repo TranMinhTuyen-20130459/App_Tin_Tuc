@@ -2,6 +2,7 @@ package com.example.newsapp.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,6 +25,10 @@ import com.example.newsapp.ViewedNewsActivity;
 import com.example.newsapp.models.News;
 import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -33,12 +38,13 @@ public class ProfileFragment extends Fragment {
     ListView mListView;
     Button btn_login, btn_logout;
     TextView fullname;
-
+    GoogleSignInOptions gso;
+    GoogleSignInClient mGoogleSignInClient;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
-
+        Context context = getActivity();
 
         btn_login = view.findViewById(R.id.btn_login);
         btn_logout = view.findViewById(R.id.btn_logout);
@@ -53,18 +59,29 @@ public class ProfileFragment extends Fragment {
         });
         SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", MODE_PRIVATE);
         Gson gson = new Gson();
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         try {
             // Lấy User từ SharedPreferences
             String jvson = preferences.getString(Constants.ROLE_CUSTOMER, "");
             Users user = gson.fromJson(jvson, Users.class); // Chuyển đổi chuỗi JSON thành đối tượng User
-            if (user == null) {
+            if (user == null && account == null && Constants.getLoginBy() == 100) {
                 // Nếu người dùng chưa đăng nhập, ẩn nút đăng xuất
                 btn_logout.setVisibility(View.GONE);
             } else {
-                // Nếu người dùng đã đăng nhập, hiển thị nút đăng xuất và đăng nhập
                 btn_logout.setVisibility(View.VISIBLE);
                 btn_login.setVisibility(View.GONE);
-                fullname.setText(user.getFullname());
+                if(Constants.getLoginBy() == 1){
+                    // Nếu người dùng đã đăng nhập, hiển thị nút đăng xuất và đăng nhập
+                    fullname.setText(user.getFullname());
+                }else if(Constants.getLoginBy() == 0){
+                    String name = account.getDisplayName();
+                    fullname.setText(name);
+                }
             }
 //            Toast.makeText(getActivity(), user.getFullname(), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
@@ -75,15 +92,25 @@ public class ProfileFragment extends Fragment {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.remove(Constants.ROLE_CUSTOMER);
-                editor.apply();
-                // Hiển thị thông báo cho người dùng
-                Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
-                btn_logout.setVisibility(View.GONE);
-                btn_login.setVisibility(View.VISIBLE);
-                fullname.setText("Trang cá nhân");
+                if(Constants.getLoginBy() == 1){
+                    SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.remove(Constants.ROLE_CUSTOMER);
+                    editor.apply();
+                    // Hiển thị thông báo cho người dùng
+                    Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
+                    btn_logout.setVisibility(View.GONE);
+                    btn_login.setVisibility(View.VISIBLE);
+                    fullname.setText("Trang cá nhân");
+                    Constants.setLoginBy(100);
+                }else if(Constants.getLoginBy() == 0){
+                    mGoogleSignInClient.signOut();
+                    Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
+                    btn_logout.setVisibility(View.GONE);
+                    btn_login.setVisibility(View.VISIBLE);
+                    fullname.setText("Trang cá nhân");
+                    Constants.setLoginBy(100);
+                }
             }
         });
 
