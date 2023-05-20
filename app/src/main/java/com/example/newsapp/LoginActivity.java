@@ -116,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Đăng nhập ADMIN", Toast.LENGTH_LONG).show();
                             }
                             // xóa toàn bộ stack trước đó
-                            Constants.setLoginBy(1);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
@@ -159,6 +158,11 @@ public class LoginActivity extends AppCompatActivity {
                 googleSignIn();
             }
         });
+//        if(auth.getCurrentUser() != null){
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
     }
     int RC_SIGN_IN = 40;
     public void googleSignIn(){
@@ -191,10 +195,8 @@ public class LoginActivity extends AppCompatActivity {
                             googleUser.setName(user.getDisplayName());
                             googleUser.setProfile(user.getPhotoUrl().toString());
                             db.getReference().child("google_users").child(user.getUid()).setValue(googleUser);
-                            Constants.setLoginBy(0);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
                         }else {
