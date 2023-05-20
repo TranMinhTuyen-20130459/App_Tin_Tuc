@@ -8,26 +8,26 @@
 
   <TextView
       android:id="@+id/title"
-      android:layout_width="203dp"
+      android:layout_width="200dp"
       android:layout_height="57dp"
-      android:layout_x="13dp"
-      android:layout_y="21dp"
+      android:layout_x="170dp"
+      android:layout_y="30dp"
       android:textColor="@color/black"></TextView>
 
   <TextView
       android:id="@+id/time"
-      android:layout_width="204dp"
+      android:layout_width="200dp"
       android:layout_height="43dp"
-      android:layout_x="12dp"
-      android:layout_y="91dp"
+      android:layout_x="170dp"
+      android:layout_y="90dp"
       android:textColor="@color/black"></TextView>
 
   <ImageView
       android:id="@+id/img"
       android:layout_width="145dp"
-      android:layout_height="121dp"
-      android:layout_x="232dp"
-      android:layout_y="11dp"
+      android:layout_height="145dp"
+      android:layout_x="7dp"
+      android:layout_y="8dp"
       android:minWidth="20dp"
       android:minHeight="25dp"></ImageView>
 
