@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.newsapp.data.NewsDao;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;
@@ -38,12 +39,7 @@ public class NewsDetailActivity extends AppCompatActivity {
             webView.loadUrl(link);
         }
 
-        /* Người dùng vừa nhấn vào một tin -> đã xem -> lưu vào database. */
-        News news = (News) intent.getSerializableExtra(Constants.KEY_VIEWED_NEWS);
-        if (news != null) {
-            NewsDao newsDao = new NewsDao(this);
-            newsDao.addNews(news);
-        }
+        saveNews();
     }
 
     private final WebViewClient onWebViewLoaded = new WebViewClient() {
@@ -72,5 +68,20 @@ public class NewsDetailActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void saveNews() {
+        News news = (News) getIntent().getSerializableExtra(Constants.KEY_VIEWED_NEWS);
+        if (news != null) {
+            new Thread(() -> {
+                NewsDao newsDao = new NewsDao(this);
+                newsDao.addNews(news);
+                saveToFirebase(news);
+            }).start();
+        }
+    }
+
+    private void saveToFirebase(News news) {
+        FirebaseDatabase.getInstance().getReference().child("viewed").child(news.getLink()).setValue(news);
     }
 }

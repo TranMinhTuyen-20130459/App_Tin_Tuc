@@ -12,6 +12,8 @@ public class News implements Serializable {
     String des;
     private String category;
 
+    public News() {}
+
     public String getTitle() {
         return title;
     }
