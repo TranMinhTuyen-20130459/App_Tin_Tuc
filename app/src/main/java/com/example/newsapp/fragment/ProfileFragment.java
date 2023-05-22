@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
             String jvson = preferences.getString(Constants.ROLE_CUSTOMER, "");
             Users user = gson.fromJson(jvson, Users.class); // Chuyển đổi chuỗi JSON thành đối tượng User
             if (user != null) {
-                // Nếu người dùng đã đăng nhập, hiển thị nút đăng xuất và đăng nhập
+                // Nếu người dùng đã đăng nhập, hiển thị thông tin người dùng
                 binding.avatarFullName.setText(user.getFullname());
                 binding.avatarRole.setText(user.getRole());
                 binding.name.setText(user.getFullname());

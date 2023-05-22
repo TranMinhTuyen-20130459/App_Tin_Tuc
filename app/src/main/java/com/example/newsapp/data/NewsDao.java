@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 
 import com.example.newsapp.models.News;
+import com.example.newsapp.models.Users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,14 @@ public class NewsDao {
 
     /**
      * Lấy tất cả tin người dùng đã xem trong database.
+     *
      * @return danh sách các tin.
      */
-    public List<News> getNews() {
+    public List<News> getNews(Users users) {
         final List<News> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query("viewed_news", null, null, null, null, null, null);
+        Cursor cursor = db.query("viewed_news", null, "user=?", new String[]{users.getUsername()},
+                null, null, null);
 
         while (cursor.moveToNext()) {
             String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
@@ -43,16 +46,18 @@ public class NewsDao {
 
     /**
      * Thêm tin đã xem vào database.
+     *
      * @param news tin người dùng đã xem.
      * @return {@code true} nếu thêm vào thành công, {@code false} nếu thêm vào thất bại.
      */
-    public boolean addNews(News news) {
+    public boolean addNews(News news, Users users) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", news.getTitle());
         values.put("link", news.getLink());
         values.put("img_link", news.getLinkImage());
         values.put("date", news.getDate());
+        values.put("user", users.getUsername());
         return db.insert("viewed_news", null, values) != -1;
     }
 
