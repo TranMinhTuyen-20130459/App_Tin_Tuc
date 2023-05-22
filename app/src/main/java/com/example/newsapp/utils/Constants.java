@@ -17,7 +17,6 @@ public class Constants {
     public static String TABLE_USERS = "users"; // tên bảng users
     public static String TABLE_CATEGORIES = "categories"; // tên bảng danh mục
 
-
     // sửa số lượng bài viết trên trong danh mục
     public static void setQuantityNewsOfCate(int quantityNewsOfCate) {
         QUANTITY_NEWS_OF_CATE = quantityNewsOfCate;
