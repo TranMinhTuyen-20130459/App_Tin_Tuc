@@ -16,5 +16,5 @@
     <string name="dang_nhap">Đăng nhập</string>
     <string name="dang_ky">Đăng ký</string>
     <string name="chua_dang_nhap">Bạn chưa đăng nhập. Vui lòng đăng nhập.</string>
-
+    <string name="delete_news">Delete news</string>
 </resources>

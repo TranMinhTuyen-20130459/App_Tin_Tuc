@@ -23,6 +23,7 @@ public class ViewedNewsActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         NewsDao newsDao = new NewsDao(this);
         args.putSerializable(Constants.KEY_LIST_NEWS_MAIN, (ArrayList<News>) newsDao.getNews());
+        args.putBoolean(Constants.KEY_VIEWED_NEWS, true);
         fragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
