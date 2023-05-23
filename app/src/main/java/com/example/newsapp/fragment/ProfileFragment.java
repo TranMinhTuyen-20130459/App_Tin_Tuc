@@ -74,7 +74,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /* Khi người dùng nhấn vào nút "Tin đã xem", mở ViewedNewsActivity để hiển thị các tin đã xem. */
+        /* 1. Khi người dùng nhấn vào nút "Tin đã xem", mở ViewedNewsActivity để hiển thị các tin đã xem. */
         view.findViewById(R.id.viewed).setOnClickListener(v -> startActivity(new Intent(requireContext(), ViewedNewsActivity.class)));
     }
 }
