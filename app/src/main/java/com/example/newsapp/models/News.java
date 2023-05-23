@@ -15,6 +15,8 @@ public class News implements Serializable {
     private String category;
     private boolean isSelected;
 
+    public News() {}
+
     public String getTitle() {
         return title;
     }

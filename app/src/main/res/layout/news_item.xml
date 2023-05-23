@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_item_view"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="203dp"
+        android:layout_width="200dp"
         android:layout_height="57dp"
-        android:layout_x="13dp"
-        android:layout_y="21dp"
+        android:layout_x="170dp"
+        android:layout_y="20dp"
+        android:textStyle="bold"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/time"
-        android:layout_width="204dp"
-        android:layout_height="43dp"
-        android:layout_x="12dp"
-        android:layout_y="91dp"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_x="170dp"
+        android:layout_y="80dp"
         android:textColor="@color/black" />
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="145dp"
-        android:layout_height="121dp"
-        android:layout_x="232dp"
-        android:layout_y="11dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_x="16dp"
         android:minWidth="20dp"
         android:minHeight="25dp" />
 </AbsoluteLayout>

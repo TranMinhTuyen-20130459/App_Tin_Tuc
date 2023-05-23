@@ -5,6 +5,7 @@ public class Constants {
     private Constants() {
     }
 
+    public static final String MY_PREFERENCES = "MyPreferences";
     public static final String KEY_VIEWED_NEWS = "viewed_news";
     public static final String LIST_TOTAL_CATE = "dataList";
     public static final String KEY_LIST_NEWS_MAIN = "main"; // danh sách bài viết của danh mục chính ( trang chủ)
