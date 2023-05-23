@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.AppBarOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
     android:gravity="center"
-    style="@style/AppTheme.AppBarOverlay">
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/tvLogin"
@@ -23,8 +23,8 @@
         android:layout_height="50dp"
         android:layout_below="@+id/tvLogin"
         android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_30"
         android:background="@drawable/et"
         android:hint="Email"
         android:inputType="textEmailAddress"
@@ -57,8 +57,8 @@
         android:layout_marginEnd="@dimen/dp_50"
         android:text="Đăng nhập"
         android:textAllCaps="false"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:backgroundTint="@color/colorPrimaryDark" />
 
     <TextView
@@ -67,9 +67,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLoginPassword"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/dp_30"
         android:text="Chọn vào đây để đăng ký!"
-        android:layout_marginEnd="@dimen/dp_30"/>
+        android:textColor="@color/black" />
 
     <ImageView
         android:id="@+id/btnGoogleLoginPage"

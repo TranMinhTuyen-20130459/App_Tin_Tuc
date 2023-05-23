@@ -70,10 +70,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         // lấy thẻ trên database
-                        email = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("username").getValue(String.class);
-                        password = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("password").getValue(String.class);
-                        fullname = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("fullname").getValue(String.class);
-                        role = snapshot.child(etLoginEmail.getText().toString().replace(".", ",")).child("role").getValue(String.class);
+                        DataSnapshot userData = snapshot.child(etLoginEmail.getText().toString().replace(".", ","));
+                        email = userData.child("username").getValue(String.class);
+                        password = userData.child("password").getValue(String.class);
+                        fullname = userData.child("fullname").getValue(String.class);
+                        role = userData.child("role").getValue(String.class);
+
                         if (email != null && etLoginPassword.getText().toString().equals(password)) {
                             user = new Users(role, email, password, fullname);
                             SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
