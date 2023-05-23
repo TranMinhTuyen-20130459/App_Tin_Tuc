@@ -31,8 +31,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.category_fragment, container, false);
         mDataList = new ArrayList<>();
 
+        // 3. Lấy dữ liệu được thêm trước đó bằng phương thức Fragment.setArguments(Bundle).
         Bundle bundle = getArguments();
         if (bundle != null) {
+            // Lấy danh sách tin, sau đó hiển thị lên màn hình.
             mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
             isViewed = bundle.getBoolean(Constants.KEY_VIEWED_NEWS);
         }
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
         mListView.setAdapter(adapter);
         // chi tiết từng bài viết
         if (!isViewed) {
+            // Nếu fragment này không hiển thị tin đã xem, xử lý bình thường.
             new PutLinkToNewsDetail(getActivity()).putLinkNews(mListView,mDataList);
         }
         return view;
