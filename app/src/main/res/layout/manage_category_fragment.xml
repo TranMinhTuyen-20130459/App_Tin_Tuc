@@ -61,27 +61,53 @@
             android:textColor="@color/white"
             android:background="#19A7CE"/>
     </LinearLayout>
-    <TableLayout
+    <AbsoluteLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
-        <!-- Hàng tiêu đề -->
-        <TableRow>
             <TextView
+                android:id="@+id/id_category_stt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_x="12dp"
+                android:layout_y="4dp"
+                android:padding="4dp"
                 android:text="STT"
-                android:padding="4dp"
-                android:layout_column="1" />
-            <TextView
-                android:text="Tên"
-                android:padding="4dp"
-                android:layout_column="2" />
-            <TextView
-                android:text="Giá"
-                android:padding="4dp"
-                android:layout_column="3" />
-        </TableRow>
+                android:textSize="16dp"/>
 
-    </TableLayout>
+        <TextView
+            android:id="@+id/id_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_x="60dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="Nội dung"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/id_category_active2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_x="193dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="Status" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="259dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="Chức năng" />
+    </AbsoluteLayout>
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

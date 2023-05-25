@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
-            android:layout_x="103dp"
+            android:layout_x="60dp"
             android:layout_y="4dp"
             android:padding="4dp"
             android:text="Tin mới nhất"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="4"
-            android:layout_x="251dp"
+            android:layout_x="210dp"
             android:layout_y="4dp"
             android:padding="4dp"
             android:text="1" />
@@ -39,17 +39,17 @@
         <ImageView
             android:id="@+id/delete_cate"
             android:layout_width="36dp"
-            android:layout_height="27dp"
-            android:layout_x="302dp"
+            android:layout_height="30dp"
+            android:layout_x="260dp"
             android:layout_y="7dp"
             android:src="@drawable/delete_icon"></ImageView>
 
         <ImageView
             android:id="@+id/edit_cate"
-            android:layout_width="26dp"
+            android:layout_width="36dp"
             android:layout_height="30dp"
-            android:layout_x="343dp"
-            android:layout_y="3dp"
+            android:layout_x="303dp"
+            android:layout_y="5dp"
             android:src="@drawable/edit_icon"></ImageView>
 
 </AbsoluteLayout>
