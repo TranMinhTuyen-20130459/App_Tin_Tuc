@@ -1,16 +1,19 @@
 package com.example.newsapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.newsapp.MainActivity;
 import com.example.newsapp.R;
 import com.example.newsapp.utils.Constants;
 
@@ -30,6 +33,8 @@ public class WidgetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Constants.setQuantityNewsOfCate(Integer.parseInt(quantity.getText().toString()));
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
         return view;

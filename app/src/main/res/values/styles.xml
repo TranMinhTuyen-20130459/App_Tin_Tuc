@@ -73,8 +73,8 @@
 
     <!-- Style for a tab that displays a category name -->
     <style name="CategoryTab" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/color_section</item>
-        <item name="tabSelectedTextColor">@color/color_section</item>
+        <item name="tabIndicatorColor">@color/swipe_color_1</item>
+        <item name="tabSelectedTextColor">@color/swipe_color_1</item>
         <item name="tabTextAppearance">@style/CategoryTabTextAppearance</item>
     </style>
 

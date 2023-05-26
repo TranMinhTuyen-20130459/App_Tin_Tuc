@@ -26,16 +26,18 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Thêm TabLayout -->
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         style="@style/CategoryTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp"
         android:minHeight="30dp"
         app:tabGravity="fill"
         app:tabMode="scrollable" />
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

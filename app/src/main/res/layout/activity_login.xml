@@ -59,7 +59,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:backgroundTint="@color/colorPrimaryDark" />
+        app:backgroundTint="@color/swipe_color_1" />
 
     <TextView
         android:id="@+id/tvRegister"
