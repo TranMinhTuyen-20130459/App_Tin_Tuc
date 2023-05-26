@@ -6,6 +6,15 @@
     android:padding="16dp">
 
     <EditText
+        android:id="@+id/etId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Id"
+        android:inputType="text"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
         android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

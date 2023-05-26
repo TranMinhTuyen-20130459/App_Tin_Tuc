@@ -20,6 +20,11 @@ import androidx.annotation.Nullable;
 import com.example.newsapp.R;
 import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
+import com.example.newsapp.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -27,6 +32,9 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
     Context myContext;
     int mResource;
     List<Categories> myListCategory;
+
+    FirebaseDatabase db;
+    DatabaseReference reference;
 
     public CategoryAdapter(Context context, int resource, List<Categories> listCategory) {
         super(context, resource, listCategory);
@@ -60,7 +68,6 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
         TextView txtActive = (TextView) view.findViewById(R.id.id_category_active);
         txtActive.setText(myListCategory.get(position).getActive());
 
-        Categories category = myListCategory.get(position);
         ImageView delete = view.findViewById(R.id.delete_cate);
         ImageView edit = view.findViewById(R.id.edit_cate);
 
@@ -74,11 +81,24 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        myListCategory.remove(position);
                         notifyDataSetChanged();
 
-                        Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-                        // xử lí firebase
+                        // Thêm categories vào Firebase
+                        db = FirebaseDatabase.getInstance();
+                        reference = db.getReference(Constants.TABLE_CATEGORIES);
+                        Categories categories = myListCategory.get(position);
+                        //cập nhập giá trị hiện tại
+                        myListCategory.get(position).setActive("0");
+                        categories.setActive("0");
+                        // Sử dụng title làm khóa
+                        reference.child(title).setValue(categories).addOnCompleteListener(
+                                new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                        );
                     }
                 });
                 builder.setNegativeButton("Không", null);
@@ -102,13 +122,16 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                 EditText etTitle = dialogView.findViewById(R.id.etTitle);
                 EditText etUrl = dialogView.findViewById(R.id.etUrl);
                 Spinner spinnerStatus = dialogView.findViewById(R.id.spinnerStatus);
+                EditText etId = dialogView.findViewById(R.id.etId);
 
                 // Lấy dữ liệu từ danh mục hiện tại
                 String currentTitle = myListCategory.get(position).getTitle();
                 String currentUrl = myListCategory.get(position).getUrl();
                 String currentStatus = myListCategory.get(position).getActive();
+                String currentId = myListCategory.get(position).getPosition();
 
                 // Đặt giá trị ban đầu cho các thành phần trong hộp thoại
+                etId.setText(currentId);
                 etTitle.setText(currentTitle);
                 etUrl.setText(currentUrl);
 
@@ -125,15 +148,30 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                         String editedTitle = etTitle.getText().toString().trim();
                         String editedUrl = etUrl.getText().toString().trim();
                         String editedStatus = String.valueOf(spinnerStatus.getSelectedItemPosition());
-
+                        String editedId = etId.getText().toString().trim();
                         // Cập nhật giá trị của danh mục trong danh sách và cập nhật giao diện
                         myListCategory.get(position).setTitle(editedTitle);
                         myListCategory.get(position).setUrl(editedUrl);
                         myListCategory.get(position).setActive(editedStatus);
+                        myListCategory.get(position).setPosition(editedId);
                         notifyDataSetChanged();
 
                         // cập nhập xuống firebase
-                        Toast.makeText(getContext(), "Category updated", Toast.LENGTH_SHORT).show();
+
+                        // Thêm categories vào Firebase
+                        db = FirebaseDatabase.getInstance();
+                        reference = db.getReference(Constants.TABLE_CATEGORIES);
+                        Categories categories = new Categories(editedId, editedUrl, editedTitle, editedStatus);
+
+                        // Sử dụng title làm khóa
+                        reference.child(title).setValue(categories).addOnCompleteListener(
+                                new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                        );
                     }
                 });
 
