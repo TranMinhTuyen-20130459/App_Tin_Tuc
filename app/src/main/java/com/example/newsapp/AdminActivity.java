@@ -10,17 +10,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.newsapp.data.UsersDao;
-import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ManageAdminFragment;
 import com.example.newsapp.fragment.ManageCategoryFragment;
-import com.example.newsapp.fragment.ManageCustomerFragment;
+import com.example.newsapp.fragment.ManageUserFragment;
 import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
@@ -28,6 +26,7 @@ public class AdminActivity extends AppCompatActivity {
     private BottomNavigationView bt_nav;
     public static List<Users> usersList;
     int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,28 +38,8 @@ public class AdminActivity extends AppCompatActivity {
         String jvson = preferences.getString(Constants.ROLE_ADMIN, "");
         Users user = gson.fromJson(jvson, Users.class); // Chuyển đổi chuỗi JSON thành đối tượng User
 
-        UsersDao usersDao = new UsersDao();
-        usersDao.getAllUserList(new UsersDao.UserCallback<List<Users>>() {
-            @Override
-            public void onSuccess(List<Users> data) {
-                // Dữ liệu người dùng đã được lấy thành công
-                // Bạn có thể sử dụng danh sách người dùng ở đây
-                usersList = data;
-
-                // Gửi dữ liệu vào fragment Customer
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("dataList", (Serializable) usersList);
-                ManageCustomerFragment manageCustomerFragment = new ManageCustomerFragment();
-                manageCustomerFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, manageCustomerFragment).commit();
-            }
-
-
-            @Override
-            public void onError(Exception e) {
-                // Xử lý lỗi nếu có
-            }
-        });
+        //Load data User
+        loadUsersData();
 
         bt_nav = findViewById(R.id.bottom_nav_admin);
         // Thiết lập sự kiện cho BottomNavigationView
@@ -71,10 +50,10 @@ public class AdminActivity extends AppCompatActivity {
                     case R.id.manage_user: //quản lý khách hàng
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("dataList", (Serializable) usersList);
-                        ManageCustomerFragment manageCustomerFragment = new ManageCustomerFragment();
-                        manageCustomerFragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, manageCustomerFragment).commit();
-                bt_nav.getMenu().findItem(R.id.manage_user).setChecked(true);
+                        ManageUserFragment manageUserFragment = new ManageUserFragment();
+                        manageUserFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, manageUserFragment).commit();
+                        bt_nav.getMenu().findItem(R.id.manage_user).setChecked(true);
                         break;
 
                     case R.id.manage_cate: //quản lý danh mục
@@ -113,5 +92,30 @@ public class AdminActivity extends AppCompatActivity {
             backPressed = currentTime;
         }
     }
+
+    public void loadUsersData() {
+        UsersDao usersDao = new UsersDao(getApplicationContext());
+        usersDao.getAllUserList(new UsersDao.UserCallback<List<Users>>() {
+            @Override
+            public void onSuccess(List<Users> data) {
+                // Dữ liệu người dùng đã được cập nhật thành công
+                // Cập nhật giao diện người dùng tại đây
+                usersList = data;
+
+                // Gửi dữ liệu vào fragment Customer
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("dataList", (Serializable) usersList);
+                ManageUserFragment manageUserFragment = new ManageUserFragment();
+                manageUserFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, manageUserFragment).commit();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
 
 }
