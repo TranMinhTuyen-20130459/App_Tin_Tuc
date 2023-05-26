@@ -70,7 +70,7 @@ public class DataListAdapter extends ArrayAdapter<News> {
         ImageView image = view.findViewById(R.id.img);
         title.setText(mDataList.get(position).getTitle());
         timer.setText(mDataList.get(position).getDate());
-//        Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
+        Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
 
         /* Thực hiện các thao tác nhấn và nhấn giữ sẽ hiển thị một menu cho phép người dùng
          * xóa một hay nhiều item.
