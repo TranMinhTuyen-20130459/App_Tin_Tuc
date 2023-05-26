@@ -2,17 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/white">
 
-    >
     <TextView
+        android:id="@+id/fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Profile Fragment"
+        android:text="Trang cá nhân"
         android:textColor="@color/black"
-        android:textSize="30dp"
-        />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btn_login"
@@ -20,6 +19,23 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Đăng nhập"
-        android:textColor="@color/white"></Button>
+        android:textColor="@color/white" />
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="Đăng xuất"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_viewed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/tin_da_xem"
+        android:textColor="@color/white" />
 </RelativeLayout>
