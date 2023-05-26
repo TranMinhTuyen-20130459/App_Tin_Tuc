@@ -42,13 +42,17 @@ public class DataListAdapter extends ArrayAdapter<News> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.news_item, null);
         }
+        try {
+            TextView title = view.findViewById(R.id.title);
+            TextView timer = view.findViewById(R.id.time);
+            ImageView image = view.findViewById(R.id.img);
+            title.setText(mDataList.get(position).getTitle());
+            timer.setText(mDataList.get(position).getDate());
 
-        TextView title = view.findViewById(R.id.title);
-        TextView timer = view.findViewById(R.id.time);
-        ImageView image = view.findViewById(R.id.img);
-        title.setText(mDataList.get(position).getTitle());
-        timer.setText(mDataList.get(position).getDate());
-        Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
+            Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return view;
     }
