@@ -18,14 +18,18 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.newsapp.MainActivity;
 import com.example.newsapp.R;
 import com.example.newsapp.SearchActivity;
+import com.example.newsapp.adapter.CategoryAdapter;
 import com.example.newsapp.adapter.ViewPagerAdapter;
+import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.child.HomeFragment;
+import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 // fragment cha chứa các fragment con (các danh mục)
 public class MainFragment extends Fragment {
@@ -37,9 +41,7 @@ public class MainFragment extends Fragment {
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
     TextView tv_search;
-
-    String[] danh_muc = {"Trang chủ", "Thời sự", "Thế giới", "Pháp luât", "Kinh doanh", "Công nghệ", "Xe"
-            , "Nhịp sống trẻ", "Văn hóa", "Giải trí", "Thể thao", "Giáo dục", "Khoa học", "Sức khỏe"};
+    CategoriesDao categoriesDao = new CategoriesDao();
 
     @Nullable
     @Override
@@ -69,20 +71,24 @@ public class MainFragment extends Fragment {
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
         // đọc từ database
-        for (String item : danh_muc) {
-            adapter.addFragment(new HomeFragment(), item);
-        }
+        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
+            @Override
+            public void onSuccess(List<Categories> data){
+                for (Categories category : data) {
+                    if(category.getActive().equals("1")) adapter.addFragment(new HomeFragment(), category.getTitle());
+                }
 
-//        viewPager.setAdapter(adapter);
-
-
-        // Kết nối TabLayout với ViewPager
-        tabLayout.setupWithViewPager(viewPager);
-        // Khởi tạo adapter cho ViewPager
-        viewPager.setAdapter(adapter);
-
-
-//        setUserVisibleHint(true);
+                // Kết nối TabLayout với ViewPager
+                tabLayout.setupWithViewPager(viewPager);
+                // Khởi tạo adapter cho ViewPager
+                viewPager.setAdapter(adapter);
+            }
+            @Override
+            public void onError(Exception e) {
+                // Xử lý lỗi nếu có
+                System.out.println("Error: " + e.toString());
+            }
+        });
         return view;
     }
 

@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         }
 
         mListView = view.findViewById(R.id.list_view_home);
-        DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList, isViewed, mListView);
+        DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
         mListView.setAdapter(adapter);
         // chi tiết từng bài viết
         if (!isViewed) {

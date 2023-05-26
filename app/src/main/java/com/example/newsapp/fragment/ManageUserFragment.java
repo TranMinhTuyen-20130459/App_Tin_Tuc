@@ -61,7 +61,7 @@ public class ManageUserFragment extends Fragment {
                 usersList.clear();
                 String text = editTextSearch.getText().toString().trim();
                 for (Users user:
-                     usersListFull) {
+                        usersListFull) {
                     if (user.getUsername().contains(text)) {
                         usersList.add(user);
                         listView.invalidateViews();
@@ -107,30 +107,5 @@ public class ManageUserFragment extends Fragment {
         builder.setNegativeButton("Hủy", null);
         builder.show();
     }
-
-//    public void reloadData() {
-//        UsersDao usersDao = new UsersDao(getContext());
-//        usersDao.getAllUserList(new UsersDao.UserCallback<List<Users>>() {
-//            @Override
-//            public void onSuccess(List<Users> data) {
-//                // Dữ liệu người dùng đã được cập nhật thành công
-//                // Cập nhật giao diện người dùng tại đây
-//                usersList = data;
-//                adapter.notifyDataSetChanged();
-//
-//                // Gửi dữ liệu vào fragment Customer
-////                Bundle bundle = new Bundle();
-////                bundle.putSerializable("dataList", (Serializable) usersList);
-////                EditUserDialogFragment editUserDialogFragment = new EditUserDialogFragment();
-////                editUserDialogFragment.setArguments(bundle);
-//                getParentFragmentManager().beginTransaction().commit();
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//                // Xử lý lỗi nếu có
-//            }
-//        });
-//    }
 
 }
