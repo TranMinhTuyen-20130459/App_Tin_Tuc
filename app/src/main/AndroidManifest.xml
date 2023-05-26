@@ -23,7 +23,7 @@
             android:label="Tin đã xem"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AdminActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
