@@ -1,9 +1,21 @@
 package com.example.newsapp.models;
 
-public class Users {
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Users implements Serializable {
+    @Override
+    public String toString() {
+        return "Users{" +
+                "role='" + role + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullname='" + fullname + '\'' +
+                '}';
+    }
+
     String role;
-
-
     String username;
     String password;
     String fullname;
@@ -48,5 +60,6 @@ public class Users {
         this.password = password;
         this.fullname = fullname;
     }
+
 
 }
