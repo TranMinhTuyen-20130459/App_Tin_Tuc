@@ -16,18 +16,19 @@ import androidx.fragment.app.Fragment;
 import com.example.newsapp.fragment.search.HistorySearchFragment;
 import com.example.newsapp.fragment.search.ResultSearchFragment;
 import com.example.newsapp.models.News;
+import com.example.newsapp.utils.ManagerHistorySearch;
 import com.example.newsapp.utils.SearchNews;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
 
     public EditText search_news; // thanh tìm kiếm
     public HistorySearchFragment frHistorySearch; // fragment lịch sử tìm kiếm
     public ResultSearchFragment frResultSearch; // fragment kết quả tìm kiếm
-
+    public ManagerHistorySearch managerHistorySearch;
     public static ArrayList<ArrayList<News>> list_all_news = new ArrayList<>();
 
     /**
@@ -38,16 +39,22 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
 
+        System.out.println("Đây là hàm tạo SearchActivity");
+
+        setContentView(R.layout.activity_search);
         search_news = findViewById(R.id.search_news);
 
-        List<String> list_history_search = Arrays.asList("messi", "ronaldo", "neymar");
+        managerHistorySearch = new ManagerHistorySearch(this);
+
+        Set<String> set_history_search = managerHistorySearch.getSearchHistory();
+        List<String> list_history_search = new ArrayList<>(set_history_search);
         createFragmentHistorySearch(list_history_search);
+
+        System.out.println("số lượng lịch sử tìm kiếm: " + list_history_search.size());
 
         Bundle bundle = getIntent().getExtras();
         list_all_news = (ArrayList<ArrayList<News>>) bundle.getSerializable("list_all_news");
-
         // Toast.makeText(this, list_all_news.size() + "", Toast.LENGTH_SHORT).show();
     }
 
@@ -94,6 +101,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     String keyword = search_news.getText().toString();
@@ -101,10 +109,20 @@ public class SearchActivity extends AppCompatActivity {
                     if (keyword.isEmpty()) {
                         Toast.makeText(getBaseContext(), "Bạn hãy nhập từ khóa để tìm kiếm", Toast.LENGTH_SHORT).show();
                     } else {
-                        // xóa đi Fragment
+                        // xóa đi Fragment kết quả tìm kiếm
                         removeFragment(frResultSearch);
 
                         List<News> list_news = SearchNews.searchByKeyword(list_all_news, keyword);
+                        managerHistorySearch.saveSearchQuery(keyword);
+
+                        // xóa đi Fragment lịch sử tìm kiếm cũ
+                        removeFragment(frHistorySearch);
+
+                        // tạo ra Fragment lịch sử tìm kiếm mới
+                        createFragmentHistorySearch(new ArrayList<>(managerHistorySearch.getSearchHistory()));
+
+                        // ẩn Fragment đó đi
+                        hideFragment(frHistorySearch);
 
                         if (list_news.size() > 0) {
                             // khởi tạo ra Fragment mới
@@ -112,6 +130,7 @@ public class SearchActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(getBaseContext(), "Không có kết quả", Toast.LENGTH_SHORT).show();
                         }
+
                         return true;
                     }
                 }
