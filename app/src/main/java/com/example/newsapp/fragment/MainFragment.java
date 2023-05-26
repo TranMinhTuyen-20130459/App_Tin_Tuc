@@ -1,13 +1,11 @@
 package com.example.newsapp.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.newsapp.MainActivity;
-import com.example.newsapp.R;
-import com.example.newsapp.SearchActivity;
-import com.example.newsapp.adapter.ViewPagerAdapter;
+import com.example.newsapp.adapter.CategoryAdapter;
+import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.child.HomeFragment;
+import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
+import com.example.newsapp.R;
+import com.example.newsapp.adapter.ViewPagerAdapter;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 // fragment cha chứa các fragment con (các danh mục)
 public class MainFragment extends Fragment {
@@ -36,27 +35,12 @@ public class MainFragment extends Fragment {
     private ViewPager viewPager;
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
-
-    TextView tv_search;
+    CategoriesDao categoriesDao = new CategoriesDao();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-
-        tv_search = view.findViewById(R.id.search_text_view);
-        tv_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("list_all_news", (Serializable) MainActivity.list_all_news); // => chuyển danh sách tất cả tin tức qua SearchActivity
-
-                Intent intent_activity_search = new Intent(getContext(), SearchActivity.class);
-                intent_activity_search.putExtras(bundle);
-                startActivity(intent_activity_search);
-            }
-        });
-
 
         // Khởi tạo đối tượng ViewPager và TabLayout
         viewPager = view.findViewById(R.id.view_pager);
@@ -66,22 +50,40 @@ public class MainFragment extends Fragment {
             mDataList = (ArrayList<ArrayList<News>>) bundle.getSerializable(Constants.LIST_TOTAL_CATE);
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
-        // đọc từ database
-        adapter.addFragment(new HomeFragment(), "Trang chủ");
-        adapter.addFragment(new HomeFragment(), "Thời sự");
-        adapter.addFragment(new HomeFragment(), "Thể thao");
-        adapter.addFragment(new HomeFragment(), "Đời sống");
-        adapter.addFragment(new HomeFragment(), "Giải trí");
-//        viewPager.setAdapter(adapter);
+        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
+            @Override
+            public void onSuccess(List<Categories> data){
+                // đọc từ database
+                for(Categories c : data ) {
+                    if(c.getActive().equals("1")) adapter.addFragment(new HomeFragment(), c.getTitle());
+                }
+                // Kết nối TabLayout với ViewPager
+                tabLayout.setupWithViewPager(viewPager);
+                // Khởi tạo adapter cho ViewPager
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
 
+                    @Override
+                    public void onPageSelected(int position) {
 
-        // Kết nối TabLayout với ViewPager
-        tabLayout.setupWithViewPager(viewPager);
-        // Khởi tạo adapter cho ViewPager
-        viewPager.setAdapter(adapter);
+                    }
 
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                    }
+                });
+                viewPager.setAdapter(adapter);
 
-//        setUserVisibleHint(true);
+            }
+            @Override
+            public void onError(Exception e) {
+                // Xử lý lỗi nếu có
+                System.out.println("Error: " + e.toString());
+            }
+        });
+
         return view;
     }
 

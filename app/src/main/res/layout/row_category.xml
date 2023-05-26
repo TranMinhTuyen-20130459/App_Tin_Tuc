@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/id_category_stt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_x="12dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="1"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/id_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_x="60dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="Tin mới nhất"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/id_category_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_x="210dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="1" />
+
+        <ImageView
+            android:id="@+id/delete_cate"
+            android:layout_width="36dp"
+            android:layout_height="30dp"
+            android:layout_x="260dp"
+            android:layout_y="7dp"
+            android:src="@drawable/delete_icon"></ImageView>
+
+        <ImageView
+            android:id="@+id/edit_cate"
+            android:layout_width="36dp"
+            android:layout_height="30dp"
+            android:layout_x="303dp"
+            android:layout_y="5dp"
+            android:src="@drawable/edit_icon"></ImageView>
+
+</AbsoluteLayout>
