@@ -2,9 +2,13 @@ package com.example.newsapp.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,11 +24,14 @@ import com.example.newsapp.data.UsersDao;
 import com.example.newsapp.models.Users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManageUserFragment extends Fragment {
+    EditText editTextSearch;
     ListView listView;
     List<Users> usersList;
+    List<Users> usersListFull;
     UserListAdapter adapter;
 
     @Nullable
@@ -40,6 +47,34 @@ public class ManageUserFragment extends Fragment {
         listView.setAdapter(adapter);
         adapter.setManageCustomerFragment(this);
         listView.setAdapter(adapter);
+
+        editTextSearch = view.findViewById(R.id.search_user);
+        usersListFull = (ArrayList)((ArrayList)usersList).clone();
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                usersList.clear();
+                String text = editTextSearch.getText().toString().trim();
+                for (Users user:
+                     usersListFull) {
+                    if (user.getUsername().contains(text)) {
+                        usersList.add(user);
+                        listView.invalidateViews();
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         return view;
     }
