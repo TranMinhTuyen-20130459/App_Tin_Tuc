@@ -2,7 +2,6 @@ package com.example.newsapp.utils;
 
 
 import android.app.ProgressDialog;
-
 import android.os.AsyncTask;
 
 import com.example.newsapp.MainActivity;
@@ -11,15 +10,17 @@ import com.example.newsapp.models.News;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ReadRSS extends AsyncTask<String, Void, String> {
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+public class ReadRSS extends AsyncTask<String, Void, Document> {
     private MainActivity mainActivity;
     ArrayList<News> listNews = new ArrayList<>();
 
@@ -34,38 +35,34 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        StringBuilder content = new StringBuilder();
-        try {
-            URL url = new URL(strings[0]);
-            InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                content.append(line);
-            }
-            bufferedReader.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return content.toString();
+    protected void onPreExecute() {
+        dialog = new ProgressDialog(mainActivity);
+        dialog.setMessage("Đang tải...");
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected Document doInBackground(String... urls) throws RuntimeException {
+        try {
+            return DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder()
+                    .parse(urls[0]);
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void onPostExecute(Document doc) {
         dialog.dismiss();
         XMLDOMParser xmldomParser = new XMLDOMParser();
-        Document document = xmldomParser.getDocument(s);
 
-        NodeList nodeList = document.getElementsByTagName("item");
-        NodeList nodeListDescription = document.getElementsByTagName("description");
+        NodeList nodeList = doc.getElementsByTagName("item");
+        NodeList nodeListDescription = doc.getElementsByTagName("description");
 
-        String title = "";
-        String link = "";
-        String linkImage = "";
-        String date = "";
+        String title, link, linkImage = null, date;
+
         for (int i = 0; i < nodeList.getLength(); i++) {
             String cdata = nodeListDescription.item(i + 1).getTextContent();
             Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
@@ -85,13 +82,4 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
 
         mainActivity.onRssRead();
     }
-
-    @Override
-    protected void onPreExecute() {
-        dialog = new ProgressDialog(mainActivity);
-        dialog.setMessage("Đang tải...");
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
 }

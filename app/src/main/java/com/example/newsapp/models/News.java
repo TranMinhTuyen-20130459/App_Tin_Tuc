@@ -1,5 +1,7 @@
 package com.example.newsapp.models;
 
+import androidx.annotation.NonNull;
+
 import com.example.newsapp.utils.Format;
 
 import java.io.Serializable;
@@ -11,6 +13,9 @@ public class News implements Serializable {
     private String date;
     String des;
     private String category;
+    private boolean isSelected;
+
+    public News() {}
 
     public String getTitle() {
         return title;
@@ -52,10 +57,24 @@ public class News implements Serializable {
         this.category = category;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public News(String title, String link, String linkImage, String date) {
         this.title = title;
         this.link = link;
         this.linkImage = linkImage;
         this.date = date;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "News{title='" + title + "', isSelected=" + isSelected + "}";
     }
 }

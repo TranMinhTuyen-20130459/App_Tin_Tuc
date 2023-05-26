@@ -2,8 +2,6 @@ package com.example.newsapp;
 
 import static com.example.newsapp.NewsApp.CHANNEL_ID;
 
-import static java.security.AccessController.getContext;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -21,7 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,12 +27,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 
-import com.example.newsapp.adapter.CategoryAdapter;
-import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.fragment.WidgetFragment;
-import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.ReadRSS;
@@ -49,11 +43,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 100;
+
+    private final String[] rssUrls = {
+            "https://vnexpress.net/rss/tin-moi-nhat.rss",
+            "https://vnexpress.net/rss/thoi-su.rss",
+            "https://vnexpress.net/rss/the-thao.rss",
+            "https://vnexpress.net/rss/the-gioi.rss",
+            "https://vnexpress.net/rss/giai-tri.rss"
+    };
 
     int numberOfTitlesLoaded = 0;
     private BottomNavigationView bt_nav;
@@ -62,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
     long lastClickTime = 0;
     private long backPressed;
     private int count;
-    CategoriesDao categoriesDao = new CategoriesDao();
+
     ArrayList<ArrayList<News>> listAll;
+
+    public static Object list_all_news = new ArrayList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -71,79 +74,66 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bt_nav = findViewById(R.id.bottom_nav);
         // load dữ liệu bảng danh mục ngay tại đây
         listAll = new ArrayList<>();
-        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
-            @Override
-            public void onSuccess(List<Categories> data){
-                ArrayList<String> rssUrls = new ArrayList<>();
-                for(Categories c : data ) {
-                    if(c.getActive().equals("1")) rssUrls.add(c.getUrl());
-                }
 
-                // kiểm tra có mạng chưa
-                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                if (!isConnected) { // nếu chưa có mạng
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Bạn cần kết nối internet để sử dụng ứng dụng này")
-                            .setTitle("Không có kết nối internet");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
-                    // nếu có mạng đọc link RSS
-                    for (String url : rssUrls) {
-                        ReadRSS readRSS = new ReadRSS(MainActivity.this);
-                        readRSS.execute(url);
-                        listAll.add(readRSS.getListNews());
-                    }
-                }
-
-                bt_nav.setOnNavigationItemSelectedListener(item -> {
-                    switch (item.getItemId()) {
-                        case R.id.action_home: // trang chủ
-                            if (!listAll.isEmpty()) { // Kiểm tra danh sách có phần tử nào hay chưa
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("dataList", listAll);
-                                MainFragment mainFragment = new MainFragment();
-                                mainFragment.setArguments(bundle);
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
-                                // set checked cho menu item Home
-                                bt_nav.getMenu().findItem(R.id.action_home).setChecked(true);
-                            } else { // Nếu chưa có dữ liệu RSS
-                                progressDialog = new ProgressDialog(MainActivity.this);
-                                progressDialog.setMessage("Đang tải dữ liệu, vui lòng đợi...");
-                                progressDialog.setCancelable(false);
-                                progressDialog.show();
-                                new Handler().postDelayed(() -> {
-                                    MainActivity.this.recreate(); // reload lại Activity
-                                    progressDialog.dismiss(); // Ẩn Dialog
-                                }, 500); // Giả lập thời gian tải dữ liệu là 0.5 giây
-                            }
-                            break;
-
-                        case R.id.action_profile: // trang cá nhân
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-                            bt_nav.getMenu().findItem(R.id.action_profile).setChecked(true);
-                            break;
-
-                        case R.id.action_widget: // trang tiện ích
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WidgetFragment()).commit();
-                            bt_nav.getMenu().findItem(R.id.action_widget).setChecked(true);
-                            break;
-                    }
-                    return true;
-                });
+        // kiểm tra có mạng chưa
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (!isConnected) { // nếu chưa có mạng
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Bạn cần kết nối internet để sử dụng ứng dụng này")
+                    .setTitle("Không có kết nối internet");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            // nếu có mạng đọc link RSS
+            for (String url : rssUrls) {
+                ReadRSS readRSS = new ReadRSS(MainActivity.this);
+                readRSS.execute(url);
+                listAll.add(readRSS.getListNews());
             }
-            @Override
-            public void onError(Exception e) {
-                // Xử lý lỗi nếu có
-                System.out.println("Error: " + e.toString());
+            list_all_news = listAll;
+        }
+
+        bt_nav.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_home: // trang chủ
+                    if (!listAll.isEmpty()) { // Kiểm tra danh sách có phần tử nào hay chưa
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
+                        MainFragment mainFragment = new MainFragment();
+                        mainFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
+                        // set checked cho menu item Home
+                        bt_nav.getMenu().findItem(R.id.action_home).setChecked(true);
+                    } else { // Nếu chưa có dữ liệu RSS
+                        progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Đang tải dữ liệu, vui lòng đợi...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                        new Handler().postDelayed(() -> {
+                            MainActivity.this.recreate(); // reload lại Activity
+                            progressDialog.dismiss(); // Ẩn Dialog
+                        }, 500); // Giả lập thời gian tải dữ liệu là 0.5 giây
+                    }
+                    break;
+
+                case R.id.action_profile: // trang cá nhân
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                    bt_nav.getMenu().findItem(R.id.action_profile).setChecked(true);
+                    break;
+
+                case R.id.action_widget: // trang tiện ích
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WidgetFragment()).commit();
+                    bt_nav.getMenu().findItem(R.id.action_widget).setChecked(true);
+                    break;
             }
+            return true;
         });
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -211,20 +201,17 @@ public class MainActivity extends AppCompatActivity {
         numberOfTitlesLoaded++;
         // Nếu đã có dữ liệu RSS, chuyển sang màn hình Home
         /*
-         * Trang MainFragment là cha của Fragment danh mục như: thể thao (SportFragment) ,đời sống, ..(ShoppingFragment)
+         * Trang MainFragment là cha của Fragment danh mục
          * */
         // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
-        if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
-            Log.d("TAG", "onRssRead: ");
+        if (numberOfTitlesLoaded == rssUrls.length) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
             MainFragment mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
-        }
 
-        /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
-        if (numberOfTitlesLoaded >= 5 && listAll.size() >= 5) {
+            /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
             News news = findLatestNews();
             pushNotification(news);
         }
@@ -232,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Hàm này sẽ trả về tin mới nhất trong {@code listAll} vừa tải xong.
+     *
      * @return tin mới nhất.
      */
     private News findLatestNews() {

@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TablayoutFragViewpager"
+rootProject.name = "NewsApp"
 include ':app'
