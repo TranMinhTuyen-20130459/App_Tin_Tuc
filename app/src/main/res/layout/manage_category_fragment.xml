@@ -86,7 +86,7 @@
             android:layout_x="60dp"
             android:layout_y="4dp"
             android:padding="4dp"
-            android:text="Nội dung"
+            android:text="TITLE"
             android:textSize="16dp" />
 
         <TextView
@@ -97,7 +97,7 @@
             android:layout_x="193dp"
             android:layout_y="4dp"
             android:padding="4dp"
-            android:text="Status" />
+            android:text="STATUS" />
 
         <TextView
             android:id="@+id/textView"
@@ -106,7 +106,7 @@
             android:layout_x="259dp"
             android:layout_y="4dp"
             android:padding="4dp"
-            android:text="Chức năng" />
+            android:text="SỬA/XÓA" />
     </AbsoluteLayout>
     <ListView
         android:id="@+id/list_view"

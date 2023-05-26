@@ -3,7 +3,6 @@ package com.example.newsapp.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.newsapp.R;
-import com.example.newsapp.RegisterActivity;
 import com.example.newsapp.adapter.CategoryAdapter;
 import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.models.Categories;
-import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -139,7 +135,7 @@ public class ManageCategoryFragment extends Fragment {
                 Categories categories = new Categories(id, url, title, "1");
 
                 // Sử dụng title làm khóa
-                reference.child(title).setValue(categories).addOnCompleteListener(
+                reference.child(id).setValue(categories).addOnCompleteListener(
                    new OnCompleteListener<Void>() {
                        @Override
                        public void onComplete(@NonNull Task<Void> task) {
