@@ -38,6 +38,9 @@ public class MainFragment extends Fragment {
     static int numberOfTitlesLoaded = 0;
     TextView tv_search;
 
+    String[] danh_muc = {"Trang chủ", "Thời sự", "Thế giới", "Pháp luât", "Kinh doanh", "Công nghệ", "Xe"
+            , "Nhịp sống trẻ", "Văn hóa", "Giải trí", "Thể thao", "Giáo dục", "Khoa học", "Sức khỏe"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,11 +69,10 @@ public class MainFragment extends Fragment {
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
         // đọc từ database
-        adapter.addFragment(new HomeFragment(), "Trang chủ");
-        adapter.addFragment(new HomeFragment(), "Thời sự");
-        adapter.addFragment(new HomeFragment(), "Thể thao");
-        adapter.addFragment(new HomeFragment(), "Đời sống");
-        adapter.addFragment(new HomeFragment(), "Giải trí");
+        for (String item : danh_muc) {
+            adapter.addFragment(new HomeFragment(), item);
+        }
+
 //        viewPager.setAdapter(adapter);
 
 

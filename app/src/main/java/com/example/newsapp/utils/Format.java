@@ -1,5 +1,6 @@
 package com.example.newsapp.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -7,7 +8,7 @@ import java.util.TimeZone;
 
 public class Format {
 
-    public static String formartDate(String inputDate){
+    public static String formartDate(String inputDate) {
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         inputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         String outputDate = "";
@@ -21,5 +22,11 @@ public class Format {
             System.out.println("Invalid date format");
             return inputDate;
         }
+    }
+
+    public static String formatDateTuoiTre(String inputDate) {
+        String[] parts = inputDate.split(" ");
+        String datePart = parts[1] + " " + parts[2] + " " + parts[3];
+        return datePart;
     }
 }

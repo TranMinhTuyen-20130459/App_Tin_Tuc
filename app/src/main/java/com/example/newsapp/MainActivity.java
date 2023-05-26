@@ -49,11 +49,20 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 100;
 
     private final String[] rssUrls = {
-            "https://vnexpress.net/rss/tin-moi-nhat.rss",
-            "https://vnexpress.net/rss/thoi-su.rss",
-            "https://vnexpress.net/rss/the-thao.rss",
-            "https://vnexpress.net/rss/the-gioi.rss",
-            "https://vnexpress.net/rss/giai-tri.rss"
+            "https://tuoitre.vn/rss/tin-moi-nhat.rss",
+            "https://tuoitre.vn/rss/thoi-su.rss",
+            "https://tuoitre.vn/rss/the-gioi.rss",
+            "https://tuoitre.vn/rss/phap-luat.rss",
+            "https://tuoitre.vn/rss/kinh-doanh.rss",
+            "https://tuoitre.vn/rss/nhip-song-so.rss",
+            "https://tuoitre.vn/rss/xe.rss",
+            "https://tuoitre.vn/rss/nhip-song-tre.rss",
+            "https://tuoitre.vn/rss/van-hoa.rss",
+            "https://tuoitre.vn/rss/giai-tri.rss",
+            "https://tuoitre.vn/rss/the-thao.rss",
+            "https://tuoitre.vn/rss/giao-duc.rss",
+            "https://tuoitre.vn/rss/khoa-hoc.rss",
+            "https://tuoitre.vn/rss/suc-khoe.rss"
     };
 
     int numberOfTitlesLoaded = 0;
@@ -209,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
             MainFragment mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commitAllowingStateLoss();
 
             /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
             News news = findLatestNews();

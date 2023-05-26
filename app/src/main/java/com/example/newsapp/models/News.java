@@ -15,7 +15,8 @@ public class News implements Serializable {
     private String category;
     private boolean isSelected;
 
-    public News() {}
+    public News() {
+    }
 
     public String getTitle() {
         return title;
@@ -42,7 +43,7 @@ public class News implements Serializable {
     }
 
     public String getDate() {
-        return Format.formartDate(date);
+        return Format.formatDateTuoiTre(date);
     }
 
     public void setDate(String date) {

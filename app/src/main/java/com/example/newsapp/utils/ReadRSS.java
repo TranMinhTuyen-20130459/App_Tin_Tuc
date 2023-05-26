@@ -59,27 +59,52 @@ public class ReadRSS extends AsyncTask<String, Void, Document> {
         XMLDOMParser xmldomParser = new XMLDOMParser();
 
         NodeList nodeList = doc.getElementsByTagName("item");
-        NodeList nodeListDescription = doc.getElementsByTagName("description");
 
-        String title, link, linkImage = null, date;
+        String title = "", link = "", linkImage = null, date = "";
 
         for (int i = 0; i < nodeList.getLength(); i++) {
-            String cdata = nodeListDescription.item(i + 1).getTextContent();
-            Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-            Matcher m = p.matcher(cdata);
-            if (m.find()) {
-                linkImage = m.group(1);
-            }
             Element element = (Element) nodeList.item(i);
-            title = xmldomParser.getValue(element, "title");
-            link = xmldomParser.getValue(element, "guid");
-            date = xmldomParser.getValue(element, "pubDate");
-            // số bài trong 1 danh mục
-//            if (listNews.size() < 20) {
+
+            NodeList titleElement = element.getElementsByTagName("title");
+
+            if (titleElement.getLength() > 0) {
+                title = titleElement.item(0).getTextContent();
+            }
+
+            NodeList linkElement = element.getElementsByTagName("link");
+
+            if (linkElement.getLength() > 0) {
+                link = linkElement.item(0).getTextContent();
+            }
+
+            NodeList dateElement = element.getElementsByTagName("pubDate");
+
+            if (dateElement.getLength() > 0) {
+                date = dateElement.item(0).getTextContent();
+            }
+
+
+            // Truy cập phần tử CDATA trong phần mô tả (description)
+            NodeList descriptionList = element.getElementsByTagName("description");
+            if (descriptionList.getLength() > 0) {
+                Element descriptionElement = (Element) descriptionList.item(0);
+                // Lấy nội dung trong phần tử CDATA
+                String cdata = descriptionElement.getTextContent();
+
+                // Trích xuất đường dẫn hình ảnh từ phần tử CDATA
+                Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+                Matcher m = p.matcher(cdata);
+                if (m.find()) {
+                    linkImage = m.group(1);
+                }
+            }
+
+            // Thêm tin tức vào danh sách
             listNews.add(new News(title, link, linkImage, date));
-//            }
         }
 
         mainActivity.onRssRead();
     }
+
+
 }
