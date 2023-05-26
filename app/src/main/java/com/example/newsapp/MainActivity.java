@@ -2,8 +2,6 @@ package com.example.newsapp;
 
 import static com.example.newsapp.NewsApp.CHANNEL_ID;
 
-import static java.security.AccessController.getContext;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -30,11 +28,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 
-import com.example.newsapp.adapter.CategoryAdapter;
 import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.fragment.WidgetFragment;
+import com.example.newsapp.fragment.child.HomeFragment;
 import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
@@ -55,6 +53,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 100;
 
+
     int numberOfTitlesLoaded = 0;
     private BottomNavigationView bt_nav;
     @SuppressWarnings("deprecation")
@@ -62,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
     long lastClickTime = 0;
     private long backPressed;
     private int count;
-    CategoriesDao categoriesDao = new CategoriesDao();
+
     ArrayList<ArrayList<News>> listAll;
+
+    public static ArrayList<ArrayList<News>> list_all_news = new ArrayList<>();
+    CategoriesDao categoriesDao = new CategoriesDao();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -71,8 +73,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bt_nav = findViewById(R.id.bottom_nav);
         // load dữ liệu bảng danh mục ngay tại đây
+
+        // kiểm tra có mạng chưa
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         listAll = new ArrayList<>();
         categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
             @Override
@@ -99,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         readRSS.execute(url);
                         listAll.add(readRSS.getListNews());
                     }
+                    list_all_news = listAll;
                 }
 
                 bt_nav.setOnNavigationItemSelectedListener(item -> {
@@ -143,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Error: " + e.toString());
             }
         });
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -211,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         numberOfTitlesLoaded++;
         // Nếu đã có dữ liệu RSS, chuyển sang màn hình Home
         /*
-         * Trang MainFragment là cha của Fragment danh mục như: thể thao (SportFragment) ,đời sống, ..(ShoppingFragment)
+         * Trang MainFragment là cha của Fragment danh mục
          * */
         // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
         if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
@@ -232,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Hàm này sẽ trả về tin mới nhất trong {@code listAll} vừa tải xong.
+     *
      * @return tin mới nhất.
      */
     private News findLatestNews() {
