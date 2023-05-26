@@ -13,7 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.newsapp.adapter.CategoryAdapter;
+import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.child.HomeFragment;
+import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.ViewPagerAdapter;
@@ -21,6 +24,7 @@ import com.example.newsapp.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // fragment cha chứa các fragment con (các danh mục)
 public class MainFragment extends Fragment {
@@ -31,6 +35,7 @@ public class MainFragment extends Fragment {
     private ViewPager viewPager;
     private EditText searchEditText;
     static int numberOfTitlesLoaded = 0;
+    CategoriesDao categoriesDao = new CategoriesDao();
 
     @Nullable
     @Override
@@ -45,61 +50,40 @@ public class MainFragment extends Fragment {
             mDataList = (ArrayList<ArrayList<News>>) bundle.getSerializable(Constants.LIST_TOTAL_CATE);
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mDataList);
-        // đọc từ database
-        adapter.addFragment(new HomeFragment(), "Trang chủ");
-        adapter.addFragment(new HomeFragment(), "Thời sự");
-        adapter.addFragment(new HomeFragment(), "Thể thao");
-        adapter.addFragment(new HomeFragment(), "Đời sống");
-        adapter.addFragment(new HomeFragment(), "Giải trí");
-//        viewPager.setAdapter(adapter);
-
-
-
-        // Kết nối TabLayout với ViewPager
-        tabLayout.setupWithViewPager(viewPager);
-        // Khởi tạo adapter cho ViewPager
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onSuccess(List<Categories> data){
+                // đọc từ database
+                for(Categories c : data ) {
+                    if(c.getActive().equals("1")) adapter.addFragment(new HomeFragment(), c.getTitle());
+                }
+                // Kết nối TabLayout với ViewPager
+                tabLayout.setupWithViewPager(viewPager);
+                // Khởi tạo adapter cho ViewPager
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                    }
+                });
+                viewPager.setAdapter(adapter);
+
             }
-
             @Override
-            public void onPageSelected(int position) {
-                // Xử lý khi người dùng chọn tab
-//                switch (position) {
-//                    case 0:
-//                        // Mở HomeFragment (danh mục Trang chủ)
-//                        HomeFragment homeFragment = new HomeFragment();
-//                        arriveFragment(homeFragment, "main", position);
-//                        break;
-//                    case 1: // danh mục thời sự
-//                        PolicalFragment profileFragment = new PolicalFragment();
-//                        arriveFragment(profileFragment, "data", position);
-//                        break;
-//                    case 2:
-//                        // Mở SportFragment (danh mục thể thao)
-//                        SportFragment sportFragment = new SportFragment();
-//                        arriveFragment(sportFragment, "data", position);
-//                        break;
-//                    case 3:
-//                        ShoppingFragment shoppingFragment = new ShoppingFragment();
-//                        arriveFragment(shoppingFragment, "data", position);
-//                        break;
-//                    case 4:
-//                        EntertainmentFragment entertainmentFragment = new EntertainmentFragment();
-//                        arriveFragment(entertainmentFragment, "data", position);
-//                        break;
-//                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onError(Exception e) {
+                // Xử lý lỗi nếu có
+                System.out.println("Error: " + e.toString());
             }
         });
-        viewPager.setAdapter(adapter);
 
-
-//        setUserVisibleHint(true);
         return view;
     }
 
