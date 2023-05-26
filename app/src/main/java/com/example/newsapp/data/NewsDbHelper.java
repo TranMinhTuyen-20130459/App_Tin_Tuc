@@ -15,13 +15,21 @@ public class NewsDbHelper extends SQLiteOpenHelper {
 
     /**
      * Câu truy vấn để tạo bảng viewed_news.
+     * | column   | data type|
+     * |----------|----------|
+     * | link     |   TEXT   |
+     * | title    |   TEXT   |
+     * | img_link |   TEXT   |
+     * | data     |   DATE   |
+     * | user     |   TEXT   |
      */
     private static final String SQL_CREATE_VIEWED_NEWS =
             "CREATE TABLE viewed_news (" +
                     "link TEXT PRIMARY KEY," +
                     "title TEXT," +
                     "img_link TEXT," +
-                    "date DATE)";
+                    "date DATE," +
+                    "user TEXT)";
 
     /**
      * Câu truy vấn để xóa bảng viewed_news.

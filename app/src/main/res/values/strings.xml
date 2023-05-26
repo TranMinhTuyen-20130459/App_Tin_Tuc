@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tin tức NLU</string>
+    <string name="app_name">NLU Thanh Niên</string>
     <string name="home">Trang chủ</string>
     <string name="profile">Cá nhân</string>
     <string name="widget">Tiện ích</string>
@@ -10,5 +10,11 @@
     <string name="channel_name">News Channel</string>
     <string name="channel_description">This is News Notification Channel</string>
     <string name="tin_da_xem">Tin đã xem</string>
-
+    <string name="ten">Tên</string>
+    <string name="email">Email</string>
+    <string name="role">Role</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="dang_ky">Đăng ký</string>
+    <string name="chua_dang_nhap">Bạn chưa đăng nhập. Vui lòng đăng nhập.</string>
+    <string name="delete_news">Delete news</string>
 </resources>

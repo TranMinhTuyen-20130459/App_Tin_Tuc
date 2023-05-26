@@ -19,7 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,6 +48,14 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 100;
 
+    private final String[] rssUrls = {
+            "https://vnexpress.net/rss/tin-moi-nhat.rss",
+            "https://vnexpress.net/rss/thoi-su.rss",
+            "https://vnexpress.net/rss/the-thao.rss",
+            "https://vnexpress.net/rss/the-gioi.rss",
+            "https://vnexpress.net/rss/giai-tri.rss"
+    };
+
     int numberOfTitlesLoaded = 0;
     private BottomNavigationView bt_nav;
     @SuppressWarnings("deprecation")
@@ -67,16 +74,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bt_nav = findViewById(R.id.bottom_nav);
         // load dữ liệu bảng danh mục ngay tại đây
         listAll = new ArrayList<>();
-        String[] rssUrls = {
-                "https://vnexpress.net/rss/tin-moi-nhat.rss",
-                "https://vnexpress.net/rss/thoi-su.rss",
-                "https://vnexpress.net/rss/the-thao.rss",
-                "https://vnexpress.net/rss/the-gioi.rss",
-                "https://vnexpress.net/rss/giai-tri.rss"
-        };
 
         // kiểm tra có mạng chưa
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -203,17 +204,14 @@ public class MainActivity extends AppCompatActivity {
          * Trang MainFragment là cha của Fragment danh mục
          * */
         // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
-        if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
-            Log.d("TAG", "onRssRead: ");
+        if (numberOfTitlesLoaded == rssUrls.length) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
             MainFragment mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
-        }
 
-        /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
-        if (numberOfTitlesLoaded >= 5 && listAll.size() >= 5) {
+            /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
             News news = findLatestNews();
             pushNotification(news);
         }

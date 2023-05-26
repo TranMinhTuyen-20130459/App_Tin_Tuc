@@ -3,6 +3,7 @@ package com.example.newsapp;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebResourceError;
@@ -15,7 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newsapp.data.NewsDao;
 import com.example.newsapp.models.News;
+import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;
@@ -38,11 +42,10 @@ public class NewsDetailActivity extends AppCompatActivity {
             webView.loadUrl(link);
         }
 
-        /* Người dùng vừa nhấn vào một tin -> đã xem -> lưu vào database. */
-        News news = (News) intent.getSerializableExtra(Constants.KEY_VIEWED_NEWS);
-        if (news != null) {
-            NewsDao newsDao = new NewsDao(this);
-            newsDao.addNews(news);
+        // 1
+        if (getSharedPreferences(Constants.MY_PREFERENCES, MODE_PRIVATE).getString(Constants.ROLE_CUSTOMER, null) != null) {
+            // Nếu người dùng đã đăng nhập, lưu tin đã xem vào database.
+            saveNews();
         }
     }
 
@@ -72,5 +75,30 @@ public class NewsDetailActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    // 2
+    private void saveNews() {
+        // Lấy tin người dùng click vào.
+        News news = (News) getIntent().getSerializableExtra(Constants.KEY_VIEWED_NEWS);
+        if (news != null) {
+            // Nếu có tồn tại, lưu tin này vào database
+            new Thread(() -> {
+                // Tạo đối tượng DAO tương tác với database.
+                NewsDao newsDao = new NewsDao(this);
+                // Thêm tin vào database.
+                newsDao.addNews(news, getCurrentUser());
+            }).start(); // Chạy đoạn code này trong luồn mới.
+        }
+    }
+
+    /*
+     * Lấy thông tin người dùng đang đăng nhập.
+     */
+    private Users getCurrentUser() {
+        // Thông tin mới lấy ra ở dạng JSON (String).
+        String json = getSharedPreferences(Constants.MY_PREFERENCES, MODE_PRIVATE).getString(Constants.ROLE_CUSTOMER, "");
+        // Chuyển đổi JSON thành đối tượng Users rồi trả về.
+        return new Gson().fromJson(json, Users.class);
     }
 }

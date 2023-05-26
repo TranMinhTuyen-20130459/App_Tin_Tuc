@@ -1,8 +1,5 @@
 package com.example.newsapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newsapp.databinding.ActivityRegisterBinding;
 import com.example.newsapp.models.Users;
@@ -28,11 +28,11 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
-    String username, password, fullname ,role;
+    String username, password, fullname, role;
     Users user;
     FirebaseDatabase db;
     DatabaseReference reference;
-TextView btnLogin;
+    TextView btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ TextView btnLogin;
                                     return;
                                 } else {
                                     // Nếu email chưa được sử dụng, thêm user vào Firebase
-                                    user = new Users(role,username, password, fullname);
+                                    user = new Users(role, username, password, fullname);
                                     reference.child(username.replace(".", ",")).setValue(user).
                                             addOnCompleteListener(
                                                     new OnCompleteListener<Void>() {
@@ -114,11 +114,10 @@ TextView btnLogin;
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        btnLogin.setOnClickListener(v -> {
+            finish();
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         });
     }
 
