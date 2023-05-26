@@ -91,7 +91,7 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                         myListCategory.get(position).setActive("0");
                         categories.setActive("0");
                         // Sử dụng title làm khóa
-                        reference.child(title).setValue(categories).addOnCompleteListener(
+                        reference.child(id).setValue(categories).addOnCompleteListener(
                                 new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -122,7 +122,7 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                 EditText etTitle = dialogView.findViewById(R.id.etTitle);
                 EditText etUrl = dialogView.findViewById(R.id.etUrl);
                 Spinner spinnerStatus = dialogView.findViewById(R.id.spinnerStatus);
-                EditText etId = dialogView.findViewById(R.id.etId);
+                TextView etId = dialogView.findViewById(R.id.etId);
 
                 // Lấy dữ liệu từ danh mục hiện tại
                 String currentTitle = myListCategory.get(position).getTitle();
@@ -164,7 +164,7 @@ public class CategoryAdapter extends ArrayAdapter<Categories> {
                         Categories categories = new Categories(editedId, editedUrl, editedTitle, editedStatus);
 
                         // Sử dụng title làm khóa
-                        reference.child(title).setValue(categories).addOnCompleteListener(
+                        reference.child(id).setValue(categories).addOnCompleteListener(
                                 new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
