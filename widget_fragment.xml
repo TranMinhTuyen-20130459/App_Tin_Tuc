@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+android:orientation="vertical"
+    android:padding="@dimen/dp_20"
+    >
+
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="@dimen/dp_20"
+        android:text="Số bài viết"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp">
+
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/font_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="@dimen/dp_20"
+        android:text="Cỡ chữ"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"></TextView>
+
+</LinearLayout>
