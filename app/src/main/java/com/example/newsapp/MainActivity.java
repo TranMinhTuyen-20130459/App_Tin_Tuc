@@ -32,7 +32,6 @@ import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.fragment.WidgetFragment;
-import com.example.newsapp.fragment.child.HomeFragment;
 import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
@@ -82,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         listAll = new ArrayList<>();
-        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
+        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>() {
             @Override
-            public void onSuccess(List<Categories> data){
+            public void onSuccess(List<Categories> data) {
                 ArrayList<String> rssUrls = new ArrayList<>();
-                for(Categories c : data ) {
-                    if(c.getActive().equals("1")) rssUrls.add(c.getUrl());
+                for (Categories c : data) {
+                    if (c.getActive().equals("1")) rssUrls.add(c.getUrl());
                 }
 
                 // kiểm tra có mạng chưa
@@ -146,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 });
             }
+
             @Override
             public void onError(Exception e) {
                 // Xử lý lỗi nếu có
