@@ -24,10 +24,13 @@ import com.example.newsapp.ViewedNewsActivity;
 import com.example.newsapp.databinding.ProfileFragmentBinding;
 import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 public class ProfileFragment extends Fragment {
     private ProfileFragmentBinding binding;
+    FirebaseAuth auth;
 
     @Nullable
     @Override
@@ -39,6 +42,8 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences preferences = requireContext().getSharedPreferences(MY_PREFERENCES, MODE_PRIVATE);
         Gson gson = new Gson();
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser userGoogle = auth.getCurrentUser();
         try {
             // Lấy User từ SharedPreferences
             String jvson = preferences.getString(Constants.ROLE_CUSTOMER, "");
@@ -53,11 +58,37 @@ public class ProfileFragment extends Fragment {
                 binding.noLogin.setVisibility(View.GONE);
                 binding.profile.setVisibility(View.VISIBLE);
             }
+            if(userGoogle != null){
+                binding.avatarFullName.setText(userGoogle.getDisplayName());
+                binding.avatarRole.setText("user");
+                binding.name.setText(userGoogle.getDisplayName());
+                binding.email.setText(userGoogle.getEmail());
+                binding.role.setText("user");
+                binding.noLogin.setVisibility(View.GONE);
+                binding.profile.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e) {
             Log.e("error", e.getMessage());
         }
 
         binding.logout.setOnClickListener(v -> {
+            if(userGoogle != null){
+                auth.signOut();
+                Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
+                binding.profile.setVisibility(View.GONE);
+                binding.noLogin.setVisibility(View.VISIBLE);
+            }else{
+                SharedPreferences preferences1 = requireContext().getSharedPreferences(MY_PREFERENCES, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences1.edit();
+                editor.remove(Constants.ROLE_CUSTOMER);
+                editor.apply();
+                // Hiển thị thông báo cho người dùng
+                Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
+                binding.profile.setVisibility(View.GONE);
+                binding.noLogin.setVisibility(View.VISIBLE);
+            }
+
+
             SharedPreferences preferences1 = requireContext().getSharedPreferences(MY_PREFERENCES, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences1.edit();
             editor.remove(Constants.ROLE_CUSTOMER);
