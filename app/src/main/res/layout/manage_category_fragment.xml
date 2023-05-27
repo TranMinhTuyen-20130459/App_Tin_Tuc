@@ -106,7 +106,7 @@
             android:layout_x="259dp"
             android:layout_y="4dp"
             android:padding="4dp"
-            android:text="SỬA/XÓA" />
+            android:text="XÓA|SỬA" />
     </AbsoluteLayout>
     <ListView
         android:id="@+id/list_view"

@@ -69,11 +69,11 @@ public class ManageCategoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // xử lí tìm kiếm
-                String name = etSearch.getText().toString().trim();
+                String name = etSearch.getText().toString().trim().toLowerCase();
                 ArrayList<Categories> listCategorySearch = new ArrayList<>();
 
                 for(Categories c : listCategory) {
-                    if(c.getTitle().contains(name)) listCategorySearch.add(c);
+                    if(c.getTitle().toLowerCase().contains(name)) listCategorySearch.add(c);
                 }
 
                 // dùng adapter hiển thị lên listview category
