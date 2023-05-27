@@ -12,7 +12,6 @@ import com.example.newsapp.models.News;
 import com.example.newsapp.models.Users;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NewsDao {
@@ -38,7 +37,8 @@ public class NewsDao {
             String link = cursor.getString(cursor.getColumnIndexOrThrow("link"));
             String imgLink = cursor.getString(cursor.getColumnIndexOrThrow("img_link"));
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-            News news = new News(title, link, imgLink, date);
+            String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+            News news = new News(title, link, imgLink, date, description);
             list.add(news);
         }
 
@@ -52,14 +52,15 @@ public class NewsDao {
      * @param news tin người dùng đã xem.
      * @return {@code true} nếu thêm vào thành công, {@code false} nếu thêm vào thất bại.
      */
-    public boolean addNews(News news, Users users) {
+    public boolean addNews(News news, String username) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", news.getTitle());
         values.put("link", news.getLink());
         values.put("img_link", news.getLinkImage());
         values.put("date", news.getDate());
-        values.put("user", users.getUsername());
+        values.put("description", news.getDescription());
+        values.put("user", username);
         return db.insert("viewed_news", null, values) != -1;
     }
 
