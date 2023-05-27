@@ -25,7 +25,7 @@ public class Format {
 
     public static String formatDateTuoiTre(String inputDate) {
         String[] parts = inputDate.split(" ");
-        String datePart = parts[1] + " " + parts[2] + " " + parts[3];
+        String datePart = parts[0] + " " + parts[1] + " " + parts[2];
         return datePart;
     }
 }
