@@ -85,7 +85,7 @@ public class EditUserDialogFragment extends androidx.fragment.app.DialogFragment
                         List<Users> list = AdminActivity.usersList;
                         for (Users user :
                                 list) {
-                            if (user.getUsername().equals(username)) {
+                            if (user.getUsername().equals(currentUsername)) {
                                 user.setUsername(username);
                                 user.setFullname(name);
                             }
@@ -93,7 +93,6 @@ public class EditUserDialogFragment extends androidx.fragment.app.DialogFragment
                         // Tạo tham chiếu đến ManageUserFragment
                         ManageUserFragment manageUserFragment = (ManageUserFragment) getTargetFragment();
                         if (manageUserFragment != null) {
-                            // Gọi phương thức reloadData trên ManageUserFragment
                             manageUserFragment.listView.invalidateViews();
                         }
                     }

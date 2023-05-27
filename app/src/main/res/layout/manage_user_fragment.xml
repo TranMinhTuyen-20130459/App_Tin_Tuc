@@ -45,7 +45,7 @@
                 android:layout_column="1"
                 android:padding="4dp"
                 android:text="Email"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textAllCaps="true" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Tên"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textAllCaps="true" />
 
             <TextView

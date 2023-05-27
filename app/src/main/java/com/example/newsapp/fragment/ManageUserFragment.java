@@ -31,7 +31,7 @@ public class ManageUserFragment extends Fragment {
     EditText editTextSearch;
     ListView listView;
     List<Users> usersList;
-    List<Users> usersListFull;
+    public static List<Users> usersListFull;
     UserListAdapter adapter;
 
     @Nullable
@@ -49,30 +49,28 @@ public class ManageUserFragment extends Fragment {
         listView.setAdapter(adapter);
 
         editTextSearch = view.findViewById(R.id.search_user);
-        usersListFull = (ArrayList)((ArrayList)usersList).clone();
+        if (usersListFull == null)
+            usersListFull = (ArrayList) ((ArrayList) usersList).clone();
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 usersList.clear();
-                String text = editTextSearch.getText().toString().trim();
-                for (Users user:
+                String text = editTextSearch.getText().toString().toLowerCase();
+                for (Users user :
                         usersListFull) {
-                    if (user.getUsername().contains(text)) {
+                    if (user.getUsername().toLowerCase().contains(text)||user.getFullname().toLowerCase().contains(text)) {
                         usersList.add(user);
-                        listView.invalidateViews();
                     }
                 }
-
+                listView.invalidateViews();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -107,5 +105,4 @@ public class ManageUserFragment extends Fragment {
         builder.setNegativeButton("Hủy", null);
         builder.show();
     }
-
 }
