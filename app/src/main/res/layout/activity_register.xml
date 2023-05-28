@@ -1,118 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:scrollbars="none"
     tools:context=".RegisterActivity">
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_30"
-        android:text="Đăng ký"
-        android:textColor="@color/black"
-        android:textSize="50sp" />
-
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/tvRegister"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/username"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et"
-        android:hint="Mật khẩu"
-        android:inputType="textWebPassword"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <EditText
-        android:id="@+id/repassword"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/password"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et"
-        android:hint="Xác nhận mật khẩu"
-        android:inputType="textWebPassword"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <EditText
-        android:id="@+id/fullname"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/repassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et"
-        android:hint="Họ tên"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/btnHaveAnAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fullname"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/dp_30"
-        android:text="Chọn vào đây để đăng nhập!"
-        android:textColor="@color/black" />
-
-    <Button
-        android:id="@+id/btnRegister"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fullname"
-        android:layout_marginStart="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_50"
-        android:text="Đăng ký"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:backgroundTint="@color/swipe_color_1" />
+        android:gravity="center"
+        android:paddingHorizontal="32dp">
 
-    <ImageView
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:layout_below="@id/btnRegister"
-        android:layout_marginStart="@dimen/dp_100"
-        android:layout_marginTop="@dimen/dp_30"
-        android:src="@drawable/google" />
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Đăng ký"
+            android:textColor="@color/black"
+            android:textSize="50sp" />
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/btnRegister"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_100"
-        android:src="@drawable/facebook_icon" />
-</RelativeLayout>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tvRegister"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/et"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/et"
+            android:hint="Mật khẩu"
+            android:inputType="textWebPassword"
+            android:padding="15dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/repassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/password"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/et"
+            android:hint="Xác nhận mật khẩu"
+            android:inputType="textWebPassword"
+            android:padding="15dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/fullname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/repassword"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/et"
+            android:hint="Họ tên"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fullname"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/bg_login_button"
+            android:text="Đăng ký"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnHaveAnAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnRegister"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_register_button"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="@color/swipe_color_1"
+            android:textSize="20sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnHaveAnAccount"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="@dimen/dp_30"
+            app:cardCornerRadius="@dimen/dp_100"
+            app:contentPadding="12dp">
+
+            <ImageView
+                android:id="@+id/btnGoogleLoginPage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/google" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/card_google"
+            android:layout_alignBottom="@id/card_google"
+            android:layout_toStartOf="@id/card_facebook"
+            android:layout_toEndOf="@id/card_google"
+            android:gravity="center"
+            android:text="or"
+            android:textAlignment="center" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnHaveAnAccount"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="90dp"
+            app:cardCornerRadius="@dimen/dp_100"
+            app:contentPadding="12dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/facebook" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,21 @@
+package com.example.newsapp.data.remote;
+
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class RssFetch {
+    private final RssService rssService;
+
+    public RssFetch() {
+        rssService = new Retrofit.Builder()
+                .baseUrl("https://vnexpress.net/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build()
+                .create(RssService.class);
+    }
+
+    public void fetchRss(Callback<String> callback) {
+        rssService.getRss("rss/tin-moi-nhat.rss").enqueue(callback);
+    }
+}

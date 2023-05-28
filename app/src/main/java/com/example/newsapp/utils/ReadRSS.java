@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class ReadRSS extends AsyncTask<String, Void, Document> {
     private MainActivity mainActivity;
     ArrayList<News> listNews = new ArrayList<>();
+    private static final Pattern desPattern = Pattern.compile("</br>(.*)");
 
     public ArrayList<News> getListNews() {
         return listNews;
@@ -99,8 +100,11 @@ public class ReadRSS extends AsyncTask<String, Void, Document> {
                 }
             }
 
+            String cdata = element.getElementsByTagName("description").item(0).getTextContent();
+            String description = xmldomParser.getValue(desPattern, cdata);
+
             // Thêm tin tức vào danh sách
-            listNews.add(new News(title, link, linkImage, date));
+            listNews.add(new News(title, link, linkImage, date, description));
         }
 
         mainActivity.onRssRead();

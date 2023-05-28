@@ -4,6 +4,8 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
+import com.example.newsapp.utils.ViewedNewsNotification;
+
 /**
  * Lớp này sẽ tự chạy khi ứng dụng bắt đầu.
  * Dùng để tạo NotificationChannel.
@@ -15,6 +17,8 @@ public class NewsApp extends Application {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
+        ViewedNewsNotification notification = new ViewedNewsNotification(this);
+        notification.scheduleNext();
     }
 
     /**

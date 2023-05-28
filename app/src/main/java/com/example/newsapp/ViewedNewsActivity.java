@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -37,10 +39,27 @@ public class ViewedNewsActivity extends AppCompatActivity implements ViewedNewsA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewed_news);
+        setUpActionBar();
         init();
         setUpRecyclerView();
         setUpSwipeRefresh();
         loadData();
+    }
+
+    private void setUpActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
     private void init() {
@@ -174,6 +193,7 @@ public class ViewedNewsActivity extends AppCompatActivity implements ViewedNewsA
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             actionMode = null;
+            resetData();
         }
     };
 }
