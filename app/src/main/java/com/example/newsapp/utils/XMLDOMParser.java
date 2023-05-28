@@ -47,8 +47,8 @@ public class XMLDOMParser {
     }
 
     @Nullable
-    public News parse(String rss) {
-        final Pattern desPattern = Pattern.compile("</a> (.*)");
+    public News parseFirst(String rss) {
+        final Pattern desPattern = Pattern.compile("</br>\\s*(.*)");
         final Pattern imgPattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
         try {
             Document doc = DocumentBuilderFactory.newInstance()
@@ -69,7 +69,7 @@ public class XMLDOMParser {
                 if (title.isEmpty() || link.isEmpty() || date.isEmpty() || linkImage.isEmpty() || description.isEmpty())
                     continue;
 
-                return new News(title, link, linkImage, Format.formatDateTuoiTre(date), description);
+                return new News(title, link, linkImage, date, description);
             }
 
         } catch (ParserConfigurationException | IOException | SAXException e) {

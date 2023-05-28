@@ -26,6 +26,7 @@ import java.util.Arrays;
 
 public class ViewedNewsNotification {
     private static final String NEWS_TAG = "news_tag";
+    private static final int NOTIFICATIONS_ALLOWED = 3;
 
     private final Context context;
     private final AlarmManager alarmManager;
@@ -40,12 +41,12 @@ public class ViewedNewsNotification {
     public void scheduleNext() {
         PendingIntent pi = PendingIntent.getBroadcast(context, 0,
                 new Intent(context, ViewedNewsReceiver.class), PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pi);
     }
 
-    public int countActiveNotifications() {
+    public boolean isFull() {
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
-        return (int) Arrays.stream(activeNotifications).filter(n -> n.getTag().equals(NEWS_TAG)).count();
+        return (int) Arrays.stream(activeNotifications).filter(n -> n.getTag().equals(NEWS_TAG)).count() >= NOTIFICATIONS_ALLOWED;
     }
 
     public boolean isActive(int id) {

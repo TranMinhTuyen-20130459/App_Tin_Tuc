@@ -9,13 +9,13 @@ public class RssFetch {
 
     public RssFetch() {
         rssService = new Retrofit.Builder()
-                .baseUrl("https://thanhnien.vn/")
+                .baseUrl("https://vnexpress.net/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
                 .create(RssService.class);
     }
 
     public void fetchRss(Callback<String> callback) {
-        rssService.getRss("rss/home.rss").enqueue(callback);
+        rssService.getRss("rss/tin-moi-nhat.rss").enqueue(callback);
     }
 }

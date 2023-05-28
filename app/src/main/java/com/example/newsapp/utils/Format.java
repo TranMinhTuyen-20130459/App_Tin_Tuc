@@ -1,31 +1,38 @@
 package com.example.newsapp.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class Format {
 
-    public static String formartDate(String inputDate) {
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-        inputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        String outputDate = "";
+    public static String format(String date) {
         try {
-            Date date = inputDateFormat.parse(inputDate.toString());
-            SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            outputDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-            outputDate = outputDateFormat.format(date);
-            return outputDate;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss")
+                    .withLocale(Locale.US)
+                    .withZone(ZoneId.of("GMT+7"));
+            LocalDateTime localDateTime = LocalDateTime.parse(date.substring(0, date.lastIndexOf(' ')), formatter);
+            return getPassedTime(localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         } catch (Exception e) {
-            System.out.println("Invalid date format");
-            return inputDate;
+            return date;
         }
     }
 
-    public static String formatDateTuoiTre(String inputDate) {
-        String[] parts = inputDate.split(" ");
-        String datePart = parts[0] + " " + parts[1] + " " + parts[2];
-        return datePart;
+    public static String getPassedTime(long since) {
+        long elapseTime = System.currentTimeMillis() - since;
+
+        if (elapseTime < 60 * 1000) {
+            return "now";
+        } else if (elapseTime < 60 * 60 * 1000L) {
+            return String.format(Locale.getDefault(), "%d phút trước", elapseTime / (60 * 1000));
+        } else if (elapseTime < 24 * 60 * 60 * 1000L) {
+            return String.format(Locale.getDefault(), "%d giờ trước", elapseTime / (60 * 60 * 1000));
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy hh:mm", Locale.getDefault());
+        return sdf.format(new Date(elapseTime / (24 * 60 * 60 * 1000)));
     }
 }

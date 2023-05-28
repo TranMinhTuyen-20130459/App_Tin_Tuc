@@ -15,7 +15,8 @@ public class News implements Serializable {
     private String category;
     private boolean isSelected;
 
-    public News() {}
+    public News() {
+    }
 
     public News(String title, String link, String linkImage, String date) {
         this.title = title;
@@ -54,7 +55,7 @@ public class News implements Serializable {
     }
 
     public String getDate() {
-        return Format.formatDateTuoiTre(date);
+        return Format.format(date);
     }
 
     public void setDate(String date) {
@@ -88,6 +89,11 @@ public class News implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "News{title='" + title + "', isSelected=" + isSelected + "}";
+        return "News{" +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                '}';
     }
 }
