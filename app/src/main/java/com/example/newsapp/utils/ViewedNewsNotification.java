@@ -1,23 +1,93 @@
 package com.example.newsapp.utils;
 
+import static com.example.newsapp.NewsApp.CHANNEL_ID;
+
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.service.notification.StatusBarNotification;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
+
+import com.example.newsapp.NewsDetailActivity;
+import com.example.newsapp.R;
 import com.example.newsapp.ViewedNewsReceiver;
+import com.example.newsapp.models.News;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.util.Arrays;
 
 public class ViewedNewsNotification {
-    private final Context context;
+    private static final String NEWS_TAG = "news_tag";
 
-    public ViewedNewsNotification(Context context) {
-        this.context = context;
+    private final Context context;
+    private final AlarmManager alarmManager;
+    private final NotificationManager notificationManager;
+
+    public ViewedNewsNotification(@NonNull Context context) {
+        this.context = context.getApplicationContext();
+        alarmManager = context.getSystemService(AlarmManager.class);
+        notificationManager = context.getSystemService(NotificationManager.class);
     }
 
     public void scheduleNext() {
-        AlarmManager alarmManager = context.getSystemService(AlarmManager.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0,
                 new Intent(context, ViewedNewsReceiver.class), PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 5000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
+    }
+
+    public int countActiveNotifications() {
+        StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
+        return (int) Arrays.stream(activeNotifications).filter(n -> n.getTag().equals(NEWS_TAG)).count();
+    }
+
+    public boolean isActive(int id) {
+        StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
+        return activeNotifications.length != 0 && Arrays.stream(activeNotifications).allMatch(n -> n.getTag().equals(NEWS_TAG) && n.getId() == id);
+    }
+
+    public void pushNotification(@NonNull News news) {
+        Picasso.get().load(news.getLinkImage()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                Intent intent = new Intent(context, NewsDetailActivity.class)
+                        .putExtra(Constants.KEY_NEWS_DETAILS, news.getLink())
+                        .putExtra(Constants.KEY_VIEWED_NEWS, news);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(context)
+                        .addNextIntentWithParentStack(intent);
+                PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle(news.getTitle())
+                        .setContentText(news.getDescription())
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(news.getDescription()))
+                        .setContentIntent(pendingIntent)
+                        .setShowWhen(true)
+                        .setAutoCancel(true)
+                        .setLargeIcon(bitmap)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                notificationManager.notify(NEWS_TAG, news.getLink().hashCode(), builder.build());
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                // Do nothing
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                // Do nothing
+            }
+        });
     }
 }
