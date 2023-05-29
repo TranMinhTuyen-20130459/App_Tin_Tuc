@@ -49,7 +49,7 @@ public class ViewedNewsNotification {
 
     public boolean isActive(int id) {
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
-        return activeNotifications.length != 0 && Arrays.stream(activeNotifications).allMatch(n -> n.getTag().equals(NEWS_TAG) && n.getId() == id);
+        return activeNotifications.length != 0 && Arrays.stream(activeNotifications).anyMatch(n -> n.getTag().equals(NEWS_TAG) && n.getId() == id);
     }
 
     public void pushNotification(@NonNull News news) {
@@ -66,9 +66,7 @@ public class ViewedNewsNotification {
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle(news.getTitle())
-                        .setContentText(news.getDescription())
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(news.getDescription()))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(news.getTitle()))
                         .setContentIntent(pendingIntent)
                         .setShowWhen(true)
                         .setAutoCancel(true)
