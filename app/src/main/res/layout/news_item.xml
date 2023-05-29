@@ -9,8 +9,12 @@
         android:id="@+id/title"
         android:layout_width="200dp"
         android:layout_height="57dp"
-        android:layout_x="170dp"
+        android:layout_x="150dp"
         android:layout_y="20dp"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxHeight="57dp"
+        android:maxLines="3"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
@@ -18,8 +22,9 @@
         android:id="@+id/time"
         android:layout_width="200dp"
         android:layout_height="32dp"
-        android:layout_x="170dp"
+        android:layout_x="150dp"
         android:layout_y="80dp"
+        android:maxWidth="200dp"
         android:textColor="@color/black" />
 
     <ImageView

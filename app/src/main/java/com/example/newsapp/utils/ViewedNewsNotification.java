@@ -8,7 +8,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.service.notification.StatusBarNotification;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import com.example.newsapp.R;
 import com.example.newsapp.ViewedNewsReceiver;
 import com.example.newsapp.models.News;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.Arrays;
 
@@ -55,7 +53,7 @@ public class ViewedNewsNotification {
     }
 
     public void pushNotification(@NonNull News news) {
-        Picasso.get().load(news.getLinkImage()).into(new Target() {
+        Picasso.get().load(news.getLinkImage()).into(new ImageHelper.TargetAdapter() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 Intent intent = new Intent(context, NewsDetailActivity.class)
@@ -78,16 +76,6 @@ public class ViewedNewsNotification {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                 notificationManager.notify(NEWS_TAG, news.getLink().hashCode(), builder.build());
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                // Do nothing
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                // Do nothing
             }
         });
     }

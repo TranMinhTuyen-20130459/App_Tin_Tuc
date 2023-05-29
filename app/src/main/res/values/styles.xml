@@ -43,6 +43,8 @@
 
         <!-- ActionMode -->
         <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- SnakeBarStyle -->
+        <item name="snackbarStyle">@style/MySnackbar</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -134,4 +136,9 @@
         <item name="background">?colorPrimary</item>
     </style>
 
+    <style name="MySnackbar" parent="Widget.Design.Snackbar">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:background">@drawable/bg_snakebar</item>
+    </style>
 </resources>

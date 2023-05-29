@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(List<Categories> data) {
                 ArrayList<String> rssUrls = new ArrayList<>();
                 for (Categories c : data) {
+                    Log.d("TAG", "onSuccess: " + c);
                     if (c.getActive().equals("1")) rssUrls.add(c.getUrl());
                 }
 

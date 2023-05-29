@@ -51,5 +51,13 @@ public class Categories implements Serializable {
     public Categories() {
     }
 
-
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "position='" + position + '\'' +
+                ", url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", active='" + active + '\'' +
+                '}';
+    }
 }
