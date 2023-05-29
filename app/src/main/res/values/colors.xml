@@ -11,7 +11,7 @@
     <color name="colorPrimaryDark">#005689</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="swipe_color_1">#9F224E</color>
+    <color name="swipe_color_1">#CC020B</color>
     <color name="swipe_color_2">#03A9F4</color>
     <color name="swipe_color_3">#FFC107</color>
     <color name="swipe_color_4">#FF5722</color>
@@ -37,5 +37,5 @@
     <color name="nav_bar_start">#7db1ec</color>
     <color name="nav_bar_end">#002e5b</color>
 
-    <color name="color_primary_lighter">#C1FAD0DF</color>
+    <color name="color_primary_lighter">#C1FFE6E8</color>
 </resources>

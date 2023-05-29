@@ -9,7 +9,7 @@ public class RssFetch {
 
     public RssFetch() {
         rssService = new Retrofit.Builder()
-                .baseUrl("https://vnexpress.net/")
+                .baseUrl("https://tuoitre.vn/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
                 .create(RssService.class);

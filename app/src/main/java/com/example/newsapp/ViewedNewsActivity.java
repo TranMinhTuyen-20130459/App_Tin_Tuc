@@ -68,7 +68,7 @@ public class ViewedNewsActivity extends AppCompatActivity implements ViewedNewsA
     }
 
     private void setUpRecyclerView() {
-        recyclerView.setAdapter(adapter = new ViewedNewsAdapter(this, news = new ArrayList<>(), this));
+        recyclerView.setAdapter(adapter = new ViewedNewsAdapter(news = new ArrayList<>(), this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 

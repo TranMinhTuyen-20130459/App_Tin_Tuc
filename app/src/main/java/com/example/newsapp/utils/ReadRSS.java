@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import com.example.newsapp.MainActivity;
+import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 
 import org.w3c.dom.Document;
@@ -14,6 +15,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class ReadRSS extends AsyncTask<String, Void, Document> {
     private MainActivity mainActivity;
     ArrayList<News> listNews = new ArrayList<>();
-    private static final Pattern desPattern = Pattern.compile("</br>(.*)");
+    private static final Pattern desPattern = Pattern.compile("</a>\\s*(.*)");
 
     public ArrayList<News> getListNews() {
         return listNews;
@@ -110,5 +113,22 @@ public class ReadRSS extends AsyncTask<String, Void, Document> {
         mainActivity.onRssRead();
     }
 
+    public String findCategory(String link) {
+        return null;
+    }
 
+    private static final List<Categories> categories = Arrays.asList(
+            new Categories("0", "https://tuoitre.vn/rss/thoi-su.rss", "Thời sự", "1"),
+            new Categories("1", "https://tuoitre.vn/rss/the-gioi.rss", "Thế giới", "1"),
+            new Categories("2", "https://tuoitre.vn/rss/phap-luat.rss", "Pháp luật", "1"),
+            new Categories("3", "https://tuoitre.vn/rss/kinh-doanh.rss", "Kinh doanh", "1"),
+            new Categories("4", "https://tuoitre.vn/rss/nhip-song-so.rss", "Công nghệ", "1"),
+            new Categories("5", "https://tuoitre.vn/rss/xe.rss", "Xe", "1"),
+            new Categories("6", "https://tuoitre.vn/rss/nhip-song-tre.rss", "Nhịp sống trẻ", "1"),
+            new Categories("7", "https://tuoitre.vn/rss/van-hoa.rss", "Văn hóa", "1"),
+            new Categories("8", "https://tuoitre.vn/rss/giai-tri.rss", "Giải trí", "1"),
+            new Categories("9", "https://tuoitre.vn/rss/the-thao.rss", "Thể thao", "1"),
+            new Categories("10", "https://tuoitre.vn/rss/giao-duc.rss", "Giáo dục", "1"),
+            new Categories("11", "https://tuoitre.vn/rss/suc-khoe.rss", "Sức khỏe", "1")
+    );
 }

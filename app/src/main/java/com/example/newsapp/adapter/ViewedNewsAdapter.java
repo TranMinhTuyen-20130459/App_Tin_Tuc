@@ -1,6 +1,6 @@
 package com.example.newsapp.adapter;
 
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.newsapp.R;
 import com.example.newsapp.models.News;
+import com.example.newsapp.utils.ImageHelper;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ViewedNewsAdapter extends RecyclerView.Adapter<ViewedNewsAdapter.ViewedNewsHolder> {
-    private final Context context;
     private final List<News> news;
     private final OnNewsClickListener listener;
 
@@ -27,8 +27,7 @@ public class ViewedNewsAdapter extends RecyclerView.Adapter<ViewedNewsAdapter.Vi
         boolean onNewsLongClicked(int position);
     }
 
-    public ViewedNewsAdapter(Context context, @NonNull List<News> news, OnNewsClickListener listener) {
-        this.context = context;
+    public ViewedNewsAdapter(@NonNull List<News> news, OnNewsClickListener listener) {
         this.news = news;
         this.listener = listener;
     }
@@ -63,7 +62,13 @@ public class ViewedNewsAdapter extends RecyclerView.Adapter<ViewedNewsAdapter.Vi
         }
 
         public void bind(News news) {
-            Glide.with(context).load(news.getLinkImage()).into(imageNews);
+            Picasso.get().load(news.getLinkImage()).into(new ImageHelper.TargetAdapter() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap rounded = ImageHelper.getRoundedCornerBitmap(bitmap, 5);
+                    imageNews.setImageBitmap(rounded);
+                }
+            });
             textTitle.setText(news.getTitle());
             textTime.setText(news.getDate());
             root.setSelected(news.isSelected());

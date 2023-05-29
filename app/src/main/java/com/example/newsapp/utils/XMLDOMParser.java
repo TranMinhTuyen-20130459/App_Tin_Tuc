@@ -48,7 +48,7 @@ public class XMLDOMParser {
 
     @Nullable
     public News parseFirst(String rss) {
-        final Pattern desPattern = Pattern.compile("</br>\\s*(.*)");
+        final Pattern desPattern = Pattern.compile("</a>\\s*(.*)");
         final Pattern imgPattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
         try {
             Document doc = DocumentBuilderFactory.newInstance()
