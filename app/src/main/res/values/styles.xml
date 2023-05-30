@@ -48,13 +48,13 @@
     </style>
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#F44336</item>
-        <item name="colorPrimaryDark">#F44336</item>
-        <item name="colorAccent">#F44336</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
 
         <!-- Change Action Bar title text color  -->
         <item name="titleTextColor">@color/white</item>
-        <item name="subtitleTextColor">#F44336</item>
+        <item name="subtitleTextColor">@color/colorPrimary</item>
 
         <!-- Set Navigation drawer icon color-->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
@@ -91,8 +91,8 @@
 
     <!-- Style for a tab that displays a category name -->
     <style name="CategoryTab" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/swipe_color_1</item>
-        <item name="tabSelectedTextColor">@color/swipe_color_1</item>
+        <item name="tabIndicatorColor">?colorPrimary</item>
+        <item name="tabSelectedTextColor">?colorPrimary</item>
         <item name="tabTextAppearance">@style/CategoryTabTextAppearance</item>
     </style>
 

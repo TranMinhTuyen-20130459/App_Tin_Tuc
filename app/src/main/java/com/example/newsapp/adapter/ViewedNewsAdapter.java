@@ -72,8 +72,8 @@ public class ViewedNewsAdapter extends RecyclerView.Adapter<ViewedNewsAdapter.Vi
             textTitle.setText(news.getTitle());
             textTime.setText(news.getDate());
             root.setSelected(news.isSelected());
-            root.setOnClickListener(v -> listener.onNewsClicked(getBindingAdapterPosition()));
-            root.setOnLongClickListener(v -> listener.onNewsLongClicked(getBindingAdapterPosition()));
+            root.setOnClickListener(v -> listener.onNewsClicked(getAdapterPosition()));
+            root.setOnLongClickListener(v -> listener.onNewsLongClicked(getAdapterPosition()));
         }
     }
 }

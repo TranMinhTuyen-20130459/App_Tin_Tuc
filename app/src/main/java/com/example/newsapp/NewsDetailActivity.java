@@ -2,7 +2,10 @@ package com.example.newsapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebResourceError;
@@ -26,8 +29,21 @@ public class NewsDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean isDark = pre.getBoolean("is_dark", false);
+        setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
+
+//        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+//        boolean isDark = pre.getBoolean("is_dark", false);
+//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(
+//                isDark ? R.color.colorPrimary : R.color.swipe_color_1
+//        )));
+
+
         webView = findViewById(R.id.content_news);
         Intent intent = getIntent();
         String link = intent.getStringExtra(Constants.KEY_NEWS_DETAILS);

@@ -1,6 +1,8 @@
 package com.example.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,6 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean isDark = pre.getBoolean("is_dark", false);
+        setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

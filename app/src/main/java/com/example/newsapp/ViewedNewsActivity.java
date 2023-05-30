@@ -1,7 +1,9 @@
 package com.example.newsapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +39,9 @@ public class ViewedNewsActivity extends AppCompatActivity implements ViewedNewsA
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean isDark = pre.getBoolean("is_dark", false);
+        setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewed_news);
         setUpActionBar();

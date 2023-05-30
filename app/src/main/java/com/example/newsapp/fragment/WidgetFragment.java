@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.newsapp.LocationActivity;
+import com.example.newsapp.MainActivity;
 import com.example.newsapp.R;
 import com.example.newsapp.utils.Constants;
 
@@ -68,7 +70,24 @@ public class WidgetFragment extends Fragment {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constants.setQuantityNewsOfCate(Integer.parseInt(quantity.getText().toString()));
+
+                if (quantity.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Hãy nhập số lượng bài viết cần hiển thị", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        int quantityNewsOfCate = Integer.parseInt(quantity.getText().toString());
+
+                        if (quantityNewsOfCate < 0) {
+                            Toast.makeText(getContext(), "Số bài viết trong một danh mục không được âm", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Constants.setQuantityNewsOfCate(quantityNewsOfCate);
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
             }
         });
 

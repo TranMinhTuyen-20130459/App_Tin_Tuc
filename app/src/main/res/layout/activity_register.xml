@@ -95,7 +95,7 @@
             android:background="@drawable/bg_register_button"
             android:text="Đăng nhập"
             android:textAllCaps="false"
-            android:textColor="@color/swipe_color_1"
+            android:textColor="?colorPrimary"
             android:textSize="20sp" />
 
         <androidx.cardview.widget.CardView

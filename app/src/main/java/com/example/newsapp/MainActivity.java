@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -33,11 +34,11 @@ import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.fragment.WidgetFragment;
-import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.ReadRSS;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.newsapp.models.Categories;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -72,34 +73,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         boolean isDark = pre.getBoolean("is_dark", false);
         setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

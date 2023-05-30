@@ -3,6 +3,7 @@ package com.example.newsapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ public class AdminActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean isDark = pre.getBoolean("is_dark", false);
+        setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 

@@ -1,5 +1,7 @@
 package com.example.newsapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +41,11 @@ public class SearchActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean isDark = pre.getBoolean("is_dark", false);
+        setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
+
+
         super.onCreate(savedInstanceState);
 
         System.out.println("Đây là hàm tạo SearchActivity");
