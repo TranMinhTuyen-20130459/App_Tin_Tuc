@@ -48,8 +48,11 @@ public class DataListAdapter extends ArrayAdapter<News> {
         ImageView image = view.findViewById(R.id.img);
         title.setText(mDataList.get(position).getTitle());
         timer.setText(mDataList.get(position).getDate());
+        try {
         Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
-
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         return view;
     }
 }

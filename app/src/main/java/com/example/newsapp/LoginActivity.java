@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newsapp.databinding.ActivityLoginBinding;
+import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.models.GoogleUser;
 import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
@@ -107,6 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString(Constants.ROLE_CUSTOMER, json);
                                 editor.apply();
                                 intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("fragment", "profile");
+                                startActivity(intent);
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getFullname(), Toast.LENGTH_LONG).show();
                             }
                             if (role.equals(Constants.ROLE_ADMIN)) {
@@ -196,8 +199,9 @@ public class LoginActivity extends AppCompatActivity {
                             googleUser.setProfile(user.getPhotoUrl().toString());
                             db.getReference().child("google_users").child(user.getUid()).setValue(googleUser);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                            intent.putExtra("fragment", "profile");
                             startActivity(intent);
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                             finish();
                         }else {
                             Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();

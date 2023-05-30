@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 for(Categories c : data ) {
                     if(c.getActive().equals("1")) rssUrls.add(c.getUrl());
                 }
-
                 // kiểm tra có mạng chưa
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();

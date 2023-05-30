@@ -1,5 +1,6 @@
 package com.example.newsapp.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,7 +58,8 @@ public class MainFragment extends Fragment {
                 bundle.putSerializable("list_all_news", (Serializable) MainActivity.list_all_news); // => chuyển danh sách tất cả tin tức qua SearchActivity
                 Intent intent_activity_search = new Intent(getContext(), SearchActivity.class);
                 intent_activity_search.putExtras(bundle);
-                startActivity(intent_activity_search);
+                startActivity(intent_activity_search, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                requireActivity().overridePendingTransition(R.anim.slide_up,0);
             }
         });
 
@@ -91,12 +93,4 @@ public class MainFragment extends Fragment {
         });
         return view;
     }
-
-    private void arriveFragment(Fragment fr, String keyPackgeBundle, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(keyPackgeBundle, mDataList.get(position));
-        fr.setArguments(bundle);
-//        getChildFragmentManager().beginTransaction().replace(R.id.fragment_container_child, fr).commit();
-    }
-
 }

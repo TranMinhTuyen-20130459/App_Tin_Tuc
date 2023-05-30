@@ -20,6 +20,7 @@
             android:background="@drawable/et"
             android:drawableLeft="@drawable/ic_search"
             android:hint="Tìm kiếm"
+            android:layout_marginEnd="@dimen/dp_10"
             android:gravity="center_vertical"
             />
 

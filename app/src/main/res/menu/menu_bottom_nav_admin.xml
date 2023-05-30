@@ -9,10 +9,7 @@
         android:id="@+id/manage_cate"
         android:icon="@drawable/category_icon"
         android:title="@string/manage_cate" />
-    <item
-        android:id="@+id/manage_admin"
-        android:icon="@drawable/btn_user"
-        android:title="@string/manage_admin" />
+
     <item
         android:id="@+id/logout_admin"
         android:icon="@drawable/logout_icon"

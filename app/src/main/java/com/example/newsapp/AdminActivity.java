@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.newsapp.data.UsersDao;
-import com.example.newsapp.fragment.ManageAdminFragment;
 import com.example.newsapp.fragment.ManageCategoryFragment;
 import com.example.newsapp.fragment.ManageUserFragment;
 import com.example.newsapp.models.Users;
@@ -61,10 +60,6 @@ public class AdminActivity extends AppCompatActivity {
                         bt_nav.getMenu().findItem(R.id.manage_cate).setChecked(true);
                         break;
 
-                    case R.id.manage_admin: //quản lý admin
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin, new ManageAdminFragment()).commit();
-                        bt_nav.getMenu().findItem(R.id.manage_admin).setChecked(true);
-                        break;
                     case R.id.logout_admin:// Đăng xuất
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.remove(Constants.ROLE_ADMIN);

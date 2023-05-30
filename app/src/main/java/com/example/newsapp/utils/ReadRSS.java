@@ -34,6 +34,14 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
     }
 
     @Override
+    protected void onPreExecute() {
+        dialog = new ProgressDialog(mainActivity);
+        dialog.setMessage("Đang tải...");
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    @Override
     protected String doInBackground(String... strings) {
         StringBuilder content = new StringBuilder();
         try {
@@ -49,17 +57,21 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.err.println(content.toString());
         return content.toString();
     }
 
+    // thực thi trên luồng UI sau khi doinback hoàn thành
+    // nhận input từ kết quả của doinback
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         dialog.dismiss();
         XMLDOMParser xmldomParser = new XMLDOMParser();
         Document document = xmldomParser.getDocument(s);
-
+        // Lấy danh sách các phần tử "item"
         NodeList nodeList = document.getElementsByTagName("item");
+        // Lấy danh sách các phần tử "description"
         NodeList nodeListDescription = document.getElementsByTagName("description");
 
         String title = "";
@@ -73,25 +85,18 @@ public class ReadRSS extends AsyncTask<String, Void, String> {
             if (m.find()) {
                 linkImage = m.group(1);
             }
+            // Lấy các giá trị từ các phần tử "item"
             Element element = (Element) nodeList.item(i);
             title = xmldomParser.getValue(element, "title");
             link = xmldomParser.getValue(element, "guid");
             date = xmldomParser.getValue(element, "pubDate");
-            // số bài trong 1 danh mục
-//            if (listNews.size() < 20) {
-            listNews.add(new News(title, link, linkImage, date));
-//            }
-        }
 
+            // Tạo đối tượng News và thêm vào danh sách
+            listNews.add(new News(title, link, linkImage, date));
+        }
+        // Gọi phương thức callback trong MainActivity
         mainActivity.onRssRead();
     }
 
-    @Override
-    protected void onPreExecute() {
-        dialog = new ProgressDialog(mainActivity);
-        dialog.setMessage("Đang tải...");
-        dialog.setCancelable(false);
-        dialog.show();
-    }
 
 }
