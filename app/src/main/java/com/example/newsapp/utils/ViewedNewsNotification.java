@@ -39,7 +39,7 @@ public class ViewedNewsNotification {
     public void scheduleNext() {
         PendingIntent pi = PendingIntent.getBroadcast(context, 0,
                 new Intent(context, ViewedNewsReceiver.class), PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pi);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, pi);
     }
 
     public boolean isFull() {
@@ -66,7 +66,7 @@ public class ViewedNewsNotification {
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(news.getTitle()))
+                        .setContentText(news.getTitle())
                         .setContentIntent(pendingIntent)
                         .setShowWhen(true)
                         .setAutoCancel(true)

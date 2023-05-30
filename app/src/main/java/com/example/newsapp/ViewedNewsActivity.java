@@ -42,6 +42,7 @@ public class ViewedNewsActivity extends AppCompatActivity implements ViewedNewsA
         SharedPreferences pre = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         boolean isDark = pre.getBoolean("is_dark", false);
         setTheme(isDark ? R.style.AppThemeDark : R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewed_news);
         setUpActionBar();
