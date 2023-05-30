@@ -45,6 +45,7 @@
         <item name="actionModeStyle">@style/ActionModeStyle</item>
         <!-- SnakeBarStyle -->
         <item name="snackbarStyle">@style/MySnackbar</item>
+        <item name="selectedItem">@color/color_primary_lighter</item>
     </style>
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -61,6 +62,11 @@
 
         <!-- Change Action Bar overflow icon (Options Menu button) color -->
         <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+        <!-- ActionMode -->
+        <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- SnakeBarStyle -->
+        <item name="snackbarStyle">@style/MySnackbar</item>
+        <item name="selectedItem">@color/color_primary_lighter_dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

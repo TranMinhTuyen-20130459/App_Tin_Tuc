@@ -37,5 +37,6 @@
     <color name="nav_bar_start">#7db1ec</color>
     <color name="nav_bar_end">#002e5b</color>
 
-    <color name="color_primary_lighter">#C1FFE6E8</color>
+    <color name="color_primary_lighter">#C1FFEAEB</color>
+    <color name="color_primary_lighter_dark">#C2E6F6FF</color>
 </resources>
