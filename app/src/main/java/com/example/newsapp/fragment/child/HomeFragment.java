@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.newsapp.R;
-import com.example.newsapp.adapter.DataListAdapter;
+import com.example.newsapp.adapter.DataListNewsAdapter;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.PutLinkToNewsDetail;
@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         }
 
         mListView = view.findViewById(R.id.list_view_home);
-        DataListAdapter adapter = new DataListAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
+        DataListNewsAdapter adapter = new DataListNewsAdapter(getContext(), android.R.layout.simple_list_item_1, mDataList);
         mListView.setAdapter(adapter);
         // chi tiết từng bài viết
         new PutLinkToNewsDetail(getActivity()).putLinkNews(mListView,mDataList);
