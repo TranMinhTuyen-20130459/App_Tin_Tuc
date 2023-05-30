@@ -1,7 +1,5 @@
 package com.example.newsapp.models;
 
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 
 public class Users implements Serializable {

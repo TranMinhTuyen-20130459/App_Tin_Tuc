@@ -1,7 +1,6 @@
 package com.example.newsapp.fragment;
 
 
-
 import android.annotation.SuppressLint;
 
 import android.content.Context;
@@ -32,13 +31,10 @@ import com.example.newsapp.R;
 import com.example.newsapp.utils.Constants;
 
 
-
 public class WidgetFragment extends Fragment {
 
-    Button btn_ok, btn_vitri ,btn_theme;
+    Button btn_ok, btn_vitri, btn_theme;
     TextView quantity;
-
-
 
 
     @SuppressLint("MissingInflatedId")
@@ -48,11 +44,10 @@ public class WidgetFragment extends Fragment {
         View view = inflater.inflate(R.layout.widget_fragment, container, false);
 
 
-
         btn_ok = view.findViewById(R.id.btn_ok);
         quantity = view.findViewById(R.id.quantity);
         btn_vitri = view.findViewById(R.id.button_vitri);
-        btn_theme=view.findViewById(R.id.btnToggleTheme);
+        btn_theme = view.findViewById(R.id.btnToggleTheme);
         btn_theme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,11 +55,8 @@ public class WidgetFragment extends Fragment {
                 boolean isDark = pre.getBoolean("is_dark", false);
                 pre.edit().putBoolean("is_dark", !isDark).apply();
                 getActivity().recreate();
-        }});
-
-
-
-
+            }
+        });
 
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +90,6 @@ public class WidgetFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
 
         return view;

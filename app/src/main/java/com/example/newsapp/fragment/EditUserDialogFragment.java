@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.newsapp.AdminActivity;
 import com.example.newsapp.R;
-import com.example.newsapp.adapter.UserListAdapter;
 import com.example.newsapp.data.UsersDao;
 import com.example.newsapp.models.Users;
 

@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.newsapp.MainActivity;
 import com.example.newsapp.R;
 import com.example.newsapp.SearchActivity;
-import com.example.newsapp.adapter.CategoryAdapter;
 import com.example.newsapp.adapter.ViewPagerAdapter;
 import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.child.HomeFragment;

@@ -1,50 +1,29 @@
 package com.example.newsapp;
 
-import static com.example.newsapp.NewsApp.CHANNEL_ID;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.TaskStackBuilder;
 
 import com.example.newsapp.data.CategoriesDao;
 import com.example.newsapp.fragment.MainFragment;
 import com.example.newsapp.fragment.ProfileFragment;
 import com.example.newsapp.fragment.WidgetFragment;
+import com.example.newsapp.models.Categories;
 import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.ReadRSS;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.newsapp.models.Categories;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
