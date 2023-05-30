@@ -19,12 +19,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DataListAdapter extends ArrayAdapter<News> {
+public class DataListNewsAdapter extends ArrayAdapter<News> {
     private Context mContext;
     private int mResource;
     private ArrayList<News> mDataList;
 
-    public DataListAdapter(Context context, int resource, ArrayList<News> dataList) {
+    public DataListNewsAdapter(Context context, int resource, ArrayList<News> dataList) {
         super(context, resource, dataList);
         this.mContext = context;
         this.mResource = resource;
