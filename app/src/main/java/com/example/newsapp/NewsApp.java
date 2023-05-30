@@ -3,6 +3,8 @@ package com.example.newsapp;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 /**
  * Lớp này sẽ tự chạy khi ứng dụng bắt đầu.
@@ -13,6 +15,7 @@ public class NewsApp extends Application {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         createNotificationChannel();
     }

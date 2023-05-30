@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     ArrayList<News> mDataList;
     ListView mListView;
-    Button btn_login, btn_logout;
+    Button btn_login, btn_logout, btn_vitri;
     TextView fullname;
 
     @Nullable
@@ -42,7 +42,10 @@ public class ProfileFragment extends Fragment {
 
         btn_login = view.findViewById(R.id.btn_login);
         btn_logout = view.findViewById(R.id.btn_logout);
+
+
         fullname = view.findViewById(R.id.fullname);
+
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

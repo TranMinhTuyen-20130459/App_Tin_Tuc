@@ -50,4 +50,6 @@
     <dimen name="dp_50">50dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_100">100dp</dimen>
+    <dimen name="size_text">10dp</dimen>
+
 </resources>

@@ -38,4 +38,6 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/tin_da_xem"
         android:textColor="@color/white" />
+
+
 </RelativeLayout>
