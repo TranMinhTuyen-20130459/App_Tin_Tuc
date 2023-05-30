@@ -1,17 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/swipe_color_2"
-
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="12dp"
     >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Quản lý danh mục"
+        android:paddingTop="12dp"
+        android:text="DANH SÁCH DANH MỤC"
         android:textColor="@color/black"
-        android:textSize="30dp"
-        />
+        android:textSize="20dp"
 
-</RelativeLayout>
+        />
+    <EditText
+        android:id="@+id/search_name"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/tvMan_category"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/et"
+        android:hint="Tìm kiếm danh mục"
+        android:inputType="textEmailAddress"
+        android:padding="6dp"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btnSearchCate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tìm kiếm"
+            android:paddingHorizontal="14dp"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="#FC4F00"
+
+            />
+        <Button
+            android:id="@+id/btnAddCate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm"
+            android:layout_marginLeft="12dp"
+            android:textAllCaps="false"
+            android:paddingHorizontal="14dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="#19A7CE"/>
+    </LinearLayout>
+    <AbsoluteLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+            <TextView
+                android:id="@+id/id_category_stt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_x="12dp"
+                android:layout_y="4dp"
+                android:padding="4dp"
+                android:text="STT"
+                android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/id_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_x="60dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="TITLE"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/id_category_active2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_x="193dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="STATUS" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="259dp"
+            android:layout_y="4dp"
+            android:padding="4dp"
+            android:text="XÓA|SỬA" />
+    </AbsoluteLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

@@ -4,7 +4,7 @@
 | # | Chức năng                                             | Thành viên thực hiện       | Deadline   |
 | ---- | ------------------------------------------------------ | --------------------------| ---------- |
 | 1 |-	Đăng nhập : Facebook , Google, Tài khoản đki -	Đăng ký:| Tài, Lênh                              |            |
-| 2 |-	Hiển thị bài viết theo loại -	Tìm kiếm bài viết theo tên | Tuyên, Quốc Nam            |            |
+| 2 |-	Hiển thị bài viết theo loại -	Tìm kiếm bài viết theo tên - Lịch sử tìm kiếm | Tuyên, Quốc Nam            |            |
 | 3 | -	Hiển thị ra thông báo về tin hot hoặc mới nhất-	Các tin người dùng đã xem( Lưu vào db)| Đạt, Lộc                   |            |
 | 4 | -	Quản lý danh mục (Admin): Thêm , sửa ,xóa -	(Các danh mục này được hiển thị trên giao diện người dùng)| Vũ, Lập                    |            |
 | 5 | Quản lý nguồn lựa chọn load link của nguồn này hay nguồn kia( ví dụ: có 2 nguồn báo thanh niên và vnexpress, ta chọn 1 trong 2, Nếu chọn báo thanh niên thì toàn bộ các danh mục bên trang người dùng sẽ load RSS từ báo thanh niên…)         | Quý, Nam Cao               |            |

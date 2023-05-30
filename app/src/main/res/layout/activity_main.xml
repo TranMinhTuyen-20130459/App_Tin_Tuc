@@ -24,7 +24,6 @@
         app:itemIconTint="@color/custom_color_bt_nav"
         app:itemTextColor="@color/custom_color_bt_nav"
         android:fitsSystemWindows="true"
-        app:menu="@menu/menu_bottom_nav">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
+        app:itemBackground="@color/swipe_color_1"
+        app:menu="@menu/menu_bottom_nav" />
 </RelativeLayout>

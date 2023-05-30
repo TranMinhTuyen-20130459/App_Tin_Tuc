@@ -10,14 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.newsapp.models.News;
 import com.example.newsapp.R;
 import com.example.newsapp.adapter.DataListAdapter;
+import com.example.newsapp.models.News;
 import com.example.newsapp.utils.Constants;
 import com.example.newsapp.utils.PutLinkToNewsDetail;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
     ArrayList<News> mDataList;
@@ -31,6 +30,7 @@ public class HomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
+            // Lấy danh sách tin, sau đó hiển thị lên màn hình.
             mDataList = (ArrayList<News>) bundle.getSerializable(Constants.KEY_LIST_NEWS_MAIN);
         }
 

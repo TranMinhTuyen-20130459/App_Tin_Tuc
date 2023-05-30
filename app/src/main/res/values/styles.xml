@@ -27,9 +27,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/swipe_color_1</item>
+        <item name="colorPrimaryDark">@color/swipe_color_1</item>
+        <item name="colorAccent">@color/swipe_color_1</item>
 
         <!-- Change Action Bar title text color  -->
         <item name="titleTextColor">@color/white</item>
@@ -40,6 +40,11 @@
 
         <!-- Change Action Bar overflow icon (Options Menu button) color -->
         <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+
+        <!-- ActionMode -->
+        <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- SnakeBarStyle -->
+        <item name="snackbarStyle">@style/MySnackbar</item>
     </style>
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -86,14 +91,14 @@
 
     <!-- Style for a tab that displays a category name -->
     <style name="CategoryTab" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/color_app_bar_text</item>
-        <item name="tabSelectedTextColor">@color/color_app_bar_text</item>
+        <item name="tabIndicatorColor">@color/swipe_color_1</item>
+        <item name="tabSelectedTextColor">@color/swipe_color_1</item>
         <item name="tabTextAppearance">@style/CategoryTabTextAppearance</item>
     </style>
 
     <!-- Text appearance style for a category tab -->
     <style name="CategoryTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textColor">@color/color_tab_text</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- Style for title TextView-->
@@ -143,4 +148,13 @@
         <item name="android:textColor">@color/color_date_text</item>
     </style>
 
+    <style name="ActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">?colorPrimary</item>
+    </style>
+
+    <style name="MySnackbar" parent="Widget.Design.Snackbar">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:background">@drawable/bg_snakebar</item>
+    </style>
 </resources>

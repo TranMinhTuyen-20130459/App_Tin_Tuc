@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.AppBarOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
     android:gravity="center"
-    style="@style/AppTheme.AppBarOverlay">
+    android:paddingHorizontal="32dp"
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_30"
+        android:layout_alignParentStart="true"
         android:text="Đăng nhập"
         android:textColor="@color/black"
         android:textSize="50sp" />
@@ -22,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/tvLogin"
-        android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_30"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/dp_50"
         android:background="@drawable/et"
         android:hint="Email"
@@ -37,56 +38,86 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/etLoginEmail"
-        android:layout_marginStart="@dimen/dp_30"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginEnd="@dimen/dp_30"
         android:background="@drawable/et"
         android:hint="Mật khẩu"
         android:inputType="textWebPassword"
         android:padding="15dp"
         android:textSize="15sp" />
 
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etLoginPassword"
-        android:layout_marginStart="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_50"
-        android:layout_marginEnd="@dimen/dp_50"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_login_button"
         android:text="Đăng nhập"
         android:textAllCaps="false"
-        android:textSize="20sp"
         android:textColor="@color/white"
-        app:backgroundTint="@color/colorPrimaryDark" />
+        android:textSize="20sp" />
 
-    <TextView
+    <Button
         android:id="@+id/tvRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_register_button"
+        android:text="Đăng ký"
+        android:textAllCaps="false"
+        android:textColor="@color/swipe_color_1"
+        android:textSize="20sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etLoginPassword"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/black"
-        android:text="Chọn vào đây để đăng ký!"
-        android:layout_marginEnd="@dimen/dp_30"/>
-
-    <ImageView
-        android:id="@+id/btnGoogleLoginPage"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:layout_below="@id/btnLogin"
-        android:layout_marginStart="@dimen/dp_100"
+        android:layout_below="@id/tvRegister"
         android:layout_marginTop="@dimen/dp_30"
-        android:src="@drawable/google" />
+        android:layout_toStartOf="@id/text_or"
+        app:cardCornerRadius="@dimen/dp_100"
+        app:contentPadding="12dp">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/btnLogin"
-        android:layout_alignParentEnd="true"
+        <ImageView
+            android:id="@+id/btnGoogleLoginPage"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/google" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="or"
+        android:textAlignment="center" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvRegister"
         android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_100"
-        android:src="@drawable/facebook_icon" />
+        android:layout_toEndOf="@id/text_or"
+        app:cardCornerRadius="@dimen/dp_100"
+        app:contentPadding="12dp">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/facebook" />
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

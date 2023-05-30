@@ -21,7 +21,9 @@ public class NewsDbHelper extends SQLiteOpenHelper {
                     "link TEXT PRIMARY KEY," +
                     "title TEXT," +
                     "img_link TEXT," +
-                    "date DATE)";
+                    "date DATE," +
+                    "description TEXT," +
+                    "user TEXT)";
 
     /**
      * Câu truy vấn để xóa bảng viewed_news.

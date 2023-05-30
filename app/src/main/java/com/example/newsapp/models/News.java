@@ -1,5 +1,7 @@
 package com.example.newsapp.models;
 
+import androidx.annotation.NonNull;
+
 import com.example.newsapp.utils.Format;
 
 import java.io.Serializable;
@@ -9,8 +11,24 @@ public class News implements Serializable {
     private String link;
     private String linkImage;
     private String date;
-    String des;
+    private String description;
     private String category;
+    private boolean isSelected;
+
+    public News() {
+    }
+
+    public News(String title, String link, String linkImage, String date) {
+        this.title = title;
+        this.link = link;
+        this.linkImage = linkImage;
+        this.date = date;
+    }
+
+    public News(String title, String link, String linkImage, String date, String description) {
+        this(title, link, linkImage, date);
+        this.description = description;
+    }
 
     public String getTitle() {
         return title;
@@ -37,11 +55,19 @@ public class News implements Serializable {
     }
 
     public String getDate() {
-        return Format.formartDate(date);
+        return Format.format(date);
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCategory() {
@@ -52,10 +78,22 @@ public class News implements Serializable {
         this.category = category;
     }
 
-    public News(String title, String link, String linkImage, String date) {
-        this.title = title;
-        this.link = link;
-        this.linkImage = linkImage;
-        this.date = date;
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "News{" +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                '}';
     }
 }

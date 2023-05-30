@@ -1,6 +1,7 @@
 package com.example.newsapp.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.newsapp.models.News;
 import com.example.newsapp.R;
+import com.example.newsapp.models.News;
+import com.example.newsapp.utils.ImageHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,13 +44,23 @@ public class DataListAdapter extends ArrayAdapter<News> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.news_item, null);
         }
+        try {
+            TextView title = view.findViewById(R.id.title);
+            TextView timer = view.findViewById(R.id.time);
+            ImageView image = view.findViewById(R.id.img);
 
-        TextView title = view.findViewById(R.id.title);
-        TextView timer = view.findViewById(R.id.time);
-        ImageView image = view.findViewById(R.id.img);
-        title.setText(mDataList.get(position).getTitle());
-        timer.setText(mDataList.get(position).getDate());
-        Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);
+            Picasso.get().load(mDataList.get(position).getLinkImage()).into(new ImageHelper.TargetAdapter() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap rounded = ImageHelper.getRoundedCornerBitmap(bitmap, 5);
+                    image.setImageBitmap(rounded);
+                }
+            });
+            title.setText(mDataList.get(position).getTitle());
+            timer.setText(mDataList.get(position).getDate());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return view;
     }

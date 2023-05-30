@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -15,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newsapp.data.NewsDao;
 import com.example.newsapp.models.News;
+import com.example.newsapp.models.Users;
 import com.example.newsapp.utils.Constants;
+import com.google.gson.Gson;
 
 public class NewsDetailActivity extends AppCompatActivity {
     WebView webView;
@@ -33,16 +36,17 @@ public class NewsDetailActivity extends AppCompatActivity {
             dialog.setMessage("Đang tải...");
             dialog.setCancelable(false);
             dialog.show();
+            // Tăng tốc WebView
+            webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
             // dùng để khi nhấn vào những cái link báo khác thì nó vẫn ở trong app chứ nhảy ra khỏi app
             webView.setWebViewClient(onWebViewLoaded);
             webView.loadUrl(link);
         }
 
-        /* Người dùng vừa nhấn vào một tin -> đã xem -> lưu vào database. */
-        News news = (News) intent.getSerializableExtra(Constants.KEY_VIEWED_NEWS);
-        if (news != null) {
-            NewsDao newsDao = new NewsDao(this);
-            newsDao.addNews(news);
+        String json = getSharedPreferences(Constants.MY_PREFERENCES, MODE_PRIVATE).getString(Constants.ROLE_CUSTOMER, "");
+        Users user = new Gson().fromJson(json, Users.class);
+        if (user != null) {
+            saveNews(user);
         }
     }
 
@@ -72,5 +76,15 @@ public class NewsDetailActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void saveNews(Users user) {
+        News news = (News) getIntent().getSerializableExtra(Constants.KEY_VIEWED_NEWS);
+        if (news != null) {
+            new Thread(() -> {
+                NewsDao newsDao = new NewsDao(this);
+                newsDao.addNews(news, user.getUsername());
+            }).start();
+        }
     }
 }

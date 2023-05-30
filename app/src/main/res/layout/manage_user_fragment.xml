@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <EditText
+        android:id="@+id/search_user"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/et"
+        android:hint="Tìm kiếm người dùng"
+        android:inputType="textEmailAddress"
+        android:padding="6dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:text="DANH SÁCH NGƯỜI DÙNG"
+        android:textColor="@color/black"
+
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:id="@+id/tblLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_user"
+        android:layout_marginTop="12dp">
+
+        <!-- Hàng tiêu đề -->
+        <TableRow android:id="@+id/thead">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_column="1"
+                android:padding="4dp"
+                android:text="Email"
+                android:textAlignment="textStart"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:text="Tên"
+                android:textAlignment="textStart"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_column="3"
+                android:padding="4dp"
+                android:text="Sửa|xoá"
+                android:textAlignment="center"
+                android:textAllCaps="true" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tblLayout"
+        android:layout_marginTop="0dp" />
+</RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.newsapp.models;
 
-public class Categories {
+import java.io.Serializable;
+
+public class Categories implements Serializable {
     String position;
     String url;
     String title;
@@ -49,5 +51,13 @@ public class Categories {
     public Categories() {
     }
 
-
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "position='" + position + '\'' +
+                ", url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", active='" + active + '\'' +
+                '}';
+    }
 }
