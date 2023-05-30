@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.service.notification.StatusBarNotification;
 
@@ -47,9 +48,10 @@ public class ViewedNewsNotification {
         return (int) Arrays.stream(activeNotifications).filter(n -> n.getTag().equals(NEWS_TAG)).count() >= NOTIFICATIONS_ALLOWED;
     }
 
-    public boolean isActive(int id) {
-        StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
-        return activeNotifications.length != 0 && Arrays.stream(activeNotifications).anyMatch(n -> n.getTag().equals(NEWS_TAG) && n.getId() == id);
+    public boolean canNotify(String link) {
+        var pref = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String lastNotified = pref.getString("last_notified", null);
+        return !link.equals(lastNotified);
     }
 
     public void pushNotification(@NonNull News news) {
@@ -74,6 +76,8 @@ public class ViewedNewsNotification {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                 notificationManager.notify(NEWS_TAG, news.getLink().hashCode(), builder.build());
+                SharedPreferences pref = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                pref.edit().putString("last_notified", news.getLink()).apply();
             }
         });
     }
