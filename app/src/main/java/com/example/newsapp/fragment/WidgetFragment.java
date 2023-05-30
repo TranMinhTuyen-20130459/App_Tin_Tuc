@@ -19,8 +19,8 @@ import com.example.newsapp.utils.Constants;
 
 public class WidgetFragment extends Fragment {
 
-    Button  btn_ok;
-    TextView  quantity;
+    Button btn_ok;
+    TextView quantity;
 
     @Nullable
     @Override
@@ -32,9 +32,24 @@ public class WidgetFragment extends Fragment {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constants.setQuantityNewsOfCate(Integer.parseInt(quantity.getText().toString()));
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+
+                if (quantity.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Hãy nhập số lượng bài viết cần hiển thị", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        int quantityNewsOfCate = Integer.parseInt(quantity.getText().toString());
+
+                        if (quantityNewsOfCate < 0) {
+                            Toast.makeText(getContext(), "Số bài viết trong một danh mục không được âm", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Constants.setQuantityNewsOfCate(quantityNewsOfCate);
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
             }
         });
         return view;
