@@ -38,6 +38,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 //       danh sách bài viết trong danh mục
             HomeFragment mainFragment = new HomeFragment();
             Bundle bundle = new Bundle();
+
             bundle.putSerializable(Constants.KEY_LIST_NEWS_MAIN, dataList.get(position).stream()
                     .limit(Constants.QUANTITY_NEWS_OF_CATE)
                     .collect(Collectors.toCollection(ArrayList::new)));

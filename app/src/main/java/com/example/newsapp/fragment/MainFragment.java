@@ -77,7 +77,8 @@ public class MainFragment extends Fragment {
             @Override
             public void onSuccess(List<Categories> data){
                 for (Categories category : data) {
-                    if(category.getActive().equals("1")) adapter.addFragment(new HomeFragment(), category.getTitle());
+                    if(category.getActive().equals("1"))
+                        adapter.addFragment(new HomeFragment(), category.getTitle());
                 }
 
                 // Kết nối TabLayout với ViewPager

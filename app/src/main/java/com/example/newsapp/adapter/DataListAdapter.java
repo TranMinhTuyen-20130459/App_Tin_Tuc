@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.newsapp.models.News;
 import com.example.newsapp.R;
+import com.example.newsapp.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class DataListAdapter extends ArrayAdapter<News> {
         TextView timer = view.findViewById(R.id.time);
         ImageView image = view.findViewById(R.id.img);
         title.setText(mDataList.get(position).getTitle());
+        title.setTextSize(Constants.FONT_SIZE);
         timer.setText(mDataList.get(position).getDate());
         try {
         Picasso.get().load(mDataList.get(position).getLinkImage()).into(image);

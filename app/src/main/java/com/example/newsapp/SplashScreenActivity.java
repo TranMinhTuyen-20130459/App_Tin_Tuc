@@ -6,8 +6,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ImageView;
-
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final long SPLASH_SCREEN_TIMEOUT = 2000; // Thời gian hiển thị Splash Screen (2 giây)

@@ -150,58 +150,76 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setTitle("Creating Account");
         progressDialog.setMessage("we are creating your account");
+
+        // Thiết lập các tùy chọn Google Sign-In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
+
+        // Khởi tạo đối tượng GoogleSignInClient từ tùy chọn
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        // Xử lý sự kiện khi nút Google Sign-In được nhấn
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 googleSignIn();
             }
         });
-//        if(auth.getCurrentUser() != null){
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
     }
+    // Khai báo mã yêu cầu khi đăng nhập Google
     int RC_SIGN_IN = 40;
+
+    // Phương thức thực hiện đăng nhập Google
     public void googleSignIn(){
         Intent intent = mGoogleSignInClient.getSignInIntent();
+        // Bắt đầu hoạt động để nhận kết quả đăng nhập
         startActivityForResult(intent, RC_SIGN_IN);
     }
+
+    // Xử lý kết quả đăng nhập Google trả về
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
+            // Lấy tác vụ đăng nhập Google từ intent trả về
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
+                // Lấy tài khoản đăng nhập Google thành công
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                // Xác thực với Firebase bằng mã thông tin nhận được từ tài khoản Google
                 firebaseAuth(account.getIdToken());
             }catch (Exception e){
+                // Xử lý khi xảy ra lỗi
                 Toast.makeText(this, "lỗi ở đây nè", Toast.LENGTH_LONG).show();
             }
         }
     }
+
+    // Phương thức xác thực Firebase bằng mã thông tin nhận được từ tài khoản Google
     private void firebaseAuth(String idToken) {
+        // Tạo đối tượng AuthCredential từ mã thông tin và null
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        // Xác thực với Firebase bằng AuthCredential
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            // Xác thực thành công, lấy thông tin người dùng từ FirebaseUser
                             FirebaseUser user = auth.getCurrentUser();
+                            // Tạo đối tượng GoogleUser với thông tin người dùng
                             GoogleUser googleUser = new GoogleUser();
                             googleUser.setUserId(user.getUid());
                             googleUser.setName(user.getDisplayName());
                             googleUser.setProfile(user.getPhotoUrl().toString());
+                            // Lưu thông tin người dùng vào cơ sở dữ liệu Firebase Realtime Database
                             db.getReference().child("google_users").child(user.getUid()).setValue(googleUser);
+                            // Chuyển sang MainActivity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("fragment", "profile");
                             startActivity(intent);
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công với tên " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                            // Kết thúc LoginActivity
                             finish();
                         }else {
                             Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
@@ -210,6 +228,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    // kiểm tra định dạng mail
     public boolean validate(String email) {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
