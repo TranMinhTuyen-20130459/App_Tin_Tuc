@@ -25,9 +25,10 @@ import com.example.newsapp.R;
 import com.example.newsapp.utils.Constants;
 
 import androidx.core.content.ContextCompat;
+
 public class WidgetFragment extends Fragment {
     private TextView textView;
-    TextView font_size, quantity, test;
+    TextView font_size, quantity, weather, calendar;
 
     TextView title;
     int fontsize = 0;
@@ -41,6 +42,22 @@ public class WidgetFragment extends Fragment {
         View view = inflater.inflate(R.layout.widget_fragment, container, false);
         font_size = view.findViewById(R.id.font_size);
         quantity = view.findViewById(R.id.quantity);
+        weather = view.findViewById(R.id.weather);
+        calendar = view.findViewById(R.id.calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lịch việt
+                Toast.makeText(requireContext(), "Ứng dụng này đang được phát triển", Toast.LENGTH_SHORT).show();
+            }
+        });
+        weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //wheather
+                Toast.makeText(requireContext(), "Ứng dụng này đang được phát triển", Toast.LENGTH_SHORT).show();
+            }
+        });
         quantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +71,6 @@ public class WidgetFragment extends Fragment {
 
                 // Tạo một icon số bài viết
                 builder.setView(inputEditText);
-
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -67,6 +83,7 @@ public class WidgetFragment extends Fragment {
                             } else {
                                 // Hiển thị thông báo lỗi nếu số không thỏa mãn điều kiện
                                 Toast.makeText(getContext(), "Số bài viết không hợp lệ!", Toast.LENGTH_SHORT).show();
+
                             }
 
                         }

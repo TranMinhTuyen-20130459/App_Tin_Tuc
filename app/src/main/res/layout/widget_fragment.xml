@@ -24,11 +24,10 @@
         android:layout_alignParentStart="true"
         android:drawableLeft="@drawable/format_list_numbered"
         android:drawablePadding="@dimen/dp_20"
-        android:paddingBottom="@dimen/dp_10"
         android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
         android:text="Số bài viết"
-        android:textSize="@dimen/dp_20">
-    </TextView>
+        android:textSize="@dimen/dp_20"></TextView>
 
     <View
         android:layout_width="match_parent"
@@ -40,13 +39,45 @@
         android:id="@+id/font_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quantity"
+        android:layout_below="@+id/font_size"
         android:layout_alignParentStart="true"
         android:drawableLeft="@drawable/text_fields"
         android:drawablePadding="@dimen/dp_20"
         android:paddingBottom="@dimen/dp_10"
         android:paddingTop="@dimen/dp_10"
         android:text="Cỡ chữ"
+        android:textSize="@dimen/dp_20"></TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_user"
+        android:background="@drawable/line" />
+    <TextView
+        android:id="@+id/weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weather"
+        android:drawableLeft="@drawable/partly_cloudy_day"
+        android:drawablePadding="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="Thời tiết"
+        android:textSize="@dimen/dp_20"></TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_user"
+        android:background="@drawable/line" />
+    <TextView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar"
+        android:drawableLeft="@drawable/calendar_month"
+        android:drawablePadding="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="Lịch Việt"
         android:textSize="@dimen/dp_20"></TextView>
     <View
         android:layout_width="match_parent"
