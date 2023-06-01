@@ -31,7 +31,7 @@ public class WidgetFragment extends Fragment {
 
     TextView title;
     int fontsize = 0;
-    static int checkedItem = 1;
+    static int checkedItem = 0;
 
     int font;
 
@@ -61,7 +61,7 @@ public class WidgetFragment extends Fragment {
                         String inputText = inputEditText.getText().toString();
                         if (!TextUtils.isEmpty(inputText)) {
                             int articleCount = Integer.parseInt(inputText);
-                            if (articleCount > 0 && articleCount < 60) {
+                            if (articleCount > 0 && articleCount <= 60) {
                                 // Sử dụng giá trị articleCount tùy ý ở đây
                                 Constants.setQuantityNewsOfCate(articleCount);
                             } else {

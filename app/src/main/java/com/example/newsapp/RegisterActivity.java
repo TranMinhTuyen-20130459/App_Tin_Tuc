@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     Users user;
     FirebaseDatabase db;
     DatabaseReference reference;
-TextView btnLogin;
+    TextView btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

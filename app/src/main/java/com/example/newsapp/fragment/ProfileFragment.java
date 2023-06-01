@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
     Button btn_login, btn_logout, btn_fllower;
     TextView fullname, if_email, if_name;
     FirebaseAuth auth;
-    ImageView cameraIcon, coverImage, cameraIconAvata;
+    ImageView cameraIcon, coverImage, cameraIconAvata, bgIcCamera;
     LinearLayout ln_mail, ln_name;
     FrameLayout fr_cover_image;
     CircleImageView profileImage;
@@ -75,6 +75,11 @@ public class ProfileFragment extends Fragment {
         fullname = view.findViewById(R.id.fullname);
         if_email = view.findViewById(R.id.if_email);
         if_name = view.findViewById(R.id.if_name);
+
+        cameraIcon = view.findViewById(R.id.camera_icon);
+        coverImage = view.findViewById(R.id.cover_image_item);
+        cameraIconAvata = view.findViewById(R.id.camera_icon_avata);
+        bgIcCamera = view.findViewById(R.id.bg_icon_avata);
 
         fr_cover_image = view.findViewById(R.id.cover_image);
         ln_mail = view.findViewById(R.id.info_user);
@@ -102,12 +107,17 @@ public class ProfileFragment extends Fragment {
                 ln_name.setVisibility(View.GONE);
                 btn_fllower.setVisibility(View.GONE);
                 fr_cover_image.setVisibility(View.GONE);
+                cameraIconAvata.setVisibility(View.GONE);
+                bgIcCamera.setVisibility(View.GONE);
             } else {
                 btn_logout.setVisibility(View.VISIBLE);
                 ln_mail.setVisibility(View.VISIBLE);
                 ln_name.setVisibility(View.VISIBLE);
                 btn_fllower.setVisibility(View.VISIBLE);
                 fr_cover_image.setVisibility(View.VISIBLE);
+                cameraIconAvata.setVisibility(View.VISIBLE);
+                bgIcCamera.setVisibility(View.VISIBLE);
+
                 btn_login.setVisibility(View.GONE);
                 if (user != null) {
                     // Nếu người dùng đã đăng nhập, hiển thị nút đăng xuất và đăng nhập
@@ -148,6 +158,8 @@ public class ProfileFragment extends Fragment {
                                     ln_name.setVisibility(View.GONE);
                                     btn_fllower.setVisibility(View.GONE);
                                     fr_cover_image.setVisibility(View.GONE);
+                                    cameraIconAvata.setVisibility(View.GONE);
+                                    bgIcCamera.setVisibility(View.GONE);
                                     btn_login.setVisibility(View.VISIBLE);
                                     fullname.setText("");
                                 } else {
@@ -162,6 +174,8 @@ public class ProfileFragment extends Fragment {
                                     ln_name.setVisibility(View.GONE);
                                     btn_fllower.setVisibility(View.GONE);
                                     fr_cover_image.setVisibility(View.GONE);
+                                    cameraIconAvata.setVisibility(View.GONE);
+                                    bgIcCamera.setVisibility(View.GONE);
                                     btn_login.setVisibility(View.VISIBLE);
                                     fullname.setText("");
                                 }
@@ -180,8 +194,7 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(context, "Chức năng này đang được phát triển!", Toast.LENGTH_SHORT).show();
             }
         });
-        cameraIcon = view.findViewById(R.id.camera_icon);
-        coverImage = view.findViewById(R.id.cover_image_item);
+
 
         cameraIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +202,6 @@ public class ProfileFragment extends Fragment {
                 openImagePicker();
             }
         });
-        cameraIconAvata = view.findViewById(R.id.camera_icon_avata);
         cameraIconAvata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
