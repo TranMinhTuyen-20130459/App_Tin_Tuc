@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -190,8 +191,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Xác thực với Firebase bằng mã thông tin nhận được từ tài khoản Google
                 firebaseAuth(account.getIdToken());
             }catch (Exception e){
-                // Xử lý khi xảy ra lỗi
-                Toast.makeText(this, "lỗi ở đây nè", Toast.LENGTH_LONG).show();
+                Log.e("GoogleSignInError", "Đăng nhập Google không thành công", e);
+                Toast.makeText(this, "Đăng nhập Google không thành công", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -14,7 +14,7 @@ public class Constants {
     public static String ROLE_CUSTOMER = "user"; // quyền user
     public static String TABLE_USERS = "users"; // tên bảng users
     public static String TABLE_CATEGORIES = "categories"; // tên bảng danh mục
-    public static  int FONT_SIZE = 19;
+    public static  int FONT_SIZE = 14;
 
     public static void setFontSize(int fontSize) {
         FONT_SIZE = fontSize;

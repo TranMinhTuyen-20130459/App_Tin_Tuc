@@ -82,32 +82,22 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         listAll = new ArrayList<>();
-        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>(){
+        categoriesDao.getAllCategoriesList(new CategoriesDao.CategoriesCallback<List<Categories>>() {
             @Override
-            public void onSuccess(List<Categories> data){
+            public void onSuccess(List<Categories> data) {
                 ArrayList<String> rssUrls = new ArrayList<>();
-                for(Categories c : data ) {
-                    if(c.getActive().equals("1")) rssUrls.add(c.getUrl());
+                for (Categories c : data) {
+                    if (c.getActive().equals("1")) rssUrls.add(c.getUrl());
                 }
-                // kiểm tra có mạng chưa
-                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                if (!isConnected) { // nếu chưa có mạng
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Bạn cần kết nối internet để sử dụng ứng dụng này")
-                            .setTitle("Không có kết nối internet");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
-                    // nếu có mạng đọc link RSS
-                    for (String url : rssUrls) {
-                        ReadRSS readRSS = new ReadRSS(MainActivity.this);
-                        readRSS.execute(url);
-                        listAll.add(readRSS.getListNews());
-                    }
-                    list_all_news = listAll;
+
+                // nếu có mạng đọc link RSS
+                for (String url : rssUrls) {
+                    ReadRSS readRSS = new ReadRSS(MainActivity.this);
+                    readRSS.execute(url);
+                    listAll.add(readRSS.getListNews());
                 }
+                list_all_news = listAll;
+
 
                 bt_nav.setOnNavigationItemSelectedListener(item -> {
                     switch (item.getItemId()) {
@@ -145,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 });
             }
+
             @Override
             public void onError(Exception e) {
                 // Xử lý lỗi nếu có
@@ -218,23 +209,21 @@ public class MainActivity extends AppCompatActivity {
         numberOfTitlesLoaded++;
         // Nếu đã có dữ liệu RSS, chuyển sang màn hình Home
         /*
-         * Trang MainFragment là cha của Fragment danh mục
+         * Trang HomeFragment đại diện cho các Fragment danh mục
          * */
-        // vận chuyển dữ liệu lên Mainfragment khi chưa dùng view pager( lúc mở ứng dụng)
-        if (numberOfTitlesLoaded > 0 && !listAll.isEmpty()) {
-            Log.d("TAG", "onRssRead: ");
+        // vận chuyển dữ liệu lên HomeFragment khi chưa dùng view pager( lúc mở ứng dụng)
+        if (numberOfTitlesLoaded == 1) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.LIST_TOTAL_CATE, listAll);
             MainFragment mainFragment = new MainFragment();
             mainFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
-        }
 
-        /* Sau khi đã tải hết các tin thì tìm kiếm tin mới nhất, sau đó phát thông báo. */
-        if (numberOfTitlesLoaded >= 5 && listAll.size() >= 5) {
+            // Phát thông báo tin tức mới nhất
             News news = findLatestNews();
             pushNotification(news);
         }
+
     }
 
     /**
@@ -244,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private News findLatestNews() {
         News news = null;
-
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         Date latest = calendar.getTime();

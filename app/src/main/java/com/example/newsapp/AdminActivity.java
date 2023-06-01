@@ -3,6 +3,8 @@ package com.example.newsapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -61,13 +63,24 @@ public class AdminActivity extends AppCompatActivity {
                         break;
 
                     case R.id.logout_admin:// Đăng xuất
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.remove(Constants.ROLE_ADMIN);
-                        editor.apply();
-                        // Đăng xuất và quay về màn hình đăng nhập
-                        Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish(); // Đóng activity hiện tại
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+                        builder.setTitle("Xác nhận đăng xuất")
+                                .setMessage("Bạn có chắc chắn muốn đăng xuất?")
+                                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.remove(Constants.ROLE_ADMIN);
+                                        editor.apply();
+                                        // Đăng xuất và quay về màn hình đăng nhập
+                                        Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish(); // Đóng activity hiện tại
+                                    }
+                                })
+                                .setNegativeButton("Không", null)
+                                .show();
+
                         break;
                 }
                 return true;

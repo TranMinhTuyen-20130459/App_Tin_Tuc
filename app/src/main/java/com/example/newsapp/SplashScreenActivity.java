@@ -3,7 +3,11 @@ package com.example.newsapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 public class SplashScreenActivity extends AppCompatActivity {
@@ -17,9 +21,21 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                startActivity(mainIntent, ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this).toBundle());
-                finish();
+                // kiểm tra có mạng chưa
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if (!isConnected) { // nếu chưa có mạng
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreenActivity.this);
+                    builder.setMessage("Bạn cần kết nối internet để sử dụng ứng dụng này")
+                            .setTitle("Không có kết nối internet");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }
             }
         }, SPLASH_SCREEN_TIMEOUT);
     }
